@@ -42,7 +42,7 @@ vec3 Scene::ComputeColor (Ray &ray, int depth ) {
 
     ray2 = normalize(ray.direction);
     // TODO: A canviar el càlcul del color en les diferents fases
-    color = 0.5f*vec3(ray2.x+1, ray2.y+1, ray2.z+1);
+    color = vec3(1-0.25f*(ray2.y+1), 1-0.15f*(ray2.y+1), 1);
     return color;
 }
 
