@@ -1,0 +1,19 @@
+<RCC>
+    <qresource prefix="/">
+        <file>resources/earth1.png</file>
+        <file>resources/cube.obj</file>
+        <file>resources/europa.png</file>
+        <file>resources/map.png</file>
+        <file>resources/mapZoom.png</file>
+        <file>resources/spheres.txt</file>
+        <file>resources/data0.txt</file>
+        <file>resources/dataBCN.txt</file>
+        <file>resources/dataBCNZoom.txt</file>
+        <file>resources/configMapping.txt</file>
+        <file>resources/configVis.txt</file>
+        <file>resources/configMappingData.txt</file>
+        <file>resources/configMappingVWTemporal.txt</file>
+        <file>resources/configMappingDataTemporal.txt</file>
+        <file>resources/configMappingData0.txt</file>
+    </qresource>
+</RCC>

@@ -1,0 +1,8 @@
+renderType,IMAGE
+lookFrom, 3, 3, 2
+lookAt, 0, 0, -1
+vup, 0, 1, 0
+vfov, 90.0
+aspectRatio, 2.1111
+pixelsX, 600
+output,resultat.ppm

@@ -1,0 +1,6 @@
+dataType, TEMPORALDATA
+limitsMonVirtual, -1, 1, -1, 1, -1, 1
+limitsMonReal, 2.0259, 2.2955, 41.3013, 41.4903
+base, plane, 0.0, 1.0, 0.0, -0.5,://resources/map.png
+numtemps, 2
+prop, 1, 0, 500000,sphere,COLOR_MAP_TYPE_JET
