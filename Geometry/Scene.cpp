@@ -23,7 +23,17 @@ bool Scene::hit(const Ray& raig, float t_min, float t_max, HitInfo& info) const 
     // mes propera a l'observador, en el cas que n'hi hagi més d'una.
     // Cada vegada que s'intersecta un objecte s'ha d'actualitzar el IntersectionInfo del raig,
     // pero no en aquesta funcio.
-   return true;
+
+    float minim_t = t_max;
+    for (unsigned int i = 0; i< objects.size(); i++) {
+        if (objects[i]->hit(raig, t_min, minim_t, info)) {
+            minim_t = info.t;
+        }
+    }
+    if (minim_t == t_max) {
+        return false;
+    }
+    return true;
 }
 
 
@@ -39,10 +49,19 @@ vec3 Scene::ComputeColor (Ray &ray, int depth ) {
 
     vec3 color;
     vec3 ray2;
-
     ray2 = normalize(ray.direction);
-    // TODO: A canviar el càlcul del color en les diferents fases
-    color = vec3(1-0.25f*(ray2.y+1), 1-0.15f*(ray2.y+1), 1);
+
+    HitInfo info;
+    if (hit(ray, 0, 100, info)){
+        color = info.mat_ptr->diffuse;
+    } else {
+        // TODO: A canviar el càlcul del color en les diferents fases
+        double x = 0.5*(ray2.x+1);
+        double y = 0.5*(ray2.y+1);
+        double z = 0.5*(ray2.z+1);
+        color = vec3(1-0.5*y,1-0.3*y,1);
+    }
+
     return color;
 }
 
