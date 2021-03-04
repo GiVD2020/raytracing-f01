@@ -30,7 +30,7 @@ bool Scene::hit(const Ray& raig, float t_min, float t_max, HitInfo& info) const 
             minim_t = info.t;
         }
     }
-    if (minim_t == t_max) {
+    if (abs(minim_t - t_max) < 0.0001) {
         return false;
     }
     return true;
@@ -53,13 +53,16 @@ vec3 Scene::ComputeColor (Ray &ray, int depth ) {
 
     HitInfo info;
     if (hit(ray, 0, 100, info)){
-        color = info.mat_ptr->diffuse;
+        //Segons el color del material de l'objecte:
+        //color = info.mat_ptr->diffuse;
+        //Segons el color de les normals en els punts d'intersecció
+        color = 0.5f*vec3(info.normal.x + 1, info.normal.y + 1, info.normal.z + 1);
     } else {
+        vec3 color1 = vec3(0.5, 0.7, 1);
+        vec3 color2 = vec3(1, 1 ,1);
         // TODO: A canviar el càlcul del color en les diferents fases
-        double x = 0.5*(ray2.x+1);
         double y = 0.5*(ray2.y+1);
-        double z = 0.5*(ray2.z+1);
-        color = vec3(1-0.5*y,1-0.3*y,1);
+        color = (float)y*color1 + (float)(1-y)*color2;
     }
 
     return color;

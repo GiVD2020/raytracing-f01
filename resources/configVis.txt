@@ -1,6 +1,6 @@
 renderType,ONLINE
-lookFrom, 0, 0, 2
-lookAt, 0, 0, -1
+lookFrom, 2, 2, 2
+lookAt, 0, 0, 0
 vup, 0, 1, 0
 vfov, 90.0
 aspectRatio, 2.1111
