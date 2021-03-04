@@ -8,7 +8,7 @@ int main(int argc, char **argv) {
     cout << "Init..." <<endl;
     Q_INIT_RESOURCE(resources);
 
-    auto controller = make_shared<Controller>("://resources/spheres.txt", "://resources/configMapping.txt", "://resources/configVis.txt");
+    auto controller = make_shared<Controller>("://resources/data0.txt", "://resources/configMappingData0.txt", "://resources/configVis.txt");
 
     controller->start(argc, argv);
 

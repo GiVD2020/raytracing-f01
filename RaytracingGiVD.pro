@@ -62,7 +62,8 @@ DISTFILES += \
     resources/europa.png \
     resources/map.png \
     resources/mapZoom.png \
-    resources/spheres.txt
+    resources/spheres.txt \
+    resources/spheres2.txt
 
 HEADERS += \
     Controller.h \
