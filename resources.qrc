@@ -15,5 +15,6 @@
         <file>resources/configMappingVWTemporal.txt</file>
         <file>resources/configMappingDataTemporal.txt</file>
         <file>resources/configMappingData0.txt</file>
+        <file>resources/spheres2.txt</file>
     </qresource>
 </RCC>
