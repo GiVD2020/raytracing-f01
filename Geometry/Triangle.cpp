@@ -43,7 +43,7 @@ bool Triangle::hit(const Ray& raig, float t_min, float t_max, HitInfo& info) con
     float s2 = dot(cross(v3-v2,p-v2),n);
     float s3 = dot(cross(v1-v3,p-v3),n);
 
-    if (s1*s2 == 1 && s1*s3 == 1 && s2*s3 == 1) {
+    if (s1*s2 > 0 && s1*s3 > 0 && s2*s3 > 0) {
         // Omplim el camp de info:
         info.t = t;
         info.p = p;
