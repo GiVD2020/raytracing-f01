@@ -17,14 +17,24 @@ BoundaryObject::BoundaryObject(string s, float data) : Object(data)
 
 bool BoundaryObject::hit(const Ray& raig, float t_min, float t_max, HitInfo& info) const {
 
-    // TO DO Fase 1: A implementar
-    return false;
+    float minim_t = t_max;
+    for (unsigned int i = 0; i< triangles.size(); i++) {
+        if (triangles[i]->hit(raig, t_min, minim_t, info)) {
+            minim_t = info.t;
+        }
+    }
+    if (abs(minim_t - t_max) < 0.0001) {
+        return false;
+    }
+    return true;
 }
 
 
 
 BoundaryObject::BoundaryObject(const QString &fileName, float data): Object(data)
 {
+    shared_ptr<Object> o;
+    int v1, v2, v3;
     QFile file(fileName);
     if(file.exists()) {
         if(file.open(QFile::ReadOnly | QFile::Text)) {
@@ -77,6 +87,21 @@ BoundaryObject::BoundaryObject(const QString &fileName, float data): Object(data
             }
 
             file.close();
+
+            for (int i=0; i<cares.size(); i++){
+                v1 = cares[i].idxVertices[0];
+                v2 = cares[i].idxVertices[1];
+                v3 = cares[i].idxVertices[2];
+
+                o = ObjectFactory::getInstance().createObject(
+                            vec3(vertexs[v1]),
+                            vec3(vertexs[v2]),
+                            vec3(vertexs[v3]),
+                            -1.0f,
+                            ObjectFactory::OBJECT_TYPES::TRIANGLE);
+                cout << to_string(vec3(vertexs[v1])) << " " << to_string(vec3(vertexs[v2])) << " " << to_string(vec3(vertexs[v3]))<< endl;
+                triangles.push_back(o);
+            }
         }
     }
 }
@@ -204,4 +229,8 @@ void BoundaryObject::construeix_cara ( char **words, int nwords, BoundaryObject 
     }
     face.color = vec4(1.0, 0.0, 0.0, 1.0);
     objActual->cares.push_back(face);
+}
+
+void BoundaryObject::aplicaTG(shared_ptr<TG> t) {
+
 }

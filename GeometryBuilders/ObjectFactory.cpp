@@ -46,3 +46,17 @@ shared_ptr<Object> ObjectFactory::createObject(vec3 p1, vec3 p2, vec3 p3, float 
 
     return o;
 }
+
+shared_ptr<Object> ObjectFactory::createObject(QString s, float data, OBJECT_TYPES t)
+{
+    shared_ptr<Object> o;
+    switch (t) {
+        case BR_OBJECT:
+            o = make_shared<BoundaryObject>(s, data);
+        break;
+    default:
+        break;
+    }
+
+    return o;
+}

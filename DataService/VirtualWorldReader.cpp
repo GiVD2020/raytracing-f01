@@ -34,6 +34,8 @@ void VirtualWorldReader::fileLineRead (QString lineReaded) {
         sphereFound(fields);
     else if (QString::compare("triangle", fields[0], Qt::CaseInsensitive) == 0)
         triangleFound(fields);
+    else if (QString::compare("brobject", fields[0], Qt::CaseInsensitive) == 0)
+        brObjectFound(fields);
     else
         std::cerr << "Element unknown" << std::endl;
 }
@@ -76,6 +78,23 @@ void VirtualWorldReader::brObjectFound(QStringList fields) {
         std::cerr << "Wrong brObject format" << std::endl;
         return;
     }
+
+    QString s = fields[1];
+
+    shared_ptr<Object> o;
+
+    // Construccio de l'objecte al Mon Virtual
+    o = ObjectFactory::getInstance().createObject(
+                s,
+                -1.0f,
+                ObjectFactory::OBJECT_TYPES::BR_OBJECT);
+
+    // Construccio i assignacio del material
+    auto mat = make_shared<Lambertian>(vec3(fields[2].toDouble(),fields[3].toDouble(),fields[4].toDouble()));
+    o->setMaterial(mat);
+
+    // Afegir objecte a l'escena
+    scene->objects.push_back(o);
 
 }
 

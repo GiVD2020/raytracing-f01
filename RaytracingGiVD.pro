@@ -51,6 +51,7 @@ SOURCES += \
 RESOURCES += \
     resources.qrc
 
+
 DISTFILES += \
     README.md \
     resources/configMapping.txt \
