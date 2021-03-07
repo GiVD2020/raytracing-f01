@@ -34,6 +34,7 @@ SOURCES += \
         Geometry/TG.cpp \
         Geometry/Texture.cpp \
         Geometry/Translate.cpp \
+        Geometry/Triangle.cpp \
         GeometryBuilders/Mapping.cpp \
         GeometryBuilders/ObjectFactory.cpp \
         GeometryBuilders/SceneFactory.cpp \
@@ -88,6 +89,7 @@ HEADERS += \
     Geometry/TG.h \
     Geometry/Texture.h \
     Geometry/Translate.h \
+    Geometry/Triangle.h \
     GeometryBuilders/Mapping.h \
     GeometryBuilders/ObjectFactory.h \
     GeometryBuilders/SceneFactory.h \

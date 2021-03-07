@@ -32,6 +32,8 @@ void VirtualWorldReader::fileLineRead (QString lineReaded) {
     QStringList fields = lineReaded.split(",");
     if (QString::compare("sphere", fields[0], Qt::CaseInsensitive) == 0)
         sphereFound(fields);
+    else if (QString::compare("triangle", fields[0], Qt::CaseInsensitive) == 0)
+        triangleFound(fields);
     else
         std::cerr << "Element unknown" << std::endl;
 }
@@ -83,10 +85,31 @@ void VirtualWorldReader::triangleFound(QStringList fields) {
     //  Es suposa que serà una linia del fitxer de l'estil
     //  triangle, x1, y1, z1, x2, y2, z2, x3, y3, z3,, propietats del material, textura
 
-    if (fields.size() != 10) {
+    if (fields.size() != 13) {
         std::cerr << "Wrong brObject format" << std::endl;
         return;
     }
+    shared_ptr<Object> o;
+
+    vec3 p1 = vec3(fields[1].toDouble(),fields[2].toDouble(),fields[3].toDouble());
+    vec3 p2 = vec3(fields[4].toDouble(),fields[5].toDouble(),fields[6].toDouble());
+    vec3 p3 = vec3(fields[7].toDouble(),fields[8].toDouble(),fields[9].toDouble());
+
+
+    // Construccio de l'objecte al Mon Virtual
+    o = ObjectFactory::getInstance().createObject(
+                mapping->mapeigPunt(p1),
+                mapping->mapeigPunt(p2),
+                mapping->mapeigPunt(p3),
+                -1.0f,
+                ObjectFactory::OBJECT_TYPES::TRIANGLE);
+
+    // Construccio i assignacio del material
+    auto mat = make_shared<Lambertian>(vec3(fields[10].toDouble(),fields[11].toDouble(),fields[12].toDouble()));
+    o->setMaterial(mat);
+
+    // Afegir objecte a l'escena
+    scene->objects.push_back(o);
 
 }
 

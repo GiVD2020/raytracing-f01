@@ -17,8 +17,6 @@ public:
         Sphere(vec3 cen, float r, float data);
         virtual ~Sphere() {}
         virtual bool hit(const Ray& r, float t_min, float t_max, HitInfo& info) const override;
-
-
         virtual void aplicaTG(shared_ptr<TG> tg) override;
 private:
         // Centre de l'esfera
