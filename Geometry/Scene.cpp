@@ -54,7 +54,7 @@ vec3 Scene::ComputeColor (Ray &ray, int depth ) {
     HitInfo info;
     if (hit(ray, 0, 100, info)){
         //Segons el color del material de l'objecte:
-        color = info.mat_ptr->diffuse;
+        //color = info.mat_ptr->diffuse;
         //TODO: provisional pq per cube no detecta material
         color = 0.5f*vec3(info.normal.y + 1, 1.2, info.normal.z + 1);
         //Segons el color de les normals en els punts d'intersecció
