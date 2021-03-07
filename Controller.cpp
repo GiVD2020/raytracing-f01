@@ -22,9 +22,10 @@ Controller::Controller(QString dataFileName, QString configMapping, QString conf
     // Us del fitxer extern per definir la configuracio de visualització
     auto visSetup = make_shared<ConfigVisReader>(configVis);
 
-
-    // TODO Fase 1: Cal posar les dimensions de l'escena virtual usant setDimensions de la classe Scene
-
+    // TODO Fase 1: Cal posar les dimensions de l'escena virtual usant setDimensions de la classe Scene (FET)
+    vec3 pmin(mapping->Vxmin,mapping->Vymin, mapping->Vzmin);
+    vec3 pmax(mapping->Vxmax, mapping->Vymax, mapping->Vzmax);
+    scene->setDimensions(pmin, pmax);
 
     // ETAPA 2: Inicialitzacio del Rendering
     // usa un  Template Factory per a construir el tipus de render
