@@ -1,5 +1,7 @@
 #include "Triangle.h"
 
+#include <iostream>
+
 Triangle::Triangle(vec3 p1, vec3 p2, vec3 p3, float data) :Object(data) {
     this->p1 = p1;
     this->p2 = p2;
@@ -35,7 +37,7 @@ bool Triangle::hit(const Ray& raig, float t_min, float t_max, HitInfo& info) con
 
     vec3 v1 = p3-p1;
     vec3 v2 = p2-p3;
-    vec3 v3 = p2-p1;
+    vec3 v3 = p1-p2;
 
     vec3 p = raig.pointAtParameter(t);
 
