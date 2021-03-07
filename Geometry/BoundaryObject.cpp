@@ -99,6 +99,7 @@ BoundaryObject::BoundaryObject(const QString &fileName, float data): Object(data
                             vec3(vertexs[v3]),
                             -1.0f,
                             ObjectFactory::OBJECT_TYPES::TRIANGLE);
+                triangles.push_back(o);
             }
         }
     }
