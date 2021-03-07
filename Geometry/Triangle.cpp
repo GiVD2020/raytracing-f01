@@ -10,9 +10,9 @@ Triangle::Triangle(vec3 p1, vec3 p2, vec3 p3, float data) :Object(data) {
 
 bool Triangle::hit(const Ray& raig, float t_min, float t_max, HitInfo& info) const {
     // Calculem la normal al triangle
-    vec3 w = p2-p1;
-    vec3 v = p3-p1;
-    vec3 n = cross(w,v);
+    vec3 w = p3-p1;
+    vec3 v = p2-p1;
+    vec3 n = cross(w,v)/length(cross(w,v));
 
     // Caldulem la d del pla que conté el triangle
     float d = -dot(n,p1);
@@ -41,9 +41,9 @@ bool Triangle::hit(const Ray& raig, float t_min, float t_max, HitInfo& info) con
 
     vec3 p = raig.pointAtParameter(t);
 
-    float s1 = dot(cross(v2-v1,p-v1),n);
-    float s2 = dot(cross(v3-v2,p-v2),n);
-    float s3 = dot(cross(v1-v3,p-v3),n);
+    float s1 = dot(cross(v3,p-p1),n);
+    float s2 = dot(cross(v2,p-p2),n);
+    float s3 = dot(cross(v1,p-p3),n);
 
     if (s1*s2 > 0 && s1*s3 > 0 && s2*s3 > 0) {
         // Omplim el camp de info:
