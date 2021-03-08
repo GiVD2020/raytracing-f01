@@ -129,7 +129,7 @@ void ConfigMappingReader::propFound(QStringList fields) {
     numProp++;
     propLimits.push_back(std::make_pair(fields[2].toDouble(), fields[3].toDouble()));
     // TODO Fase 1: Cal guardar els valors per a poder escalar els objectes i el tipus de
-    //  gizmo de totes les propietats (SPHERE, BR_OBJ, CILINDRE...)
+    // gizmo de totes les propietats (SPHERE, BR_OBJ, CILINDRE...)
     if (QString::compare("sphere", fields[4], Qt::CaseInsensitive) == 0) {
         auto tipusObj = ObjectFactory::OBJECT_TYPES::SPHERE;
         if (QString::compare("COLOR_MAP_TYPE_INFERNO", fields[5], Qt::CaseInsensitive) == 0) {

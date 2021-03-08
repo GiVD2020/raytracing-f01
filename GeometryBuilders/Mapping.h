@@ -23,6 +23,7 @@ public:
 
     vec3  mapeigPunt(vec3 puntMonReal);
     float mapeigValor(float valorMonReal);
+    float mapeigValor(int i ,float valorMonReal);
 
     shared_ptr<Material> mapeigMaterial(int i, ColorMapStatic::COLOR_MAP_TYPES tCM, double valorReal);
 
