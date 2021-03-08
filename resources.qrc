@@ -17,5 +17,6 @@
         <file>resources/configMappingData0.txt</file>
         <file>resources/spheres2.txt</file>
         <file>resources/triangles.txt</file>
+        <file>resources/boundaryObject.txt</file>
     </qresource>
 </RCC>
