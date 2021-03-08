@@ -18,5 +18,6 @@
         <file>resources/spheres2.txt</file>
         <file>resources/triangles.txt</file>
         <file>resources/boundaryObject.txt</file>
+        <file>resources/cylinders.txt</file>
     </qresource>
 </RCC>

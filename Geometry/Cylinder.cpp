@@ -15,7 +15,7 @@ bool Cylinder::hit(const Ray& raig, float t_min, float t_max, HitInfo& info) con
     if (discriminant > 0) {
         // Solucio lateral mes propera
         float temp = (-b - sqrt(discriminant)) / (2*a);
-        float y = raig.pointAtParameter(info.t).y;
+        float y = raig.pointAtParameter(temp).y;
         if (temp < t_max && temp > t_min && y <= center.y + height && y >= center.y) {
             info.t = temp;
             info.p = raig.pointAtParameter(info.t);
@@ -26,7 +26,7 @@ bool Cylinder::hit(const Ray& raig, float t_min, float t_max, HitInfo& info) con
         }
         // Solucio lateral mes llunyana
         temp = (-b + sqrt(discriminant)) / (2*a);
-        y = raig.pointAtParameter(info.t).y;
+        y = raig.pointAtParameter(temp).y;
         if (temp < t_max && temp > t_min && y <= center.y + height && y >= center.y) {
             info.t = temp;
             info.p = raig.pointAtParameter(info.t);

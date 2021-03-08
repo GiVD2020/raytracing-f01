@@ -33,12 +33,27 @@ shared_ptr<Object> ObjectFactory::createObject(vec3 v, double aux, float data, O
     return o;
 }
 
+shared_ptr<Object> ObjectFactory::createObject(vec3 v, double aux1, double aux2, float data, OBJECT_TYPES t)
+{
+    shared_ptr<Object> o;
+    // Cilindre
+    switch (t) {
+    case CYLINDER:
+        o = make_shared<Cylinder>(v, aux1, aux2, data);
+        break;
+    default:
+        break;
+    }
+
+    return o;
+}
+
 shared_ptr<Object> ObjectFactory::createObject(vec3 p1, vec3 p2, vec3 p3, float data, OBJECT_TYPES t)
 {
     shared_ptr<Object> o;
     switch (t) {
-        case TRIANGLE:
-            o = make_shared<Triangle>(p1, p2, p3, data);
+    case TRIANGLE:
+        o = make_shared<Triangle>(p1, p2, p3, data);
         break;
     default:
         break;
