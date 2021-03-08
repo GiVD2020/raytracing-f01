@@ -18,14 +18,24 @@ BoundaryObject::BoundaryObject(string s, float data) : Object(data)
 bool BoundaryObject::hit(const Ray& raig, float t_min, float t_max, HitInfo& info) const {
 
     float minim_t = t_max;
+    vec3 punt;
+    vec3 normal;
+    HitInfo infoTriangle;
     for (unsigned int i = 0; i< triangles.size(); i++) {
-        if (triangles[i]->hit(raig, t_min, minim_t, info)) {
-            minim_t = info.t;
+        if (triangles[i]->hit(raig, t_min, minim_t, infoTriangle)) {
+            minim_t = infoTriangle.t;
+            punt = infoTriangle.p;
+            normal = infoTriangle.normal;
         }
     }
     if (abs(minim_t - t_max) < 0.0001) {
         return false;
     }
+
+    info.t = minim_t;
+    info.p = punt;
+    info.normal = normal;
+    info.mat_ptr = material.get();
     return true;
 }
 
