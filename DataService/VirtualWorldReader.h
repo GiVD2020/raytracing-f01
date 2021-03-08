@@ -36,5 +36,7 @@ private:
     void triangleFound(QStringList fields);
 
     void plaFound(QStringList fields);
+
+    void cylinderFound(QStringList fields);
 };
 
