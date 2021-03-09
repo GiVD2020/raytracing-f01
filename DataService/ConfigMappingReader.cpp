@@ -85,6 +85,11 @@ void ConfigMappingReader::limitsRealFound(QStringList fields) {
         Rzmin = fields[5].toDouble();
         Rzmax = fields[6].toDouble();
     }
+    //Fet a Fase 1 (Albert): per comoditat, oferim també els limits com a vectors:
+    Rmin = vec3(Rxmin, Rymin, Rzmin);
+    Rmax = vec3(Rxmax, Rymax, Rzmax);
+    Rdiff = vec3(Rxmax- Rxmin, Rymax- Rymin, Rzmax - Rzmin);
+    RminDiff = min({Rdiff.x, Rdiff.y, Rdiff.z});
 }
 
 void ConfigMappingReader::limitsVirtualFound(QStringList fields) {
@@ -99,6 +104,11 @@ void ConfigMappingReader::limitsVirtualFound(QStringList fields) {
     Vymax = fields[4].toDouble();
     Vzmin = fields[5].toDouble();
     Vzmax = fields[6].toDouble();
+    //Fet a Fase 1 (Albert): per comoditat, oferim també els limits com a vectors:
+    Vmin = vec3(Vxmin, Vymin, Vzmin);
+    Vmax = vec3(Vxmax, Vymax, Vzmax);
+    Vdiff = vec3(Vxmax - Vxmin, Vymax - Vymin, Vzmax - Vzmin);
+    VminDiff = min({Vdiff.x, Vdiff.y, Vdiff.z});
 }
 
 void ConfigMappingReader::baseFound(QStringList fields) {
@@ -129,7 +139,7 @@ void ConfigMappingReader::propFound(QStringList fields) {
     numProp++;
     propLimits.push_back(std::make_pair(fields[2].toDouble(), fields[3].toDouble()));
     // TODO Fase 1: Cal guardar els valors per a poder escalar els objectes i el tipus de
-    //  gizmo de totes les propietats (SPHERE, BR_OBJ, CILINDRE...)
+    // gizmo de totes les propietats (SPHERE, BR_OBJ, CILINDRE...)
     if (QString::compare("sphere", fields[4], Qt::CaseInsensitive) == 0) {
         auto tipusObj = ObjectFactory::OBJECT_TYPES::SPHERE;
         if (QString::compare("COLOR_MAP_TYPE_INFERNO", fields[5], Qt::CaseInsensitive) == 0) {

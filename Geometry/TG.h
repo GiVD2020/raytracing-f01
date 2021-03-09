@@ -9,7 +9,8 @@ class TG
 public:
     glm::mat4 matTG;
     TG();
-    ~TG();
+    TG(glm::mat4 matTG);
+    virtual ~TG() {};
     virtual glm::mat4 getTG();
 };
 

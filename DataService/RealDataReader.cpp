@@ -42,20 +42,23 @@ void RealDataReader::dataFound(QStringList fields) {
     int n = mapping->getNumProps();
 
     if (fields.size() != (3 + n)) {
-        std::cerr << "Wrong data format" << std::endl;
+        std::cerr << "Wrong data format in RealDataReader: required " << n + 3 << " fields, but found instead " << fields.size() << std::endl;
         return;
     }
+
+    shared_ptr<TG> mapeigRealAVirtual = mapping->getMapeigRealAVirtual();
+    vec3 puntBase = vec3(fields[1].toDouble(), 0.0, fields[2].toDouble());
 
     for (int i=0; i<n; i++) {
 
         shared_ptr<Object> o;
 
-        vec3 puntBase = vec3(fields[i+1].toDouble(), 0.0, fields[i+2].toDouble());
+        //Escalat segons la propietat:
+        shared_ptr<ScaleTG> escalat = mapping->getEscalat(i, fields[i + 3].toFloat());
 
-         // Construccio de l'objecte al Mon Virtual
-        o = ObjectFactory::getInstance().createObject(mapping->mapeigPunt(puntBase),
-                                                       mapping->mapeigValor(fields[3 + i].toDouble()), fields[3 + i].toDouble(),
-                                                       mapping->getObjectTypeProp(i));
+         // Construccio de l'objecte al Mon Virtual TODO: FET A P1 4.2 A:
+        o = ObjectFactory::getInstance().createObject(puntBase, fields[i + 3].toFloat(), mapeigRealAVirtual, escalat, mapping->getObjectTypeProp(i));
+
         // Construccio i assignacio del material
         o->setMaterial(mapping->mapeigMaterial(i, mapping->getColorMapProp(i), fields[3 + i].toDouble()));
 

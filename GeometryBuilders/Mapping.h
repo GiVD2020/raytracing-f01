@@ -7,6 +7,8 @@
 #include "Geometry/ColorMapStatic.h"
 #include "Geometry/Material.h"
 #include "GeometryBuilders/ObjectFactory.h"
+#include "Geometry/Translate.h"
+#include "Geometry/ScaleTG.h"
 
 #include <QString>
 
@@ -23,10 +25,14 @@ public:
 
     vec3  mapeigPunt(vec3 puntMonReal);
     float mapeigValor(float valorMonReal);
+    float mapeigValor(int i ,float valorMonReal);
 
     shared_ptr<Material> mapeigMaterial(int i, ColorMapStatic::COLOR_MAP_TYPES tCM, double valorReal);
 
     int getNumProps() { return setup->numProp; };
+
+    shared_ptr<TG> getMapeigRealAVirtual();
+    shared_ptr<ScaleTG> getEscalat(int iProp, float valorMonReal);
 
 
     ObjectFactory::OBJECT_TYPES getObjectTypeProp(int i) {

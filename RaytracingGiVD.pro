@@ -32,6 +32,7 @@ SOURCES += \
         Geometry/Plane.cpp \
         Geometry/Scene.cpp \
         Geometry/Sphere.cpp \
+        Geometry/ScaleTG.cpp \
         Geometry/TG.cpp \
         Geometry/Texture.cpp \
         Geometry/Translate.cpp \
@@ -89,6 +90,7 @@ HEADERS += \
     Geometry/Ray.h \
     Geometry/Scene.h \
     Geometry/Sphere.h \
+    Geometry/ScaleTG.h \
     Geometry/TG.h \
     Geometry/Texture.h \
     Geometry/Translate.h \

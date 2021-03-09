@@ -11,6 +11,42 @@
   \param t tipus d'objecte a construir: SPHERE, PLANE, ....
 */
 
+shared_ptr<Object> ObjectFactory::createObject(vec3 puntBase, float data, shared_ptr<TG> mapeigRealAVirtual, shared_ptr<ScaleTG> escalat ,OBJECT_TYPES t){
+    shared_ptr<Object> o;
+    switch (t){
+    case SPHERE:
+        //Crear esfèra unitaria amb centre a puntBase
+        o = createObject(puntBase, 1, data, OBJECT_TYPES::SPHERE);
+        //Escalar
+        o->aplicaTG(escalat);
+        //Moure a coordenades món real
+        o->aplicaTG(mapeigRealAVirtual);
+        break;
+    case CYLINDER:
+        //Crear cilindre unitari amb centre a puntBase
+         o = createObject(puntBase, 0.1, 1, data, OBJECT_TYPES::CYLINDER);
+        //Escalar
+         o->aplicaTG(escalat);
+        //Moure a coordenades món real
+        o->aplicaTG(mapeigRealAVirtual);
+        break;
+    case TRIANGLE:
+        //Crear triangle unitari orientat cap a les Z's positives
+
+        //Escalar-lo
+        o->aplicaTG(escalat);
+        //Moure'l a la posició inicial:
+        //S'hauria de fer que el centre del triangle estigues a mapeigRealAVirtual * puntBase
+        break;
+    //TODO: other cases
+    default:
+        break;
+
+
+    }
+    return o;
+}
+
 shared_ptr<Object> ObjectFactory::createObject(vec3 v, double aux, float data, OBJECT_TYPES t)
 {
     shared_ptr<Object> o;
