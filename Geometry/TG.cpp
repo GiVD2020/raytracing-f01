@@ -10,11 +10,6 @@ TG::TG(glm::mat4 matTG)
  this->matTG = matTG;
 }
 
-TG::~TG()
-{
-
-}
-
 glm::mat4 TG::getTG() {
     return matTG;
 }

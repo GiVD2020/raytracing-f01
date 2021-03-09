@@ -44,6 +44,7 @@ shared_ptr<Object> ObjectFactory::createObject(vec3 puntBase, float data, shared
 
 
     }
+    return o;
 }
 
 shared_ptr<Object> ObjectFactory::createObject(vec3 v, double aux, float data, OBJECT_TYPES t)

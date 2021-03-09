@@ -42,7 +42,7 @@ void RealDataReader::dataFound(QStringList fields) {
     int n = mapping->getNumProps();
 
     if (fields.size() != (3 + n)) {
-        std::cerr << "Wrong data format" << std::endl;
+        std::cerr << "Wrong data format in RealDataReader: required " << n + 3 << " fields, but found instead " << fields.size() << std::endl;
         return;
     }
 

@@ -10,7 +10,7 @@ public:
     glm::mat4 matTG;
     TG();
     TG(glm::mat4 matTG);
-    ~TG();
+    virtual ~TG() {};
     virtual glm::mat4 getTG();
 };
 
