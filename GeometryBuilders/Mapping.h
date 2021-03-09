@@ -31,8 +31,8 @@ public:
 
     int getNumProps() { return setup->numProp; };
 
-    TG getMapeigVirtual();
-    ScaleTG getEscalat(int iProp, float valorMonReal);
+    shared_ptr<TG> getMapeigRealAVirtual();
+    shared_ptr<ScaleTG> getEscalat(int iProp, float valorMonReal);
 
 
     ObjectFactory::OBJECT_TYPES getObjectTypeProp(int i) {

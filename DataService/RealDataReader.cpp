@@ -46,7 +46,7 @@ void RealDataReader::dataFound(QStringList fields) {
         return;
     }
 
-    TG mapeigRealAVirtual = mapping->getMapeigRealAVirtual();
+    shared_ptr<TG> mapeigRealAVirtual = mapping->getMapeigRealAVirtual();
     vec3 puntBase = vec3(fields[1].toDouble(), 0.0, fields[2].toDouble());
 
     for (int i=0; i<n; i++) {
@@ -54,7 +54,7 @@ void RealDataReader::dataFound(QStringList fields) {
         shared_ptr<Object> o;
 
         //Escalat segons la propietat:
-        ScaleTG escalat = mapping->getEscalat(i, fields[i + 3].toFloat());
+        shared_ptr<ScaleTG> escalat = mapping->getEscalat(i, fields[i + 3].toFloat());
 
          // Construccio de l'objecte al Mon Virtual TODO: FET A P1 4.2 A:
         o = ObjectFactory::getInstance().createObject(puntBase, fields[i + 3].toFloat(), mapeigRealAVirtual, escalat, mapping->getObjectTypeProp(i));

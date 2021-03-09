@@ -26,7 +26,7 @@ float Mapping::mapeigValor(float valorMonReal) {
     return valorMonReal / this->setup->RminDiff * this->setup->VminDiff;
 }
 
-TG Mapping::getMapeigRealAVirtual(){
+shared_ptr<TG> Mapping::getMapeigRealAVirtual(){
     vec3 Rmin = this->setup->Rmin;
     vec3 Rmax = this->setup->Rmax;
     vec3 Vmin = this->setup->Vmin;
@@ -37,14 +37,16 @@ TG Mapping::getMapeigRealAVirtual(){
     glm::mat4 sumaVmin = glm::translate(glm::mat4(1.0f), Vmin);
     glm::mat4 zeroY = glm::scale(glm::mat4(1.0f), vec3(1,0,1));
     //Ordre invers (matrius no són commutatives i es multiplicarà el punt per la dreta)
-    return TG(sumaVmin*vDiff*divisioRDiff*restamR*zeroY);
+    auto tg = make_shared<TG>(sumaVmin*vDiff*divisioRDiff*restamR*zeroY);
+    return tg;
 }
 
-ScaleTG Mapping::getEscalat(int iProp, float valorMonReal){
+shared_ptr<ScaleTG> Mapping::getEscalat(int iProp, float valorMonReal){
     float minProp = setup->propLimits[iProp].first;
     float maxProp = setup->propLimits[iProp].second;
     float factor = (valorMonReal - minProp) / (maxProp - minProp) * setup->VminDiff;
-    return ScaleTG(vec3(factor, factor, factor));
+    auto tg = make_shared<ScaleTG>(vec3(factor, factor, factor));
+    return tg;
 }
 
 shared_ptr<ColorMap> Mapping::getColorMap(ColorMapStatic::COLOR_MAP_TYPES tCM) {
