@@ -241,5 +241,12 @@ void BoundaryObject::construeix_cara ( char **words, int nwords, BoundaryObject 
 }
 
 void BoundaryObject::aplicaTG(shared_ptr<TG> t) {
-
+    if (dynamic_pointer_cast<shared_ptr<TranslateTG>>(t)) {
+        for (vec4 v : vertexs) {
+            vec4 newv = t->getTG() * v;
+            v.x = newv.x;
+            v.y = newv.y;
+            v.z = newv.z;
+        }
+    }
 }
