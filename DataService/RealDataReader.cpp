@@ -46,37 +46,19 @@ void RealDataReader::dataFound(QStringList fields) {
         return;
     }
 
+    TG mapeigRealAVirtual = mapping->getMapeigRealAVirtual();
+    vec3 puntBase = vec3(fields[1].toDouble(), 0.0, fields[2].toDouble());
+
     for (int i=0; i<n; i++) {
 
         shared_ptr<Object> o;
 
-        vec3 puntBase = vec3(fields[1].toDouble(), 0.0, fields[2].toDouble());
+        //Escalat segons la propietat:
+        ScaleTG escalat = mapping->getEscalat(i, fields[i + 3].toFloat());
 
          // Construccio de l'objecte al Mon Virtual TODO: FET A P1 4.2 A:
-        //diferents tipus d'objectes (com tenen diferents constructors, cal el switch!)
-        switch(mapping -> getObjectTypeProp(i)){
-            case (ObjectFactory::CYLINDER):{
-                //TODO:
-                break;
-            }
-            case (ObjectFactory::SPHERE):{
-                //Les coordenades al món virtual venen donades pel mètode implementat mapeigPunt,
-                vec3 virtualPos = mapping->mapeigPunt(puntBase);
-                //Però tenint en compte que la coordenada y és 0!
-                virtualPos.y = 0;
-                //El radi de l'esfera vindrà donat pel mapeig del valor en el món real al valor en el món virtual, de la propietat en qüestió, i escalarem *0.5:
-                float radi = 0.5*mapping->mapeigValor(i, fields[i + 3].toFloat());
-                o = ObjectFactory::getInstance().createObject(virtualPos, radi, fields[i + 3].toFloat(), ObjectFactory::SPHERE);
-                break;
-            }
-            case (ObjectFactory::TRIANGLE):{
-                //TODO: crear un triangle de referència segons diu l'enunciat i transformar-lo
-                break;
-            }
-            default:{ //Els altres tipus no són vàlids per representar dades
-                break;
-            }
-        }
+        o = ObjectFactory::getInstance().createObject(puntBase, fields[i + 3].toFloat(), mapeigRealAVirtual, escalat, mapping->getObjectTypeProp(i));
+
         // Construccio i assignacio del material
         o->setMaterial(mapping->mapeigMaterial(i, mapping->getColorMapProp(i), fields[3 + i].toDouble()));
 

@@ -7,6 +7,8 @@
 #include "Geometry/ColorMapStatic.h"
 #include "Geometry/Material.h"
 #include "GeometryBuilders/ObjectFactory.h"
+#include "Geometry/Translate.h"
+#include "Geometry/ScaleTG.h"
 
 #include <QString>
 
@@ -28,6 +30,9 @@ public:
     shared_ptr<Material> mapeigMaterial(int i, ColorMapStatic::COLOR_MAP_TYPES tCM, double valorReal);
 
     int getNumProps() { return setup->numProp; };
+
+    TG getMapeigVirtual();
+    ScaleTG getEscalat(int iProp, float valorMonReal);
 
 
     ObjectFactory::OBJECT_TYPES getObjectTypeProp(int i) {

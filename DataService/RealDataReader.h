@@ -10,6 +10,9 @@
 #include <QStringList>
 #include <vector>
 #include "glm/glm.hpp"
+#include "Geometry/TG.h"
+#include "Geometry/Translate.h"
+#include "Geometry/ScaleTG.h"
 #include "Geometry/Scene.h"
 #include "GeometryBuilders/ObjectFactory.h"
 #include "GeometryBuilders/Mapping.h"
