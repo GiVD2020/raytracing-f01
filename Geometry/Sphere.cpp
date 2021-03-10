@@ -33,7 +33,7 @@ bool Sphere::hit(const Ray& raig, float t_min, float t_max, HitInfo& info) const
 }
 
 void Sphere::aplicaTG(shared_ptr<TG> t) {
-    if (dynamic_pointer_cast<shared_ptr<TranslateTG>>(t)) {
+    if (dynamic_pointer_cast<TranslateTG>(t)) {
         // Per ara només es preveuen translacions
         vec4 c(center, 1.0);
         c = t->getTG() * c;
