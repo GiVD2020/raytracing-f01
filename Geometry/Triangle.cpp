@@ -51,7 +51,7 @@ bool Triangle::hit(const Ray& raig, float t_min, float t_max, HitInfo& info) con
 }
 
 void Triangle::aplicaTG(shared_ptr<TG> t) {
-    if (dynamic_pointer_cast<shared_ptr<TranslateTG>>(t)) {
+    if (dynamic_pointer_cast<TranslateTG>(t)) {
 
         // Transformem els 3 punts del triangle
         vec4 newp1(this->p1, 1.0);
