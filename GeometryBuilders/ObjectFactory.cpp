@@ -17,26 +17,28 @@ shared_ptr<Object> ObjectFactory::createObject(vec3 puntBase, float data, shared
     case SPHERE:
         //Crear esfèra unitaria amb centre a puntBase
         o = createObject(puntBase, 1, data, OBJECT_TYPES::SPHERE);
-        //Escalar
-        o->aplicaTG(escalat);
         //Moure a coordenades món real
         o->aplicaTG(mapeigRealAVirtual);
+        //Escalar
+        o->aplicaTG(escalat);
         break;
     case CYLINDER:
         //Crear cilindre unitari amb centre a puntBase
          o = createObject(puntBase, 0.1, 1, data, OBJECT_TYPES::CYLINDER);
-        //Escalar
-         o->aplicaTG(escalat);
-        //Moure a coordenades món real
-        o->aplicaTG(mapeigRealAVirtual);
+         //Escalar
+          o->aplicaTG(escalat);
+         //Moure a coordenades món real
+         o->aplicaTG(mapeigRealAVirtual);
         break;
     case TRIANGLE:
         //Crear triangle unitari orientat cap a les Z's positives
-
+        //Per triangle unitari posarem que tingui base 1 i altura 1 (isòsceles)
+        o = createObject(vec3(-0.5,-0.3,0), vec3(0.5,-0.3,0), vec3(0,0.6,0), data, OBJECT_TYPES::TRIANGLE);
         //Escalar-lo
         o->aplicaTG(escalat);
         //Moure'l a la posició inicial:
         //S'hauria de fer que el centre del triangle estigues a mapeigRealAVirtual * puntBase
+        o->aplicaTG(mapeigRealAVirtual);
         break;
     //TODO: other cases
     default:

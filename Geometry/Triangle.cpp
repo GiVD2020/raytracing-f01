@@ -72,5 +72,10 @@ void Triangle::aplicaTG(shared_ptr<TG> t) {
         this->p3.y = newp3.y;
         this->p3.z = newp3.z;
     }
-
 }
+
+vec3 Triangle::calculaBaricentre(){
+    float a = 1/3;
+    return a*(p1+p2+p3);
+}
+
