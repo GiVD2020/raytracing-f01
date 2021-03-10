@@ -4,7 +4,7 @@
 #include "Object.h"
 #include "Animation.h"
 #include "Translate.h"
-
+#include "Plane.h"
 
 class Triangle: public Object
 {
