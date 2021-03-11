@@ -30,6 +30,10 @@ bool Scene::hit(const Ray& raig, float t_min, float t_max, HitInfo& info) const 
             minim_t = info.t;
         }
     }
+    // hit of the floor
+    if (floor.hit(raig, t_min, minim_t, info)) {
+        minim_t = info.t;
+    }
     if (abs(minim_t - t_max) < 0.0001) {
         return false;
     }

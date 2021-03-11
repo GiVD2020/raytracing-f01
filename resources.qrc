@@ -19,5 +19,6 @@
         <file>resources/triangles.txt</file>
         <file>resources/boundaryObject.txt</file>
         <file>resources/cylinders.txt</file>
+        <file>resources/plane.txt</file>
     </qresource>
 </RCC>

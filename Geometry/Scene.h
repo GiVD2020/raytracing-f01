@@ -7,6 +7,7 @@
 #include "Animation.h"
 #include "Object.h"
 #include "Sphere.h"
+#include "FittedPlane.h"
 #include "BoundaryObject.h"
 #include "Lambertian.h"
 #include "ColorMap.h"
@@ -46,6 +47,8 @@ public:
 
     // dimensions de l'escena virtual
     vec3 pmin, pmax;
+
+    FittedPlane floor;
 
     // Vector d'objectes continguts a l'escena
     std::vector<shared_ptr<Object>> objects;
