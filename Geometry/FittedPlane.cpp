@@ -7,6 +7,7 @@ FittedPlane::FittedPlane(vec3 normal, vec3 pass_point, float xmin, float xmax, f
     this->Xmax = xmax;
     this->Zmin = zmin;
     this->Zmax = zmax;
+    this->visible = true;
 }
 
 FittedPlane::FittedPlane(vec3 normal, float d, float xmin, float xmax, float zmin, float zmax, float v) : Object(v) {
@@ -15,6 +16,7 @@ FittedPlane::FittedPlane(vec3 normal, float d, float xmin, float xmax, float zmi
     this->Xmax = xmax;
     this->Zmin = zmin;
     this->Zmax = zmax;
+    this->visible = true;
 
     if (abs(normal.z)>DBL_EPSILON)
 
@@ -32,6 +34,7 @@ FittedPlane::FittedPlane() : Object(0.0){
     this->Xmax = 1.0;
     this->Zmin = -1.0;
     this->Zmax = 1.0;
+    this->visible = false;
 }
 
 
