@@ -25,6 +25,7 @@ SOURCES += \
         Geometry/Cara.cpp \
         Geometry/ColorMapStatic.cpp \
         Geometry/Cylinder.cpp \
+        Geometry/FittedPlane.cpp \
         Geometry/Hitable.cpp \
         Geometry/Lambertian.cpp \
         Geometry/Material.cpp \
@@ -82,6 +83,7 @@ HEADERS += \
     Geometry/ColorMap.h \
     Geometry/ColorMapStatic.h \
     Geometry/Cylinder.h \
+    Geometry/FittedPlane.h \
     Geometry/Hitable.h \
     Geometry/Lambertian.h \
     Geometry/Material.h \

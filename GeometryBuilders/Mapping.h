@@ -31,6 +31,11 @@ public:
 
     int getNumProps() { return setup->numProp; };
 
+    vec3 getNormalBasePlane(){ return setup->normalPlaBase; };
+    float getdBasePlane(){ return setup->dPlaBase; };
+    vec3 getVirtualMaxCoord(){ return setup->Vmax; };
+    vec3 getVirtualMinCoord(){ return setup->Vmin; };
+
     shared_ptr<TG> getMapeigRealAVirtual();
     shared_ptr<ScaleTG> getEscalat(int iProp, float valorMonReal);
 
