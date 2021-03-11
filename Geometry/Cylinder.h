@@ -4,6 +4,7 @@
 #include "Object.h"
 #include "Animation.h"
 #include "Translate.h"
+#include "ScaleTG.h"
 
 
 class Cylinder: public Object

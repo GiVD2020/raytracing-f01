@@ -10,6 +10,7 @@
 #include "Object.h"
 #include "Animation.h"
 #include "Translate.h"
+#include "Translate.h"
 
 
 class Sphere: public Object  {

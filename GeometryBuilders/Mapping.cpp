@@ -31,13 +31,14 @@ shared_ptr<TG> Mapping::getMapeigRealAVirtual(){
     vec3 Rmax = this->setup->Rmax;
     vec3 Vmin = this->setup->Vmin;
     vec3 Vmax = this->setup->Vmax;
+    vec3 vDiv = vec3(1,1,1)/(Rmax - Rmin);
+    vDiv.y = 0;
     glm::mat4 restamR = glm::translate(glm::mat4(1.0f), -Rmin);
-    glm::mat4 divisioRDiff = glm::scale(glm::mat4(1.0f), vec3(1,1,1)/(Rmax - Rmin) );
+    glm::mat4 divisioRDiff = glm::scale(glm::mat4(1.0f), vDiv);
     glm::mat4 vDiff = glm::scale(glm::mat4(1.0f), Vmax - Vmin);
     glm::mat4 sumaVmin = glm::translate(glm::mat4(1.0f), Vmin);
-    glm::mat4 zeroY = glm::scale(glm::mat4(1.0f), vec3(1,0,1));
     //Ordre invers (matrius no són commutatives i es multiplicarà el punt per la dreta)
-    auto tg = make_shared<TG>(sumaVmin*vDiff*divisioRDiff*restamR*zeroY);
+    auto tg = make_shared<TG>(sumaVmin*vDiff*divisioRDiff*restamR);
     return tg;
 }
 
