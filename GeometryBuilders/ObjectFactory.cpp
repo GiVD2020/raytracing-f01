@@ -69,6 +69,21 @@ shared_ptr<Object> ObjectFactory::createObject(vec3 v, double aux, float data, O
     return o;
 }
 
+shared_ptr<Object> ObjectFactory::createObject(vec3 v, double aux, double aux1, double aux2, double aux3, double aux4, float data, OBJECT_TYPES t)
+{
+    shared_ptr<Object> o;
+    // Cilindre
+    switch (t) {
+    case FITTEDPLANE:
+        o = make_shared<FittedPlane>(v, aux, aux1, aux2, aux3, aux4, data);
+        break;
+    default:
+        break;
+    }
+
+    return o;
+}
+
 shared_ptr<Object> ObjectFactory::createObject(vec3 v, double aux1, double aux2, float data, OBJECT_TYPES t)
 {
     shared_ptr<Object> o;

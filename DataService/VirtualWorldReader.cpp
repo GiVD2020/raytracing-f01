@@ -40,6 +40,8 @@ void VirtualWorldReader::fileLineRead (QString lineReaded) {
         cylinderFound(fields);
     else if (QString::compare("plane", fields[0], Qt::CaseInsensitive) == 0)
         planeFound(fields);
+    else if (QString::compare("fittedplane", fields[0], Qt::CaseInsensitive) == 0)
+        fittedPlaneFound(fields);
     else
         std::cerr << "Element unknown" << std::endl;
 }
@@ -138,8 +140,8 @@ void VirtualWorldReader::triangleFound(QStringList fields) {
 
 
 void VirtualWorldReader::planeFound(QStringList fields) {
-     // TODO Fase 1: Per incloure pla
-    //Es suposa que tindràs una línia en el fitxer
+    // TODO Fase 1: Per incloure pla infinit
+    // Es suposa que tindràs una línia en el fitxer
     // plane, nx, ny, nz, d, propietats del material, textura
     if (fields.size() != 8) {
         std::cerr << "Wrong plane format" << std::endl;
@@ -156,6 +158,39 @@ void VirtualWorldReader::planeFound(QStringList fields) {
                                                    mapping->mapeigValor(dPla),
                                                    -1.0f,
                                                    ObjectFactory::OBJECT_TYPES::PLANE);
+    // Construccio i assignacio del material
+    auto mat = make_shared<Lambertian>(vec3(fields[5].toDouble(),fields[6].toDouble(),fields[7].toDouble()));
+    o->setMaterial(mat);
+
+    // Afegir objecte a l'escena
+    scene->objects.push_back(o);
+
+    // TODO Fase 4: llegir textura i afegir-la a l'objecte. Veure la classe Texture
+
+}
+
+void VirtualWorldReader::fittedPlaneFound(QStringList fields) {
+    // TODO Fase 1: Per incloure pla acotat. Les dimensions del pla acotat seran les dimensions de l'escena en x i z
+    // fittedplane, nx, ny, nz, d, propietats del material, textura
+    if (fields.size() != 8) {
+        std::cerr << "Wrong fitted plane format" << std::endl;
+        return;
+    }
+
+    shared_ptr<Object> o;
+
+    vec3 normalPla = vec3(fields[1].toDouble(), fields[2].toDouble(), fields[3].toDouble());
+    float dPla = fields[4].toDouble();
+
+    // Construccio de l'objecte al Mon Virtual
+    o = ObjectFactory::getInstance().createObject(normalPla,
+                                                  mapping->mapeigValor(dPla),
+                                                  mapping->mapeigValor(scene->pmin.x),
+                                                  mapping->mapeigValor(scene->pmax.x),
+                                                  mapping->mapeigValor(scene->pmin.z),
+                                                  mapping->mapeigValor(scene->pmax.z),
+                                                   -1.0f,
+                                                   ObjectFactory::OBJECT_TYPES::FITTEDPLANE);
     // Construccio i assignacio del material
     auto mat = make_shared<Lambertian>(vec3(fields[5].toDouble(),fields[6].toDouble(),fields[7].toDouble()));
     o->setMaterial(mat);
