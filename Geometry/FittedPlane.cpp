@@ -1,33 +1,20 @@
 #include "FittedPlane.h"
 
-FittedPlane::FittedPlane(vec3 normal, vec3 pass_point, float xmin, float xmax, float zmin, float zmax, float v) : Object(v){
-    this->normal = normalize(normal);
-    this->point = pass_point;
+FittedPlane::FittedPlane(vec3 normal, vec3 pass_point, float xmin, float xmax, float zmin, float zmax, float v) : Plane(normal, pass_point, v){
     this->Xmin = xmin;
     this->Xmax = xmax;
     this->Zmin = zmin;
     this->Zmax = zmax;
 }
 
-FittedPlane::FittedPlane(vec3 normal, float d, float xmin, float xmax, float zmin, float zmax, float v) : Object(v) {
-    this->normal = normalize(normal);
+FittedPlane::FittedPlane(vec3 normal, float d, float xmin, float xmax, float zmin, float zmax, float v) : Plane(normal, d, v) {
     this->Xmin = xmin;
     this->Xmax = xmax;
     this->Zmin = zmin;
     this->Zmax = zmax;
+}
 
-    if (abs(normal.z)>DBL_EPSILON)
-
-        this->point = vec3(0.0, 0.0, -d/normal.z);
-    else if (abs(normal.y)>DBL_EPSILON)
-        this->point = vec3(0.0, -d/normal.y, 0.0);
-    else
-        this->point = vec3(-d/normal.x, 0.0, 0.0);
-};
-
-FittedPlane::FittedPlane() : Object(0.0){
-    this->normal = vec3(0.0, 1.0, 0.0);
-    this->point = vec3(0.0, -0.5, 0.0);
+FittedPlane::FittedPlane() : Plane(vec3(0.0, 1.0, 0.0), -0.5f, 0.0){
     this->Xmin = -1.0;
     this->Xmax = 1.0;
     this->Zmin = -1.0;
