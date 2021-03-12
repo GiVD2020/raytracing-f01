@@ -62,9 +62,9 @@ void VirtualWorldReader::sphereFound(QStringList fields) {
 
     // Construccio de l'objecte al Mon Virtual
     o = ObjectFactory::getInstance().createObject(mapping->mapeigPunt(centre),
-                                                   mapping->mapeigValor(fields[4].toDouble()),
-                                                   -1.0f,
-                                                   ObjectFactory::OBJECT_TYPES::SPHERE);
+                                                  mapping->mapeigValor(fields[4].toDouble()),
+                                                  -1.0f,
+                                                  ObjectFactory::OBJECT_TYPES::SPHERE);
     // Construccio i assignacio del material
     auto mat = make_shared<Lambertian>(vec3(fields[5].toDouble(),fields[6].toDouble(),fields[7].toDouble()));
     o->setMaterial(mat);
@@ -90,10 +90,9 @@ void VirtualWorldReader::brObjectFound(QStringList fields) {
     shared_ptr<Object> o;
 
     // Construccio de l'objecte al Mon Virtual
-    o = ObjectFactory::getInstance().createObject(
-                s,
-                -1.0f,
-                ObjectFactory::OBJECT_TYPES::BR_OBJECT);
+    o = ObjectFactory::getInstance().createObject(s,
+                                                  -1.0f,
+                                                  ObjectFactory::OBJECT_TYPES::BR_OBJECT);
 
     // Construccio i assignacio del material
     auto mat = make_shared<Lambertian>(vec3(fields[2].toDouble(),fields[3].toDouble(),fields[4].toDouble()));
@@ -122,12 +121,11 @@ void VirtualWorldReader::triangleFound(QStringList fields) {
 
 
     // Construccio de l'objecte al Mon Virtual
-    o = ObjectFactory::getInstance().createObject(
-                mapping->mapeigPunt(p1),
-                mapping->mapeigPunt(p2),
-                mapping->mapeigPunt(p3),
-                -1.0f,
-                ObjectFactory::OBJECT_TYPES::TRIANGLE);
+    o = ObjectFactory::getInstance().createObject(mapping->mapeigPunt(p1),
+                                                  mapping->mapeigPunt(p2),
+                                                  mapping->mapeigPunt(p3),
+                                                  -1.0f,
+                                                  ObjectFactory::OBJECT_TYPES::TRIANGLE);
 
     // Construccio i assignacio del material
     auto mat = make_shared<Lambertian>(vec3(fields[10].toDouble(),fields[11].toDouble(),fields[12].toDouble()));
@@ -155,9 +153,9 @@ void VirtualWorldReader::planeFound(QStringList fields) {
 
     // Construccio de l'objecte al Mon Virtual
     o = ObjectFactory::getInstance().createObject(normalPla,
-                                                   mapping->mapeigValor(dPla),
-                                                   -1.0f,
-                                                   ObjectFactory::OBJECT_TYPES::PLANE);
+                                                  dPla,
+                                                  -1.0f,
+                                                  ObjectFactory::OBJECT_TYPES::PLANE);
     // Construccio i assignacio del material
     auto mat = make_shared<Lambertian>(vec3(fields[5].toDouble(),fields[6].toDouble(),fields[7].toDouble()));
     o->setMaterial(mat);
@@ -184,13 +182,13 @@ void VirtualWorldReader::fittedPlaneFound(QStringList fields) {
 
     // Construccio de l'objecte al Mon Virtual
     o = ObjectFactory::getInstance().createObject(normalPla,
-                                                  mapping->mapeigValor(dPla),
-                                                  mapping->mapeigValor(scene->pmin.x),
-                                                  mapping->mapeigValor(scene->pmax.x),
-                                                  mapping->mapeigValor(scene->pmin.z),
-                                                  mapping->mapeigValor(scene->pmax.z),
-                                                   -1.0f,
-                                                   ObjectFactory::OBJECT_TYPES::FITTEDPLANE);
+                                                  dPla,
+                                                  scene->pmin.x,
+                                                  scene->pmax.x,
+                                                  scene->pmin.z,
+                                                  scene->pmax.z,
+                                                  -1.0f,
+                                                  ObjectFactory::OBJECT_TYPES::FITTEDPLANE);
     // Construccio i assignacio del material
     auto mat = make_shared<Lambertian>(vec3(fields[5].toDouble(),fields[6].toDouble(),fields[7].toDouble()));
     o->setMaterial(mat);
@@ -215,10 +213,10 @@ void VirtualWorldReader::cylinderFound(QStringList fields) {
 
     // Construccio de l'objecte al Mon Virtual
     o = ObjectFactory::getInstance().createObject(mapping->mapeigPunt(centre),
-                                                   mapping->mapeigValor(fields[4].toDouble()),
-                                                    mapping->mapeigValor(fields[5].toDouble()),
-                                                   -1.0f,
-                                                   ObjectFactory::OBJECT_TYPES::CYLINDER);
+                                                  mapping->mapeigValor(fields[4].toDouble()),
+                                                  mapping->mapeigValor(fields[5].toDouble()),
+                                                  -1.0f,
+                                                  ObjectFactory::OBJECT_TYPES::CYLINDER);
     // Construccio i assignacio del material
     auto mat = make_shared<Lambertian>(vec3(fields[6].toDouble(),fields[7].toDouble(),fields[8].toDouble()));
     o->setMaterial(mat);
