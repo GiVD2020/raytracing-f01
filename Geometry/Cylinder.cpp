@@ -74,8 +74,12 @@ bool Cylinder::hit(const Ray& raig, float t_min, float t_max, HitInfo& info) con
 }
 
 void Cylinder::aplicaTG(shared_ptr<TG> t) {
-    if (dynamic_pointer_cast<TranslateTG>(t)) {
-        // Per ara només es preveuen translacions
+    //TODO: no funciona instanceof
+    //if (dynamic_pointer_cast<ScaleTG>(t)) {
+    if(t->getTG()[3][0]==0 ){
+        height *= t->getTG()[0][0];
+    }else{
+    //if (dynamic_pointer_cast<TranslateTG>(t)) {
         vec4 c(center, 1.0);
         c = t->getTG() * c;
         center.x = c.x; center.y = c.y; center.z = c.z;
