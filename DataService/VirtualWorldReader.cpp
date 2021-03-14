@@ -141,7 +141,7 @@ void VirtualWorldReader::planeFound(QStringList fields) {
     // TODO Fase 1: Per incloure pla infinit
     // Es suposa que tindràs una línia en el fitxer
     // plane, nx, ny, nz, d, propietats del material, textura
-    if (fields.size() != 8) {
+    if (fields.size() != 9) {
         std::cerr << "Wrong plane format" << std::endl;
         return;
     }
