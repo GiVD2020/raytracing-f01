@@ -38,6 +38,10 @@ void VirtualWorldReader::fileLineRead (QString lineReaded) {
         brObjectFound(fields);
     else if (QString::compare("cylinder", fields[0], Qt::CaseInsensitive) == 0)
         cylinderFound(fields);
+    else if (QString::compare("plane", fields[0], Qt::CaseInsensitive) == 0)
+        planeFound(fields);
+    else if (QString::compare("fittedplane", fields[0], Qt::CaseInsensitive) == 0)
+        fittedPlaneFound(fields);
     else
         std::cerr << "Element unknown" << std::endl;
 }
@@ -58,9 +62,9 @@ void VirtualWorldReader::sphereFound(QStringList fields) {
 
     // Construccio de l'objecte al Mon Virtual
     o = ObjectFactory::getInstance().createObject(mapping->mapeigPunt(centre),
-                                                   mapping->mapeigValor(fields[4].toDouble()),
-                                                   -1.0f,
-                                                   ObjectFactory::OBJECT_TYPES::SPHERE);
+                                                  mapping->mapeigValor(fields[4].toDouble()),
+                                                  -1.0f,
+                                                  ObjectFactory::OBJECT_TYPES::SPHERE);
     // Construccio i assignacio del material
     auto mat = make_shared<Lambertian>(vec3(fields[5].toDouble(),fields[6].toDouble(),fields[7].toDouble()));
     o->setMaterial(mat);
@@ -86,10 +90,9 @@ void VirtualWorldReader::brObjectFound(QStringList fields) {
     shared_ptr<Object> o;
 
     // Construccio de l'objecte al Mon Virtual
-    o = ObjectFactory::getInstance().createObject(
-                s,
-                -1.0f,
-                ObjectFactory::OBJECT_TYPES::BR_OBJECT);
+    o = ObjectFactory::getInstance().createObject(s,
+                                                  -1.0f,
+                                                  ObjectFactory::OBJECT_TYPES::BR_OBJECT);
 
     // Construccio i assignacio del material
     auto mat = make_shared<Lambertian>(vec3(fields[2].toDouble(),fields[3].toDouble(),fields[4].toDouble()));
@@ -118,12 +121,11 @@ void VirtualWorldReader::triangleFound(QStringList fields) {
 
 
     // Construccio de l'objecte al Mon Virtual
-    o = ObjectFactory::getInstance().createObject(
-                mapping->mapeigPunt(p1),
-                mapping->mapeigPunt(p2),
-                mapping->mapeigPunt(p3),
-                -1.0f,
-                ObjectFactory::OBJECT_TYPES::TRIANGLE);
+    o = ObjectFactory::getInstance().createObject(mapping->mapeigPunt(p1),
+                                                  mapping->mapeigPunt(p2),
+                                                  mapping->mapeigPunt(p3),
+                                                  -1.0f,
+                                                  ObjectFactory::OBJECT_TYPES::TRIANGLE);
 
     // Construccio i assignacio del material
     auto mat = make_shared<Lambertian>(vec3(fields[10].toDouble(),fields[11].toDouble(),fields[12].toDouble()));
@@ -135,24 +137,67 @@ void VirtualWorldReader::triangleFound(QStringList fields) {
 }
 
 
-void VirtualWorldReader::plaFound(QStringList fields) {
-     // TODO Fase 1: Per incloure pla
-    //Es suposa que tindràs una línia en el fitxer
-    // plane, nx, ny, nz, d, , propietats del material, textura
+void VirtualWorldReader::planeFound(QStringList fields) {
+    // TODO Fase 1: Per incloure pla infinit
+    // Es suposa que tindràs una línia en el fitxer
+    // plane, nx, ny, nz, d, propietats del material, textura
     if (fields.size() != 8) {
         std::cerr << "Wrong plane format" << std::endl;
         return;
     }
 
-    if (QString::compare("plane", fields[1], Qt::CaseInsensitive) == 0) {
-        // TODO Fase 1: Donar d'alta el pla com objecte de l'escena. Fixa't en el codi del mètode sphereFound
-        // TODO Fase 1: Cal fer un pla acotat i no un pla infinit. Les dimensions del pla acotat seran les dimensions de l'escena en x i z
+    shared_ptr<Object> o;
 
-        vec3 normalPlaBase = vec3(fields[2].toDouble(), fields[3].toDouble(), fields[4].toDouble());
-        float dPlaBase = fields[5].toDouble();
+    vec3 normalPla = vec3(fields[1].toDouble(), fields[2].toDouble(), fields[3].toDouble());
+    float dPla = fields[4].toDouble();
 
-        // TODO Fase 4: llegir textura i afegir-la a l'objecte. Veure la classe Texture
+    // Construccio de l'objecte al Mon Virtual
+    o = ObjectFactory::getInstance().createObject(normalPla,
+                                                  dPla,
+                                                  -1.0f,
+                                                  ObjectFactory::OBJECT_TYPES::PLANE);
+    // Construccio i assignacio del material
+    auto mat = make_shared<Lambertian>(vec3(fields[5].toDouble(),fields[6].toDouble(),fields[7].toDouble()));
+    o->setMaterial(mat);
+
+    // Afegir objecte a l'escena
+    scene->objects.push_back(o);
+
+    // TODO Fase 4: llegir textura i afegir-la a l'objecte. Veure la classe Texture
+
+}
+
+void VirtualWorldReader::fittedPlaneFound(QStringList fields) {
+    // TODO Fase 1: Per incloure pla acotat. Les dimensions del pla acotat seran les dimensions de l'escena en x i z
+    // fittedplane, nx, ny, nz, d, propietats del material, textura
+    if (fields.size() != 8) {
+        std::cerr << "Wrong fitted plane format" << std::endl;
+        return;
     }
+
+    shared_ptr<Object> o;
+
+    vec3 normalPla = vec3(fields[1].toDouble(), fields[2].toDouble(), fields[3].toDouble());
+    float dPla = fields[4].toDouble();
+
+    // Construccio de l'objecte al Mon Virtual
+    o = ObjectFactory::getInstance().createObject(normalPla,
+                                                  dPla,
+                                                  scene->pmin.x,
+                                                  scene->pmax.x,
+                                                  scene->pmin.z,
+                                                  scene->pmax.z,
+                                                  -1.0f,
+                                                  ObjectFactory::OBJECT_TYPES::FITTEDPLANE);
+    // Construccio i assignacio del material
+    auto mat = make_shared<Lambertian>(vec3(fields[5].toDouble(),fields[6].toDouble(),fields[7].toDouble()));
+    o->setMaterial(mat);
+
+    // Afegir objecte a l'escena
+    scene->objects.push_back(o);
+
+    // TODO Fase 4: llegir textura i afegir-la a l'objecte. Veure la classe Texture
+
 }
 
 void VirtualWorldReader::cylinderFound(QStringList fields) {
@@ -168,10 +213,10 @@ void VirtualWorldReader::cylinderFound(QStringList fields) {
 
     // Construccio de l'objecte al Mon Virtual
     o = ObjectFactory::getInstance().createObject(mapping->mapeigPunt(centre),
-                                                   mapping->mapeigValor(fields[4].toDouble()),
-                                                    mapping->mapeigValor(fields[5].toDouble()),
-                                                   -1.0f,
-                                                   ObjectFactory::OBJECT_TYPES::CYLINDER);
+                                                  mapping->mapeigValor(fields[4].toDouble()),
+                                                  mapping->mapeigValor(fields[5].toDouble()),
+                                                  -1.0f,
+                                                  ObjectFactory::OBJECT_TYPES::CYLINDER);
     // Construccio i assignacio del material
     auto mat = make_shared<Lambertian>(vec3(fields[6].toDouble(),fields[7].toDouble(),fields[8].toDouble()));
     o->setMaterial(mat);

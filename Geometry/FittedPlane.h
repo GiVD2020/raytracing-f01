@@ -14,12 +14,16 @@ public:
 
     FittedPlane();
 
+    bool isVisible() const {return visible;};
+    void setVisible (bool vis) {visible = vis;};
+
     virtual ~FittedPlane(){}
     virtual bool hit(const Ray &r, float t_min, float t_max, HitInfo &info) const override;
     virtual void aplicaTG(shared_ptr<TG> tg) override;
 
 private:
     float Xmin, Xmax, Zmin, Zmax;
+    bool visible;
 };
 
 
