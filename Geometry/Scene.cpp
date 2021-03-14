@@ -60,8 +60,8 @@ vec3 Scene::ComputeColor (Ray &ray, int depth ) {
     HitInfo info;
     if (hit(ray, 0, 100, info)){
         //Segons el color del material de l'objecte:
-        color = 0.5f*vec3(info.normal.x + 1, info.normal.y + 1, info.normal.z + 1);
-        //color = info.mat_ptr->diffuse;
+        color = info.mat_ptr->diffuse;
+        //color = 0.5f*vec3(info.normal.x + 1, info.normal.y + 1, info.normal.z + 1);
     } else {
         vec3 color1 = vec3(0.5, 0.7, 1);
         vec3 color2 = vec3(1, 1 ,1);

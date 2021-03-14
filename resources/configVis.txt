@@ -1,8 +1,8 @@
 renderType,ONLINE
-lookFrom, 13, 2, 3
-lookAt, 0, 0, 0
+lookFrom, 1.5, 1.5, 3
+lookAt, 0, 0, -1
 vup, 0, 1, 0
-vfov, 45.0
-aspectRatio, 1.7777
+vfov, 90.0
+aspectRatio, 2.1111
 pixelsX, 600
 output,resultat.ppm

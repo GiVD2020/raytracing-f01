@@ -20,5 +20,6 @@
         <file>resources/boundaryObject.txt</file>
         <file>resources/cylinders.txt</file>
         <file>resources/plane.txt</file>
+        <file>resources/3D_Scene_myScene.txt</file>
     </qresource>
 </RCC>
