@@ -11,6 +11,7 @@
 #include "BoundaryObject.h"
 #include "Lambertian.h"
 #include "ColorMap.h"
+#include "Light.h"
 
 class Scene: public Hitable
 {
@@ -54,6 +55,10 @@ public:
     std::vector<shared_ptr<Object>> objects;
 
     // TODO FASE 2: Afegir llums a l'escena
-
+    void setGlobalLight(vec3 globalLight);
+    void setPointLights(vector<shared_ptr<Light>> pointLights);
+private:
+    vector<shared_ptr<Light>> pointLights;
+    vec3 globalLight;
 };
 

@@ -59,6 +59,10 @@ void ConfigVisReader::fileLineRead (QString lineReaded) {
         widthFound(fields);
     else if (QString::compare("output", fields[0], Qt::CaseInsensitive) == 0)
         fitxerFound(fields);
+    else if (QString::compare("globalLight", fields[0], Qt::CaseInsensitive) == 0)
+        globalLightFound(fields);
+    else if (QString::compare("light", fields[0], Qt::CaseInsensitive) == 0)
+        lightFound(fields);
     else
         std::cerr << "Element unknown" << std::endl;
 }
@@ -140,4 +144,35 @@ void ConfigVisReader::fitxerFound(QStringList fields) {
         return;
     }
     outputFile = fields[1];
+}
+
+void ConfigVisReader::globalLightFound(QStringList fields) {
+    if (fields.size() != 4) {
+        std::cerr << "Wrong data format" << std::endl;
+        return;
+    }
+    globalLight = vec3(fields[1].toDouble(), fields[2].toDouble(), fields[3].toDouble());
+}
+
+void ConfigVisReader::lightFound(QStringList fields) {
+    if (fields.size() != 17) {
+        std::cerr << "Wrong data format" << std::endl;
+        return;
+    }
+    //TODO: tipusllum
+    vec3 position = vec3(fields[2].toDouble(), fields[3].toDouble(), fields[4].toDouble());
+    vec3 ambient = vec3(fields[5].toDouble(), fields[6].toDouble(), fields[7].toDouble());
+    vec3 diffuse = vec3(fields[8].toDouble(), fields[9].toDouble(), fields[10].toDouble());
+    vec3 specular = vec3(fields[11].toDouble(), fields[12].toDouble(), fields[13].toDouble());
+    double a,b,c;
+    a = fields[14].toDouble();
+    b = fields[15].toDouble();
+    c = fields[16].toDouble();
+    pointLights.push_back(make_shared<Light>(position, ambient, diffuse, specular, a, b, c));
+}
+std::vector<shared_ptr<Light>> ConfigVisReader::getPointLights(){
+    return pointLights;
+}
+vec3 ConfigVisReader::getGlobalLight(){
+    return globalLight;
 }

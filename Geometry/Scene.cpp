@@ -79,10 +79,17 @@ void Scene::update(int nframe) {
     }
 }
 
-
-
 void Scene::setDimensions(vec3 p1, vec3 p2) {
     pmin = p1;
     pmax = p2;
 }
 
+void Scene::setGlobalLight(vec3 globalLight){
+    this->globalLight = globalLight;
+}
+
+void Scene::setPointLights(vector<shared_ptr<Light>> pointLights){
+    for (unsigned int i = 0; i< pointLights.size(); i++){
+        this->pointLights.push_back(pointLights[i]);
+    }
+}
