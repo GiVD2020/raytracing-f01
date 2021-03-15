@@ -52,7 +52,7 @@ void VirtualWorldReader::fileLineRead (QString lineReaded) {
 void VirtualWorldReader::sphereFound(QStringList fields) {
     // En el fitxer de dades tindràs
     // sphere, centre.x, centre.y, centre.z, radi, propietats del material, textura
-    if (fields.size() != 8 ) {
+    if (fields.size() != 15 ) {
         std::cerr << "Wrong sphere format" << std::endl;
         return;
     }
@@ -66,8 +66,12 @@ void VirtualWorldReader::sphereFound(QStringList fields) {
                                                   -1.0f,
                                                   ObjectFactory::OBJECT_TYPES::SPHERE);
     // Construccio i assignacio del material
-    auto mat = make_shared<Lambertian>(vec3(fields[5].toDouble(),fields[6].toDouble(),fields[7].toDouble()));
+    auto mat = make_shared<Lambertian>(vec3(fields[5].toDouble(),fields[6].toDouble(),fields[7].toDouble()),
+            vec3(fields[8].toDouble(),fields[9].toDouble(),fields[10].toDouble()),
+            vec3(fields[11].toDouble(),fields[12].toDouble(),fields[13].toDouble()),
+            fields[14].toDouble());
     o->setMaterial(mat);
+
 
     // Afegir objecte a l'escena
     scene->objects.push_back(o);

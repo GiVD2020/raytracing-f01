@@ -59,8 +59,8 @@ vec3 Scene::ComputeColor (Ray &ray, int depth ) {
 
     HitInfo info;
     if (hit(ray, 0, 100, info)){
-        //Segons el color del material de l'objecte:
-        color = info.mat_ptr->diffuse;
+        //Segons el color que ens dona Blinn-Phong:
+        color = blinn_phong(ray, info);
         //color = 0.5f*vec3(info.normal.x + 1, info.normal.y + 1, info.normal.z + 1);
     } else {
         vec3 color1 = vec3(0.5, 0.7, 1);
@@ -71,6 +71,17 @@ vec3 Scene::ComputeColor (Ray &ray, int depth ) {
     }
 
     return color;
+}
+
+vec3 Scene::blinn_phong(Ray &ray, HitInfo &info){
+    vec3 ka = vec3(0,0,0);
+    vec3 kd = vec3(0,0,0);
+    vec3 ks = vec3(0,0,0);
+    for(int i=0; i<pointLights.size(); i++){
+        ka += info.mat_ptr->ambient * this->pointLights[i]->ambient;
+    }
+
+    return ka;
 }
 
 void Scene::update(int nframe) {

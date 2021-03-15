@@ -19,6 +19,7 @@ Material::Material(vec3 a, vec3 d, vec3 s, vec3 k, float beta){
     ambient = a;
     specular = s;
     shineness = beta;
+    //TODO: k es transparencia per apartat D
 }
 
 vec3 Material::RandomInSphere() const {
