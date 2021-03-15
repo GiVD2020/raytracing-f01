@@ -1,6 +1,6 @@
 #pragma once
 #include "glm/glm.hpp"
-
+#include "glm/gtc/random.hpp"
 using namespace glm;
 
 class Ray {
