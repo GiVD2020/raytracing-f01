@@ -12,12 +12,12 @@ Light::Light(glm::vec3 position, glm::vec3 ambient, glm::vec3 diffuse, glm::vec3
 }
 
 glm::vec3 Light::get_vector_L(glm::vec3 s){
-    return (glm::normalize(this->position)-s);
+    return (glm::normalize(this->position-s));
 }
 
-float Light::apply_atenuation(glm::vec3 s){
-    float d = glm::length(get_vector_L(s));
-    return 1./(this->a + (this->b * d) + this->c * d * d);
+float Light::get_atenuation(glm::vec3 s){
+    float d = glm::length(this->position-s);
+    return 1./(this->a*d*d + this->b*d + this->c);
 }
 
 

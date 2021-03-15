@@ -74,14 +74,31 @@ vec3 Scene::ComputeColor (Ray &ray, int depth ) {
 }
 
 vec3 Scene::blinn_phong(Ray &ray, HitInfo &info){
-    vec3 ka = vec3(0,0,0);
-    vec3 kd = vec3(0,0,0);
-    vec3 ks = vec3(0,0,0);
+    vec3 ca = vec3(0,0,0);
+    vec3 cd = vec3(0,0,0);
+    vec3 cs = vec3(0,0,0);
+    //Per cada Light
     for(int i=0; i<pointLights.size(); i++){
-        ka += info.mat_ptr->ambient * this->pointLights[i]->ambient;
+        //Component ambient
+        ca += info.mat_ptr->ambient * this->pointLights[i]->ambient;
+
+        float atenuacio = this->pointLights[i]->get_atenuation(info.p);
+
+        //Component difusa amb atenuacio
+        cd += atenuacio*this->pointLights[i]->diffuse * info.mat_ptr->diffuse*
+                std::max(dot(info.normal, pointLights[i]->get_vector_L(info.p)), 0.0f);
+
+        vec3 H = normalize((-ray.dirVector()) + pointLights[i]->get_vector_L(info.p));
+
+        //Component especular amb atenuacio
+        cs += atenuacio*this->pointLights[i]->specular * info.mat_ptr->specular*
+                pow(std::max(dot(info.normal, H), 0.0f), info.mat_ptr->shineness);
     }
 
-    return ka;
+    vec3 global = this->globalLight*info.mat_ptr->ambient;
+
+    //Retornem la llum ambient global més les tres components
+    return  global + ca + cd + cs;
 }
 
 void Scene::update(int nframe) {

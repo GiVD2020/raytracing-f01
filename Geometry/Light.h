@@ -12,6 +12,6 @@ public:
     double a, b, c; //a*d² + b*d + c
 
     glm::vec3 get_vector_L(glm::vec3 s);
-    float apply_atenuation(glm::vec3 s);
+    float get_atenuation(glm::vec3 s);
 };
 
