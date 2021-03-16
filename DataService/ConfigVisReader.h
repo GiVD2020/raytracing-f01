@@ -9,7 +9,8 @@
 #include "glm/glm.hpp"
 #include "Renders/Camera.h"
 #include "Renders/RayTracingFactory.h"
-
+#include <vector>
+#include "Geometry/Light.h"
 /*
  * Format del fitxer de configuració de la Visualització:
  *
@@ -37,6 +38,8 @@ public:
     QString                         getOutputFile();
     RayTracingFactory::RENDER_TYPES getRenderType();
     shared_ptr<Camera>              getCamera();
+    vec3                            getGlobalLight();
+    std::vector<shared_ptr<Light>>  getPointLights();
 
 protected:
     void fileLineRead (QString lineReaded);
@@ -57,13 +60,18 @@ protected:
 
     void fitxerFound(QStringList list);
 
+    void globalLightFound(QStringList list);
+
+    void lightFound(QStringList list);
 
 private:
+    vec3 globalLight;
     RayTracingFactory::RENDER_TYPES renderingType;
     vec3 lookfrom, lookat, vup;
     double vfov, aspect_ratio;
     int width;
     QString outputFile;
+    std::vector<shared_ptr<Light>> pointLights;
 };
 
 

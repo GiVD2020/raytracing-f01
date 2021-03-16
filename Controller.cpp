@@ -26,7 +26,9 @@ Controller::Controller(QString dataFileName, QString configMapping, QString conf
     vec3 pmin(mapping->Vxmin,mapping->Vymin, mapping->Vzmin);
     vec3 pmax(mapping->Vxmax, mapping->Vymax, mapping->Vzmax);
     scene->setDimensions(pmin, pmax);
-
+    //FASE2: posem llums a l'escenar
+    scene->setGlobalLight(visSetup->getGlobalLight());
+    scene->setPointLights(visSetup->getPointLights());
     // ETAPA 2: Inicialitzacio del Rendering
     // usa un  Template Factory per a construir el tipus de render
      render = RayTracingFactory::getInstance()->getRender(visSetup->getRenderType(), visSetup->getOutputFile());

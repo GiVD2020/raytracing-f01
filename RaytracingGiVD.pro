@@ -28,6 +28,7 @@ SOURCES += \
         Geometry/FittedPlane.cpp \
         Geometry/Hitable.cpp \
         Geometry/Lambertian.cpp \
+        Geometry/Light.cpp \
         Geometry/Material.cpp \
         Geometry/Object.cpp \
         Geometry/Plane.cpp \
@@ -86,6 +87,7 @@ HEADERS += \
     Geometry/FittedPlane.h \
     Geometry/Hitable.h \
     Geometry/Lambertian.h \
+    Geometry/Light.h \
     Geometry/Material.h \
     Geometry/Object.h \
     Geometry/Plane.h \

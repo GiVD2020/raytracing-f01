@@ -5,6 +5,10 @@ Lambertian::Lambertian(const vec3& color): Material()
     diffuse = color;
 }
 
+Lambertian::Lambertian(vec3 a, vec3 d, vec3 s, float beta): Material(a,d,s,vec3(0,0,0),beta)
+{
+}
+
 Lambertian::~Lambertian()
 {
 }
