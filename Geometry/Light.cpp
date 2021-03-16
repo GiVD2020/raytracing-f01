@@ -15,8 +15,8 @@ glm::vec3 Light::get_vector_L(glm::vec3 s){
     return (glm::normalize(this->position-s));
 }
 
-float Light::get_atenuation(glm::vec3 s){
-    float d = glm::length(this->position-s);
+float Light::get_atenuation(glm::vec3 p){
+    float d = glm::length(this->position-p);
     return 1./(this->a*d*d + this->b*d + this->c);
 }
 
