@@ -1,5 +1,10 @@
 #include "Lambertian.h"
 
+
+#include "glm/glm.hpp"
+
+using namespace glm;
+
 Lambertian::Lambertian(const vec3& color): Material()
 {
     diffuse = color;
@@ -14,8 +19,10 @@ Lambertian::~Lambertian()
 }
 
 bool Lambertian::scatter(const Ray& r_in, const HitInfo& rec, vec3& color, std::vector<Ray>& r_out) const  {
-    vec3 target = rec.p + rec.normal + this->RandomInSphere();
-    r_out.push_back( Ray(rec.p, target-rec.p));
+    //vec3 target = rec.p + rec.normal + this->RandomInSphere();
+    //r_out.push_back( Ray(rec.p, target-rec.p));
+    vec3 a = reflect(r_in.dirVector(), rec.normal);
+    r_out.push_back(Ray(r_in.initialPoint(), a));
     color = diffuse;
     return true;
 }

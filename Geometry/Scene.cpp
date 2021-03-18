@@ -51,26 +51,34 @@ bool Scene::hit(const Ray& raig, float t_min, float t_max, HitInfo& info) const 
 ** TODO: Fase 2 per a tractar reflexions i transparències
 **
 */
-vec3 Scene::ComputeColor (Ray &ray, int depth ) {
+vec3 Scene::ComputeColor (Ray &ray, int depth) {
 
     vec3 color;
+    vec3 recColor;
+    vec3 scatterColor;
     vec3 ray2;
-    ray2 = normalize(ray.direction);
+    vector<Ray> reflected;
+    ray2 = normalize(ray.dirVector());
 
     HitInfo info;
     if (hit(ray, 0, 100, info)){
         //Segons el color que ens dona Blinn-Phong:
         color = blinn_phong(ray, info);
-        //color = 0.5f*vec3(info.normal.x + 1, info.normal.y + 1, info.normal.z + 1);
+        if (depth == MAXDEPTH) {
+            return color;
+        }
+        info.mat_ptr->scatter(ray, info, scatterColor, reflected);
+        recColor = ComputeColor(reflected[0], depth+1);
+        return color + recColor * scatterColor;
     } else {
         vec3 color1 = vec3(0.5, 0.7, 1);
         vec3 color2 = vec3(1, 1 ,1);
         // TODO: A canviar el càlcul del color en les diferents fases
         double y = 0.5*(ray2.y+1);
         color = (float)y*color1 + (float)(1-y)*color2;
+        return color;
     }
 
-    return color;
 }
 
 vec3 Scene::blinn_phong(Ray &ray, HitInfo &info){
