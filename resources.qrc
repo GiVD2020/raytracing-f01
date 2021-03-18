@@ -23,5 +23,6 @@
         <file>resources/3D_Scene_myScene.txt</file>
         <file>resources/configMapping_Fase2A.txt</file>
         <file>resources/Scene_Fase2A.txt</file>
+        <file>resources/Scene_Fase2A_Complex.txt</file>
     </qresource>
 </RCC>
