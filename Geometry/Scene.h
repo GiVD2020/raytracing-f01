@@ -57,6 +57,8 @@ public:
     // TODO FASE 2: Afegir llums a l'escena
     void setGlobalLight(vec3 globalLight);
     void setPointLights(vector<shared_ptr<Light>> pointLights);
+
+    float shadowCalculation(vec3 point, vec3 lightPosition);
 private:
     vector<shared_ptr<Light>> pointLights;
     vec3 globalLight;
