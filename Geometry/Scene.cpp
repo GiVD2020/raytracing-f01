@@ -71,12 +71,15 @@ vec3 Scene::ComputeColor (Ray &ray, int depth) {
         recColor = ComputeColor(reflected[0], depth+1);
         return color + recColor * scatterColor;
     } else {
-        vec3 color1 = vec3(0.5, 0.7, 1);
-        vec3 color2 = vec3(1, 1 ,1);
-        // TODO: A canviar el càlcul del color en les diferents fases
-        double y = 0.5*(ray2.y+1);
-        color = (float)y*color1 + (float)(1-y)*color2;
-        return color;
+        if (depth == 0) {
+            vec3 color1 = vec3(0.5, 0.7, 1);
+            vec3 color2 = vec3(1, 1 ,1);
+            // TODO: A canviar el càlcul del color en les diferents fases
+            double y = 0.5*(ray2.y+1);
+            color = (float)y*color1 + (float)(1-y)*color2;
+            return color;
+        }
+        return globalLight;
     }
 
 }
