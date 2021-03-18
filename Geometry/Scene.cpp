@@ -92,14 +92,16 @@ vec3 Scene::blinn_phong(Ray &ray, HitInfo &info){
 
         float atenuacio = this->pointLights[i]->get_atenuation(info.p);
 
+        float factorOmbra = shadowCalculation(info.p, this->pointLights[i]->position);
+
         //Component difusa amb atenuacio
-        cd += atenuacio*this->pointLights[i]->diffuse * info.mat_ptr->diffuse*
+        cd += factorOmbra*atenuacio*this->pointLights[i]->diffuse * info.mat_ptr->diffuse*
                 std::max(dot(info.normal, pointLights[i]->get_vector_L(info.p)), 0.0f);
 
         vec3 H = normalize((-ray.dirVector()) + pointLights[i]->get_vector_L(info.p));
 
         //Component especular amb atenuacio
-        cs += atenuacio*this->pointLights[i]->specular * info.mat_ptr->specular*
+        cs += factorOmbra*atenuacio*this->pointLights[i]->specular * info.mat_ptr->specular*
                 pow(std::max(dot(info.normal, H), 0.0f), info.mat_ptr->shineness);
     }
 
@@ -107,6 +109,20 @@ vec3 Scene::blinn_phong(Ray &ray, HitInfo &info){
 
     //Retornem la llum ambient global més les tres components
     return  global + ca + cd + cs;
+}
+
+float Scene::shadowCalculation(vec3 point, vec3 lightPosition) {
+    vec3 director = normalize(lightPosition - point);
+    float tMax = length(lightPosition - point);
+    float tMin = 0.01; //Should be 0.0 but to avoid shadow acne must be some small epsilon
+    Ray shadowRay = Ray(point, director);
+    HitInfo info = HitInfo();
+
+    if (this->hit(shadowRay, tMin, tMax, info)) {
+        return 0.0;
+    } else {
+        return 1.0;
+    }
 }
 
 void Scene::update(int nframe) {

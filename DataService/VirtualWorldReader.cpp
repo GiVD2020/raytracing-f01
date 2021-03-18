@@ -51,7 +51,7 @@ void VirtualWorldReader::fileLineRead (QString lineReaded) {
 // centre i radi
 void VirtualWorldReader::sphereFound(QStringList fields) {
     // En el fitxer de dades tindràs
-    // sphere, centre.x, centre.y, centre.z, radi, propietats del material, textura
+    // sphere, centre.x, centre.y, centre.z, radi, 3 float (ambient), 3 float (diffuse), 3 float (specular), beta
     if (fields.size() != 15 ) {
         std::cerr << "Wrong sphere format" << std::endl;
         return;
@@ -83,8 +83,9 @@ void VirtualWorldReader::brObjectFound(QStringList fields) {
     // TODO Fase 1: Per incloure BrObjecte
     //  Es suposa que serà una linia del fitxer de l'estil
     //  brobject, nomDelFitxer, propietats del material, textura
+    // brobject,path, 3 float (ambient), 3 float (diffuse), 3 float (specular), beta
 
-    if (fields.size() != 6) {
+    if (fields.size() != 12) {
         std::cerr << "Wrong brObject format" << std::endl;
         return;
     }
@@ -99,7 +100,10 @@ void VirtualWorldReader::brObjectFound(QStringList fields) {
                                                   ObjectFactory::OBJECT_TYPES::BR_OBJECT);
 
     // Construccio i assignacio del material
-    auto mat = make_shared<Lambertian>(vec3(fields[2].toDouble(),fields[3].toDouble(),fields[4].toDouble()));
+    auto mat = make_shared<Lambertian>(vec3(fields[2].toDouble(),fields[3].toDouble(),fields[4].toDouble()),
+            vec3(fields[5].toDouble(),fields[6].toDouble(),fields[7].toDouble()),
+            vec3(fields[8].toDouble(),fields[9].toDouble(),fields[10].toDouble()),
+            fields[11].toDouble());
     o->setMaterial(mat);
 
     // Afegir objecte a l'escena
@@ -111,9 +115,9 @@ void VirtualWorldReader::triangleFound(QStringList fields) {
 
     // TODO Fase 1: Per incloure Triangle
     //  Es suposa que serà una linia del fitxer de l'estil
-    //  triangle, x1, y1, z1, x2, y2, z2, x3, y3, z3, propietats del material, textura
+    //  triangle, x1, y1, z1, x2, y2, z2, x3, y3, z3, 3 float (ambient), 3 float (diffuse), 3 float (specular), beta
 
-    if (fields.size() != 13) {
+    if (fields.size() != 20) {
         std::cerr << "Wrong triangle format" << std::endl;
         return;
     }
@@ -132,7 +136,10 @@ void VirtualWorldReader::triangleFound(QStringList fields) {
                                                   ObjectFactory::OBJECT_TYPES::TRIANGLE);
 
     // Construccio i assignacio del material
-    auto mat = make_shared<Lambertian>(vec3(fields[10].toDouble(),fields[11].toDouble(),fields[12].toDouble()));
+    auto mat = make_shared<Lambertian>(vec3(fields[10].toDouble(),fields[11].toDouble(),fields[12].toDouble()),
+            vec3(fields[13].toDouble(),fields[14].toDouble(),fields[15].toDouble()),
+            vec3(fields[16].toDouble(),fields[17].toDouble(),fields[18].toDouble()),
+            fields[19].toDouble());
     o->setMaterial(mat);
 
     // Afegir objecte a l'escena
@@ -144,8 +151,8 @@ void VirtualWorldReader::triangleFound(QStringList fields) {
 void VirtualWorldReader::planeFound(QStringList fields) {
     // TODO Fase 1: Per incloure pla infinit
     // Es suposa que tindràs una línia en el fitxer
-    // plane, nx, ny, nz, d, propietats del material, textura
-    if (fields.size() != 9) {
+    // plane, nx, ny, nz, d, 3 float (ambient), 3 float (diffuse), 3 float (specular), beta
+    if (fields.size() != 15) {
         std::cerr << "Wrong plane format" << std::endl;
         return;
     }
@@ -161,7 +168,10 @@ void VirtualWorldReader::planeFound(QStringList fields) {
                                                   -1.0f,
                                                   ObjectFactory::OBJECT_TYPES::PLANE);
     // Construccio i assignacio del material
-    auto mat = make_shared<Lambertian>(vec3(fields[5].toDouble(),fields[6].toDouble(),fields[7].toDouble()));
+    auto mat = make_shared<Lambertian>(vec3(fields[5].toDouble(),fields[6].toDouble(),fields[7].toDouble()),
+            vec3(fields[8].toDouble(),fields[9].toDouble(),fields[10].toDouble()),
+            vec3(fields[11].toDouble(),fields[12].toDouble(),fields[13].toDouble()),
+            fields[14].toDouble());
     o->setMaterial(mat);
 
     // Afegir objecte a l'escena
@@ -173,8 +183,8 @@ void VirtualWorldReader::planeFound(QStringList fields) {
 
 void VirtualWorldReader::fittedPlaneFound(QStringList fields) {
     // TODO Fase 1: Per incloure pla acotat. Les dimensions del pla acotat seran les dimensions de l'escena en x i z
-    // fittedplane, nx, ny, nz, d, propietats del material, textura
-    if (fields.size() != 8) {
+    // fittedplane, nx, ny, nz, d, 3 float (ambient), 3 float (diffuse), 3 float (specular), beta
+    if (fields.size() != 15) {
         std::cerr << "Wrong fitted plane format" << std::endl;
         return;
     }
@@ -194,7 +204,10 @@ void VirtualWorldReader::fittedPlaneFound(QStringList fields) {
                                                   -1.0f,
                                                   ObjectFactory::OBJECT_TYPES::FITTEDPLANE);
     // Construccio i assignacio del material
-    auto mat = make_shared<Lambertian>(vec3(fields[5].toDouble(),fields[6].toDouble(),fields[7].toDouble()));
+    auto mat = make_shared<Lambertian>(vec3(fields[5].toDouble(),fields[6].toDouble(),fields[7].toDouble()),
+            vec3(fields[8].toDouble(),fields[9].toDouble(),fields[10].toDouble()),
+            vec3(fields[11].toDouble(),fields[12].toDouble(),fields[13].toDouble()),
+            fields[14].toDouble());
     o->setMaterial(mat);
 
     // Afegir objecte a l'escena
@@ -206,8 +219,8 @@ void VirtualWorldReader::fittedPlaneFound(QStringList fields) {
 
 void VirtualWorldReader::cylinderFound(QStringList fields) {
     // En el fitxer de dades tindràs
-    // cylinder, centre.x, centre.y, centre.z, radi, height, propietats del material, textura
-    if (fields.size() != 9 ) {
+    // cylinder, centre.x, centre.y, centre.z, radi, height, 3 float (ambient), 3 float (diffuse), 3 float (specular), beta
+    if (fields.size() != 16) {
         std::cerr << "Wrong cylinder format" << std::endl;
         return;
     }
@@ -222,7 +235,10 @@ void VirtualWorldReader::cylinderFound(QStringList fields) {
                                                   -1.0f,
                                                   ObjectFactory::OBJECT_TYPES::CYLINDER);
     // Construccio i assignacio del material
-    auto mat = make_shared<Lambertian>(vec3(fields[6].toDouble(),fields[7].toDouble(),fields[8].toDouble()));
+    auto mat = make_shared<Lambertian>(vec3(fields[6].toDouble(),fields[7].toDouble(),fields[8].toDouble()),
+            vec3(fields[9].toDouble(),fields[10].toDouble(),fields[11].toDouble()),
+            vec3(fields[12].toDouble(),fields[13].toDouble(),fields[14].toDouble()),
+            fields[15].toDouble());
     o->setMaterial(mat);
 
     // Afegir objecte a l'escena
