@@ -10,6 +10,7 @@
 #include "FittedPlane.h"
 #include "BoundaryObject.h"
 #include "Lambertian.h"
+#include "metal.h"
 #include "ColorMap.h"
 #include "Light.h"
 

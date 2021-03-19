@@ -15,8 +15,8 @@ Material::Material(vec3 d){
 
 Material::Material(vec3 a, vec3 d, vec3 s, vec3 k, float beta){
     // TO DO: Fase 2
-    this->diffuse = d;
     this->ambient = a;
+    this->diffuse = d;
     this->specular = s;
     this->shineness = beta;
     this->k = k;
