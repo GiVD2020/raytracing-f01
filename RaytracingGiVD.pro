@@ -38,6 +38,7 @@ SOURCES += \
         Geometry/TG.cpp \
         Geometry/Texture.cpp \
         Geometry/Translate.cpp \
+        Geometry/Transparent.cpp \
         Geometry/Triangle.cpp \
         Geometry/metal.cpp \
         GeometryBuilders/Mapping.cpp \
@@ -99,6 +100,7 @@ HEADERS += \
     Geometry/TG.h \
     Geometry/Texture.h \
     Geometry/Translate.h \
+    Geometry/Transparent.h \
     Geometry/Triangle.h \
     Geometry/metal.h \
     GeometryBuilders/Mapping.h \
