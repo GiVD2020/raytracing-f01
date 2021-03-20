@@ -19,7 +19,7 @@ Metal::~Metal()
 
 bool Metal::scatter(const Ray& r_in, const HitInfo& rec, vec3& color, std::vector<Ray>& r_out) const  {
     vec3 a = reflect(r_in.dirVector(), rec.normal);
-    r_out.push_back(Ray(r_in.initialPoint(), a));
+    r_out.push_back(Ray(rec.p+0.01f*a, a));
     color = specular;
     return true;
 }
