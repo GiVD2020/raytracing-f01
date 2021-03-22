@@ -65,7 +65,7 @@ private:
     vector<shared_ptr<Light>> pointLights;
     vec3 globalLight;
     vec3 blinn_phong(Ray &ray, HitInfo &info);
-    static const int MAXDEPTH = 10;
+    static const int MAXDEPTH = 5;
     constexpr static const double EPSILON = 1e-04;
 };
 

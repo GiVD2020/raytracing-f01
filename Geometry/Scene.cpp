@@ -54,7 +54,7 @@ bool Scene::hit(const Ray& raig, float t_min, float t_max, HitInfo& info) const 
 vec3 Scene::ComputeColor (Ray &ray, int depth) {
 
     vec3 color;
-    vec3 recColor;
+    vec3 recColor = vec3(0);
     vec3 scatterColor;
     vec3 ray2;
     vector<Ray> reflected;
@@ -68,7 +68,10 @@ vec3 Scene::ComputeColor (Ray &ray, int depth) {
             return color;
         }
         info.mat_ptr->scatter(ray, info, scatterColor, reflected);
-        recColor = ComputeColor(reflected[0], depth+1);
+        for (int i = 0; i < reflected.size(); i++) {
+            recColor += ComputeColor(reflected[i], depth+1);
+        }
+        recColor /= reflected.size();
         return (vec3(1)-info.mat_ptr->k)*color + recColor * scatterColor;
     } else {
         //if (depth == 0) {
