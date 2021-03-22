@@ -69,7 +69,7 @@ vec3 Scene::ComputeColor (Ray &ray, int depth) {
         }
         info.mat_ptr->scatter(ray, info, scatterColor, reflected);
         recColor = ComputeColor(reflected[0], depth+1);
-        return color + recColor * scatterColor;
+        return (vec3(1)-info.mat_ptr->k)*color + recColor * scatterColor;
     } else {
         //if (depth == 0) {
             vec3 color1 = vec3(0.5, 0.7, 1);

@@ -1,4 +1,4 @@
-#include "metal.h"
+#include "Metal.h"
 
 #include "glm/glm.hpp"
 
@@ -18,8 +18,8 @@ Metal::~Metal()
 }
 
 bool Metal::scatter(const Ray& r_in, const HitInfo& rec, vec3& color, std::vector<Ray>& r_out) const  {
-    vec3 a = reflect(r_in.dirVector(), rec.normal);
-    r_out.push_back(Ray(rec.p+0.01f*a, a));
+    vec3 reflectedVector = reflect(r_in.dirVector(), rec.normal);
+    r_out.push_back(Ray(rec.p+0.01f*reflectedVector, reflectedVector));
     color = specular;
     return true;
 }

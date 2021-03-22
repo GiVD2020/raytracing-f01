@@ -68,7 +68,7 @@ void VirtualWorldReader::sphereFound(QStringList fields) {
     // Construccio i assignacio del material
     vec3 ambient = vec3(fields[5].toDouble(),fields[6].toDouble(),fields[7].toDouble());
     vec3 diffuse =vec3(fields[8].toDouble(),fields[9].toDouble(),fields[10].toDouble());
-    vec3 specular= vec3(fields[8].toDouble(),fields[9].toDouble(),fields[10].toDouble());
+    vec3 specular= vec3(fields[11].toDouble(),fields[12].toDouble(),fields[13].toDouble());
     float shineness = fields[14].toDouble();
     if (QString::compare("LAMBERTIAN", fields[15], Qt::CaseInsensitive) == 0) {
         auto mat = make_shared<Lambertian>(ambient, diffuse, specular, shineness);
