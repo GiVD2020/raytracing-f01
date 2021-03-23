@@ -94,6 +94,9 @@ shared_ptr<Object> ObjectFactory::createObject(vec3 v, double aux1, double aux2,
     case CYLINDER:
         o = make_shared<Cylinder>(v, aux1, aux2, data);
         break;
+    case CONE:
+        o = make_shared<Cone>(v, aux1, aux2, data);
+        break;
     default:
         break;
     }

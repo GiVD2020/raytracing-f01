@@ -38,6 +38,8 @@ void VirtualWorldReader::fileLineRead (QString lineReaded) {
         brObjectFound(fields);
     else if (QString::compare("cylinder", fields[0], Qt::CaseInsensitive) == 0)
         cylinderFound(fields);
+    else if (QString::compare("cone", fields[0], Qt::CaseInsensitive) == 0)
+        coneFound(fields);
     else if (QString::compare("plane", fields[0], Qt::CaseInsensitive) == 0)
         planeFound(fields);
     else if (QString::compare("fittedplane", fields[0], Qt::CaseInsensitive) == 0)
@@ -244,6 +246,34 @@ void VirtualWorldReader::cylinderFound(QStringList fields) {
                                                   mapping->mapeigValor(fields[5].toDouble()),
                                                   -1.0f,
                                                   ObjectFactory::OBJECT_TYPES::CYLINDER);
+    // Construccio i assignacio del material
+    auto mat = make_shared<Lambertian>(vec3(fields[6].toDouble(),fields[7].toDouble(),fields[8].toDouble()),
+            vec3(fields[9].toDouble(),fields[10].toDouble(),fields[11].toDouble()),
+            vec3(fields[12].toDouble(),fields[13].toDouble(),fields[14].toDouble()),
+            fields[15].toDouble());
+    o->setMaterial(mat);
+
+    // Afegir objecte a l'escena
+    scene->objects.push_back(o);
+}
+
+void VirtualWorldReader::coneFound(QStringList fields) {
+    // En el fitxer de dades tindràs
+    // cone, centre.x, centre.y, centre.z, radi, height, 3 float (ambient), 3 float (diffuse), 3 float (specular), beta
+    if (fields.size() != 16) {
+        std::cerr << "Wrong cone format" << std::endl;
+        return;
+    }
+    shared_ptr<Object> o;
+
+    vec3 centre = vec3(fields[1].toDouble(), fields[2].toDouble(), fields[3].toDouble());
+
+    // Construccio de l'objecte al Mon Virtual
+    o = ObjectFactory::getInstance().createObject(mapping->mapeigPunt(centre),
+                                                  mapping->mapeigValor(fields[4].toDouble()),
+                                                  mapping->mapeigValor(fields[5].toDouble()),
+                                                  -1.0f,
+                                                  ObjectFactory::OBJECT_TYPES::CONE);
     // Construccio i assignacio del material
     auto mat = make_shared<Lambertian>(vec3(fields[6].toDouble(),fields[7].toDouble(),fields[8].toDouble()),
             vec3(fields[9].toDouble(),fields[10].toDouble(),fields[11].toDouble()),

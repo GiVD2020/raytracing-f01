@@ -24,6 +24,7 @@ SOURCES += \
         Geometry/BoundaryObject.cpp \
         Geometry/Cara.cpp \
         Geometry/ColorMapStatic.cpp \
+        Geometry/Cone.cpp \
         Geometry/Cylinder.cpp \
         Geometry/FittedPlane.cpp \
         Geometry/Hitable.cpp \
@@ -84,6 +85,7 @@ HEADERS += \
     Geometry/Cara.h \
     Geometry/ColorMap.h \
     Geometry/ColorMapStatic.h \
+    Geometry/Cone.h \
     Geometry/Cylinder.h \
     Geometry/FittedPlane.h \
     Geometry/Hitable.h \
