@@ -27,7 +27,7 @@ public:
 
     Ray getRay(float s, float t) ;
 
-
+    vec3 getOrigin();
     static vec3 random_in_unit_disk() {
         vec3 p;
         do {

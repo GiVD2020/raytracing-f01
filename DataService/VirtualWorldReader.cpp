@@ -52,7 +52,7 @@ void VirtualWorldReader::fileLineRead (QString lineReaded) {
 void VirtualWorldReader::sphereFound(QStringList fields) {
     // En el fitxer de dades tindràs
     // sphere, centre.x, centre.y, centre.z, radi, 3 float (ambient), 3 float (diffuse), 3 float (specular), beta
-    if (fields.size() != 16 && fields.size() != 17) { //en cas de TRANSPARENT, inclou 17 (índex de refracció)
+    if (fields.size() != 16 && fields.size() != 20) { //en cas de TRANSPARENT, inclou 20 (kt + índex de refracció)
         std::cerr << "Wrong sphere format" << std::endl;
         return;
     }
@@ -78,12 +78,13 @@ void VirtualWorldReader::sphereFound(QStringList fields) {
         o->setMaterial(mat);
     } else if (QString::compare("TRANSPARENT", fields[15], Qt::CaseInsensitive) == 0) {
         std::cout << "Field" << fields[15].toStdString();
-        if (fields.size() != 17) { //en cas de TRANSPARENT, inclou 17 (índex de refracció)
-            std::cerr << "Transparent object must include extra parameter for refraction index" << std::endl;
+        if (fields.size() != 20) { //en cas de TRANSPARENT, inclou 20 (kt + índex de refracció)
+            std::cerr << "Transparent object must include extra parameters for kt and refraction index" << std::endl;
             return;
         }
-        float refractionRatio = fields[16].toDouble();
-        auto mat = make_shared<Transparent>(ambient, diffuse, specular, shineness, refractionRatio);
+        float refractionRatio = fields[19].toDouble();
+        vec3 k = vec3(fields[16].toDouble(), fields[17].toDouble(),fields[18].toDouble());
+        auto mat = make_shared<Transparent>(ambient, diffuse, specular, shineness, k, refractionRatio);
         o->setMaterial(mat);
     } else {
         std::cerr << "Wrong sphere format" << std::endl;

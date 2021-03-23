@@ -4,6 +4,11 @@
 #include "glm/gtc/epsilon.hpp"
 using namespace glm;
 
+Transparent::Transparent(vec3 a, vec3 d, vec3 s, float beta, vec3 k, float refRatio): Material(a,d,s,k,beta)
+{
+    this->refRatio = refRatio;
+}
+
 Transparent::Transparent(vec3 a, vec3 d, vec3 s, float beta, float refRatio): Material(a,d,s,vec3(1) - s,beta)
 {
     this->refRatio = refRatio;
