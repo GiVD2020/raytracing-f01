@@ -51,10 +51,10 @@ bool Scene::hit(const Ray& raig, float t_min, float t_max, HitInfo& info) const 
 ** TODO: Fase 2 per a tractar reflexions i transparències
 **
 */
-vec3 Scene::ComputeColor (Ray &ray, int depth) {
+vec3 Scene::ComputeColor (Ray &ray, int depth, vec3 lookFrom) {
 
     vec3 color;
-    vec3 recColor;
+    vec3 recColor = vec3(0);
     vec3 scatterColor;
     vec3 ray2;
     vector<Ray> reflected;
@@ -63,13 +63,17 @@ vec3 Scene::ComputeColor (Ray &ray, int depth) {
     HitInfo info;
     if (hit(ray, 0, 100, info)){
         //Segons el color que ens dona Blinn-Phong:
-        color = blinn_phong(ray, info);
+        color = blinn_phong(ray, info, lookFrom);
         if (depth == MAXDEPTH) {
             return color;
         }
         info.mat_ptr->scatter(ray, info, scatterColor, reflected);
-        recColor = ComputeColor(reflected[0], depth+1);
-        return color + recColor * scatterColor;
+        for (int i = 0; i < reflected.size(); i++) {
+            recColor += ComputeColor(reflected[i], depth+1, lookFrom);
+        }
+        recColor /= reflected.size();
+        //return (vec3(1)-info.mat_ptr->k)*color + recColor * scatterColor;
+        return color + recColor * scatterColor;// Blinn-phong al transparent
     } else {
         //if (depth == 0) {
             vec3 color1 = vec3(0.5, 0.7, 1);
@@ -84,7 +88,7 @@ vec3 Scene::ComputeColor (Ray &ray, int depth) {
 
 }
 
-vec3 Scene::blinn_phong(Ray &ray, HitInfo &info){
+vec3 Scene::blinn_phong(Ray &ray, HitInfo &info, vec3 lookFrom){
     vec3 ca = vec3(0,0,0);
     vec3 cd = vec3(0,0,0);
     vec3 cs = vec3(0,0,0);
@@ -99,9 +103,9 @@ vec3 Scene::blinn_phong(Ray &ray, HitInfo &info){
 
         //Component difusa amb atenuacio
         cd += factorOmbra*atenuacio*this->pointLights[i]->diffuse * info.mat_ptr->diffuse*
-                std::max(dot(info.normal, pointLights[i]->get_vector_L(info.p)), 0.0f);
-
-        vec3 H = normalize((-ray.dirVector()) + pointLights[i]->get_vector_L(info.p));
+                std::max(dot(info.normal, glm::normalize(pointLights[i]->get_vector_L(info.p))), 0.0f);
+        vec3 H = normalize(lookFrom-info.p + pointLights[i]->get_vector_L(info.p));
+        //vec3 H = normalize(-ray.dirVector() + pointLights[i]->get_vector_L(info.p));
 
         //Component especular amb atenuacio
         cs += factorOmbra*atenuacio*this->pointLights[i]->specular * info.mat_ptr->specular*
@@ -120,7 +124,6 @@ float Scene::shadowCalculation(vec3 point, vec3 lightPosition) {
     float tMin = 0.01; //Should be 0.0 but to avoid shadow acne must be some small epsilon
     Ray shadowRay = Ray(point, director);
     HitInfo info = HitInfo();
-
     if (this->hit(shadowRay, tMin, tMax, info)) {
         return 0.0;
     } else {

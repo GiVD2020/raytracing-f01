@@ -30,6 +30,7 @@ SOURCES += \
         Geometry/Lambertian.cpp \
         Geometry/Light.cpp \
         Geometry/Material.cpp \
+        Geometry/Metal.cpp \
         Geometry/Object.cpp \
         Geometry/Plane.cpp \
         Geometry/Scene.cpp \
@@ -38,8 +39,8 @@ SOURCES += \
         Geometry/TG.cpp \
         Geometry/Texture.cpp \
         Geometry/Translate.cpp \
+        Geometry/Transparent.cpp \
         Geometry/Triangle.cpp \
-        Geometry/metal.cpp \
         GeometryBuilders/Mapping.cpp \
         GeometryBuilders/ObjectFactory.cpp \
         GeometryBuilders/SceneFactory.cpp \
@@ -90,6 +91,7 @@ HEADERS += \
     Geometry/Lambertian.h \
     Geometry/Light.h \
     Geometry/Material.h \
+    Geometry/Metal.h \
     Geometry/Object.h \
     Geometry/Plane.h \
     Geometry/Ray.h \
@@ -99,8 +101,8 @@ HEADERS += \
     Geometry/TG.h \
     Geometry/Texture.h \
     Geometry/Translate.h \
+    Geometry/Transparent.h \
     Geometry/Triangle.h \
-    Geometry/metal.h \
     GeometryBuilders/Mapping.h \
     GeometryBuilders/ObjectFactory.h \
     GeometryBuilders/SceneFactory.h \

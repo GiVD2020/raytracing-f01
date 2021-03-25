@@ -25,7 +25,7 @@ void RayTracing::rendering() {
                 float u = (float(x) + glm::linearRand(-0.5, 0.5))/ float(cam->viewportX);
                 float v = (float(y) + glm::linearRand(-0.5, 0.5))/ float(cam->viewportY);
                 Ray r = cam->getRay(u, v);
-                col += scene->ComputeColor(r, 0);
+                col += scene->ComputeColor(r, 0, cam->getOrigin());
             }
 
             col /= numSamples;

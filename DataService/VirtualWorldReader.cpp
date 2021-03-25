@@ -52,7 +52,7 @@ void VirtualWorldReader::fileLineRead (QString lineReaded) {
 void VirtualWorldReader::sphereFound(QStringList fields) {
     // En el fitxer de dades tindràs
     // sphere, centre.x, centre.y, centre.z, radi, 3 float (ambient), 3 float (diffuse), 3 float (specular), beta
-    if (fields.size() != 16 ) {
+    if (fields.size() != 16 && fields.size() != 20) { //en cas de TRANSPARENT, inclou 20 (kt + índex de refracció)
         std::cerr << "Wrong sphere format" << std::endl;
         return;
     }
@@ -66,23 +66,30 @@ void VirtualWorldReader::sphereFound(QStringList fields) {
                                                   -1.0f,
                                                   ObjectFactory::OBJECT_TYPES::SPHERE);
     // Construccio i assignacio del material
-    if (fields[15].toDouble() == 0) {
-        auto mat = make_shared<Lambertian>(vec3(fields[5].toDouble(),fields[6].toDouble(),fields[7].toDouble()),
-                vec3(fields[8].toDouble(),fields[9].toDouble(),fields[10].toDouble()),
-                vec3(fields[11].toDouble(),fields[12].toDouble(),fields[13].toDouble()),
-                fields[14].toDouble());
+    vec3 ambient = vec3(fields[5].toDouble(),fields[6].toDouble(),fields[7].toDouble());
+    vec3 diffuse =vec3(fields[8].toDouble(),fields[9].toDouble(),fields[10].toDouble());
+    vec3 specular= vec3(fields[11].toDouble(),fields[12].toDouble(),fields[13].toDouble());
+    float shineness = fields[14].toDouble();
+    if (QString::compare("LAMBERTIAN", fields[15], Qt::CaseInsensitive) == 0) {
+        auto mat = make_shared<Lambertian>(ambient, diffuse, specular, shineness);
         o->setMaterial(mat);
-    } else if (fields[15].toDouble() == 1) {
-        auto mat = make_shared<Metal>(vec3(fields[5].toDouble(),fields[6].toDouble(),fields[7].toDouble()),
-                vec3(fields[8].toDouble(),fields[9].toDouble(),fields[10].toDouble()),
-                vec3(fields[11].toDouble(),fields[12].toDouble(),fields[13].toDouble()),
-                fields[14].toDouble());
+    } else if (QString::compare("METAL", fields[15], Qt::CaseInsensitive) == 0) {
+        auto mat = make_shared<Metal>(ambient, diffuse, specular, shineness);
+        o->setMaterial(mat);
+    } else if (QString::compare("TRANSPARENT", fields[15], Qt::CaseInsensitive) == 0) {
+        std::cout << "Field" << fields[15].toStdString();
+        if (fields.size() != 20) { //en cas de TRANSPARENT, inclou 20 (kt + índex de refracció)
+            std::cerr << "Transparent object must include extra parameters for kt and refraction index" << std::endl;
+            return;
+        }
+        float refractionRatio = fields[19].toDouble();
+        vec3 k = vec3(fields[16].toDouble(), fields[17].toDouble(),fields[18].toDouble());
+        auto mat = make_shared<Transparent>(ambient, diffuse, specular, shineness, k, refractionRatio);
         o->setMaterial(mat);
     } else {
         std::cerr << "Wrong sphere format" << std::endl;
         return;
     }
-
     // Afegir objecte a l'escena
     scene->objects.push_back(o);
 }

@@ -54,7 +54,9 @@ Camera::Camera(
     viewportY = pixelsX/aspect_ratio;
 }
 
-
+vec3 Camera::getOrigin(){
+    return origin;
+}
 Ray Camera::getRay(float s, float t) {
      return Ray(origin, lower_left_corner + s*horizontal + t*vertical - origin);
 }
