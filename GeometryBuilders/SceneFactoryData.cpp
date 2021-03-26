@@ -11,6 +11,8 @@ shared_ptr<Scene>  SceneFactoryData::createScene(QString filename) {
 
     auto scene = make_shared<Scene>();
     auto rdr = make_shared<RealDataReader>(scene);
+    // TODO: Fase 2E: Invertir eix Z mapeig
+
     // TODO: Fase 1: construccio de l'escena dins de dataReader
     rdr->readFile(filename, map);
     // FASE 1 posar fitted plane (FET Martí)
