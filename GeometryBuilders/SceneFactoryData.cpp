@@ -19,6 +19,9 @@ shared_ptr<Scene>  SceneFactoryData::createScene(QString filename) {
     vec3 vmax = map->getVirtualMaxCoord();
     vec3 vmin = map->getVirtualMinCoord();
     FittedPlane floor(normal, d, vmin.x, vmax.x, vmin.z, vmax.z, 0.0);
+    //TODO: Provisional Fase 2 E
+    auto mat = make_shared<Lambertian>(vec3(0.1,0.1,0.1),vec3(0.7,0.4,0.4),vec3(0.0,0.0,0.0),0);
+    floor.setMaterial(mat);
     scene->floor = floor;
     return scene;
 }

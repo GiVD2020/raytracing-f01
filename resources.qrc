@@ -24,5 +24,6 @@
         <file>resources/configMapping_Fase2A.txt</file>
         <file>resources/Scene_Fase2A.txt</file>
         <file>resources/Scene_Fase2A_Complex.txt</file>
+        <file>resources/configVisData0.txt</file>
     </qresource>
 </RCC>
