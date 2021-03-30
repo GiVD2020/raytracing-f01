@@ -74,6 +74,7 @@ DISTFILES += \
     resources/earth1.png \
     resources/europa.png \
     resources/map.png \
+    resources/mapBCN.png \
     resources/mapZoom.png \
     resources/spheres.txt \
     resources/spheres2.txt \

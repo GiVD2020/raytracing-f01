@@ -30,5 +30,6 @@
         <file>resources/configMappingDataEuropa.txt</file>
         <file>resources/configVisDataEuropa.txt</file>
         <file>resources/dadesEuropa.txt</file>
+        <file>resources/mapBCN.png</file>
     </qresource>
 </RCC>

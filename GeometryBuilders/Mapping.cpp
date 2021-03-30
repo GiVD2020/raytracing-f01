@@ -38,7 +38,7 @@ shared_ptr<TG> Mapping::getMapeigRealAVirtual(){
     glm::mat4 vDiff = glm::scale(glm::mat4(1.0f), Vmax - Vmin);
     glm::mat4 sumaVmin = glm::translate(glm::mat4(1.0f), Vmin);
     //Provisional Fase 2E:  inverteix eix de les Z, com s'explica a l'enunciat del FASE2 E.1
-    glm::mat4 invertZ = glm::scale(glm::mat4(1.0f), vec3(1,1,1));
+    glm::mat4 invertZ = glm::scale(glm::mat4(1.0f), vec3(1,1,-1));
     //Ordre invers (matrius no són commutatives i es multiplicarà el punt per la dreta)
     auto tg = make_shared<TG>(invertZ*sumaVmin*vDiff*divisioRDiff*restamR);
     return tg;

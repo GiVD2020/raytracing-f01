@@ -99,6 +99,7 @@ vec3 Scene::blinn_phong(Ray &ray, HitInfo &info, vec3 lookFrom){
         //Component ambient
         ca += info.mat_ptr->ambient * this->pointLights[i]->ambient;
         diffuse = info.mat_ptr->getDiffuse(info.uv);
+
         float atenuacio = this->pointLights[i]->get_atenuation(info.p);
 
         float factorOmbra = shadowCalculation(info.p, this->pointLights[i]->position);
