@@ -62,7 +62,11 @@ DISTFILES += \
     README.md \
     resources/configMapping.txt \
     resources/configMappingData.txt \
+    resources/configMappingData0.txt \
+    resources/configMappingDataBCN.txt \
     resources/configVis.txt \
+    resources/configVisData0.txt \
+    resources/configVisDataBCN.txt \
     resources/data0.txt \
     resources/dataBCN.txt \
     resources/dataBCNZoom.txt \

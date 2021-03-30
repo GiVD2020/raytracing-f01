@@ -37,15 +37,20 @@ shared_ptr<TG> Mapping::getMapeigRealAVirtual(){
     glm::mat4 divisioRDiff = glm::scale(glm::mat4(1.0f), vDiv);
     glm::mat4 vDiff = glm::scale(glm::mat4(1.0f), Vmax - Vmin);
     glm::mat4 sumaVmin = glm::translate(glm::mat4(1.0f), Vmin);
+    //Provisional Fase 2E:  inverteix eix de les Z, com s'explica a l'enunciat del FASE2 E.1
+    glm::mat4 invertZ = glm::scale(glm::mat4(1.0f), vec3(1,1,-1));
     //Ordre invers (matrius no són commutatives i es multiplicarà el punt per la dreta)
-    auto tg = make_shared<TG>(sumaVmin*vDiff*divisioRDiff*restamR);
+    auto tg = make_shared<TG>(invertZ*sumaVmin*vDiff*divisioRDiff*restamR);
     return tg;
 }
 
 shared_ptr<ScaleTG> Mapping::getEscalat(int iProp, float valorMonReal){
     float minProp = setup->propLimits[iProp].first;
     float maxProp = setup->propLimits[iProp].second;
-    float factor = (valorMonReal - minProp) / (maxProp - minProp) * setup->VminDiff;
+    //Mapegem el rang (valorMinProp, valorMaxProp) al rang (0.01 * minDiffV, minDiffV)
+    float minVirtual = 0.01*setup->VminDiff;
+    float maxVirtual = 0.5*setup->VminDiff;
+    float factor = minVirtual + (valorMonReal - minProp) / (maxProp - minProp) * (maxVirtual - minVirtual);
     auto tg = make_shared<ScaleTG>(vec3(factor, factor, factor));
     return tg;
 }
