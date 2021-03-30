@@ -33,6 +33,7 @@ public:
 
     vec3 getNormalBasePlane(){ return setup->normalPlaBase; };
     float getdBasePlane(){ return setup->dPlaBase; };
+    shared_ptr<Texture> getTextureBasePlane(){return setup->texturePlaBase; };
     vec3 getVirtualMaxCoord(){ return setup->Vmax; };
     vec3 getVirtualMinCoord(){ return setup->Vmin; };
 

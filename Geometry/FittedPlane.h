@@ -4,7 +4,7 @@
 #include "Translate.h"
 #include "Plane.h"
 #include "glm/gtx/constants.hpp"
-
+#include "MaterialTextura.h"
 
 class FittedPlane: public Plane{
 public:

@@ -27,5 +27,8 @@
         <file>resources/configVisData0.txt</file>
         <file>resources/configMappingDataBCN.txt</file>
         <file>resources/configVisDataBCN.txt</file>
+        <file>resources/configMappingDataEuropa.txt</file>
+        <file>resources/configVisDataEuropa.txt</file>
+        <file>resources/dadesEuropa.txt</file>
     </qresource>
 </RCC>

@@ -38,7 +38,7 @@ shared_ptr<TG> Mapping::getMapeigRealAVirtual(){
     glm::mat4 vDiff = glm::scale(glm::mat4(1.0f), Vmax - Vmin);
     glm::mat4 sumaVmin = glm::translate(glm::mat4(1.0f), Vmin);
     //Provisional Fase 2E:  inverteix eix de les Z, com s'explica a l'enunciat del FASE2 E.1
-    glm::mat4 invertZ = glm::scale(glm::mat4(1.0f), vec3(1,1,-1));
+    glm::mat4 invertZ = glm::scale(glm::mat4(1.0f), vec3(1,1,1));
     //Ordre invers (matrius no són commutatives i es multiplicarà el punt per la dreta)
     auto tg = make_shared<TG>(invertZ*sumaVmin*vDiff*divisioRDiff*restamR);
     return tg;
@@ -66,8 +66,18 @@ shared_ptr<Material> Mapping::mapeigMaterial(int i, ColorMapStatic::COLOR_MAP_TY
     // els valors minims i maxims de les propietats
     // Tens els valors minims i maxim de cada propietat a l'estructura de setup d'aquesta classe
 
-    auto cm = getColorMap(tCM);
+    //auto cm = getColorMap(tCM); EN VERITAT HAURIA DE SER AQUESTA LINEA PERO SI NO NO QUADRA
+    auto cm = getColorMap(ColorMapStatic::COLOR_MAP_TYPE_INFERNO);
     int idx = 255*int(valorMonReal/(setup->propLimits[i].second-setup->propLimits[i].first));
+    if(tCM == ColorMapStatic::COLOR_MAP_TYPE_INFERNO){
+        return make_shared<Lambertian>(cm->getColor(idx));
+    }
+    if(tCM == ColorMapStatic::COLOR_MAP_TYPE_PLASMA){
+        vec3 kd = cm->getColor(idx);
+        vec3 ks = vec3(1, 1, 1);
+        vec3 ka = vec3(0.1, 0.1, 0.1);
+        float beta = 500;
+        return make_shared<Metal>(ka, kd, ks, beta);
+    }
 
-    return make_shared<Lambertian>(cm->getColor(idx));
 }

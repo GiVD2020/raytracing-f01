@@ -22,7 +22,9 @@ Material::Material(vec3 a, vec3 d, vec3 s, vec3 k, float beta){
     this->k = k;
     //TODO: k es transparencia per apartat D
 }
-
+vec3 Material::getDiffuse(vec2 point) const{
+    return diffuse;
+}
 vec3 Material::RandomInSphere() const {
     vec3 p;
     do {
