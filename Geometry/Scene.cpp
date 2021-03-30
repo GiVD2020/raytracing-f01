@@ -68,10 +68,11 @@ vec3 Scene::ComputeColor (Ray &ray, int depth, vec3 lookFrom) {
             return color;
         }
         info.mat_ptr->scatter(ray, info, scatterColor, reflected);
-        for (int i = 0; i < reflected.size(); i++) {
+        int reflectedAmount = reflected.size();
+        for (int i = 0; i < reflectedAmount; i++) {
             recColor += ComputeColor(reflected[i], depth+1, lookFrom);
         }
-        recColor /= reflected.size();
+        recColor /= max({1, reflectedAmount});
         //return (vec3(1)-info.mat_ptr->k)*color + recColor * scatterColor;
         return color + recColor * scatterColor;// Blinn-phong al transparent
     } else {
