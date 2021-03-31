@@ -76,15 +76,15 @@ vec3 Scene::ComputeColor (Ray &ray, int depth, vec3 lookFrom) {
         //return (vec3(1)-info.mat_ptr->k)*color + recColor * scatterColor;
         return color + recColor * scatterColor;// Blinn-phong al transparent
     } else {
-        //if (depth == 0) {
+        if (depth == 0) {
             vec3 color1 = vec3(0.5, 0.7, 1);
             vec3 color2 = vec3(1, 1 ,1);
             // TODO: A canviar el càlcul del color en les diferents fases
             double y = 0.5*(ray2.y+1);
             color = (float)y*color1 + (float)(1-y)*color2;
             return color;
-        //}
-        //return globalLight;
+        }
+        return globalLight;
     }
 
 }
