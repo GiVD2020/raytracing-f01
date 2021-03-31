@@ -19,6 +19,8 @@ private:
     vec3 p1;
     vec3 p2;
     vec3 p3;
+    shared_ptr<Plane> plane;
+    vec3 n;
 };
 
 #endif // TRIANGLE_H

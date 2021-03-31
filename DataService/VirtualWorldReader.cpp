@@ -134,7 +134,7 @@ void VirtualWorldReader::triangleFound(QStringList fields) {
     //  Es suposa que serà una linia del fitxer de l'estil
     //  triangle, x1, y1, z1, x2, y2, z2, x3, y3, z3, 3 float (ambient), 3 float (diffuse), 3 float (specular), beta
 
-    if (fields.size() != 20) {
+    if (fields.size() != 21) {
         std::cerr << "Wrong triangle format" << std::endl;
         return;
     }

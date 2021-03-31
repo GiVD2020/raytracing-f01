@@ -6,6 +6,14 @@ Triangle::Triangle(vec3 p1, vec3 p2, vec3 p3, float data) :Object(data) {
     this->p1 = p1;
     this->p2 = p2;
     this->p3 = p3;
+
+    // Pla que conte el triangle
+    vec3 w = p3 - p2;
+    vec3 v = p2 - p1;
+
+    this->n = cross(w,v)/length(cross(w,v));
+    this->plane = make_shared<Plane>(n, p1, -1.0f);
+
 }
 
 bool Triangle::hit(const Ray& raig, float t_min, float t_max, HitInfo& info) const {
@@ -15,13 +23,9 @@ bool Triangle::hit(const Ray& raig, float t_min, float t_max, HitInfo& info) con
     vec3 v = p2 - p1;
     vec3 u = p1 - p3;
 
-    // Calculem la normal al triangle
-    vec3 n = cross(w,v)/length(cross(w,v));
-
     // 1. Mirem si el raig interseca amb el pla que conté el triangle
-    Plane plane(n, p1, -1.0f);
     HitInfo infoPlane;
-    if (!plane.hit(raig, t_min, t_max, infoPlane)) {
+    if (!plane->hit(raig, t_min, t_max, infoPlane)) {
         return false;
     }
 
