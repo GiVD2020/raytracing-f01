@@ -14,12 +14,13 @@ public:
     vec3      p;         // punt del raig on hi ha la intersecció
     vec3      normal;    // normal en el punt d'intersecció
     Material *mat_ptr;   // material de l'objecte que s'ha intersectat
-
+    vec2      uv;        //coordenades de textura (u,v) en cas de que el material sigui textura
     HitInfo():
         t(std::numeric_limits<float>::infinity()),
         p(0.0f),
         normal(0.0f),
-        mat_ptr(NULL)
+        mat_ptr(NULL),
+        uv(0,0)
         {}
 
     //  "operator =" per la classe  IntersectionInfo

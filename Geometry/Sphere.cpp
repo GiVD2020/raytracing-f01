@@ -1,4 +1,5 @@
 #include "Sphere.h"
+#include "ScaleTG.h"
 
 Sphere::Sphere(vec3 cen, float r, float data) :Object(data) {
     center = cen;
@@ -33,9 +34,9 @@ bool Sphere::hit(const Ray& raig, float t_min, float t_max, HitInfo& info) const
 }
 
 void Sphere::aplicaTG(shared_ptr<TG> t) {
-    //TODO: no funciona instance of
-    //if (dynamic_pointer_cast<ScaleTG>(t)) {
-    if(t->getTG()[3][0]==0 ){
+    if (dynamic_pointer_cast<ScaleTG>(t)) {
+    //if(t->getTG()[3][0]==0 & t->getTG()[3][1]==0  & t->getTG()[3][2]==0 &
+            //t->getTG()[0][0]==t->getTG()[1][1] & t->getTG()[0][0]==t->getTG()[2][2]){
         radius *= t->getTG()[0][0];
     }else{
     //if (dynamic_pointer_cast<TranslateTG>(t)) {

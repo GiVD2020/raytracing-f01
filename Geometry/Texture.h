@@ -24,7 +24,7 @@ public:
     Texture(QString nomfitxer);
     virtual ~Texture();
 
-    vec3 getColorPixel(vec2 uv);
+    vec3 getColorPixel(vec2 uv) const;
 
 };
 

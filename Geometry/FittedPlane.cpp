@@ -69,6 +69,12 @@ bool FittedPlane::hit(const Ray &raig, float t_min, float t_max, HitInfo &info) 
     // La normal a un pla es la mateixa per tots els punts
     info.normal = normal;
     info.mat_ptr = material.get();
+    //FASE3: només calculem u,v de la textura si el material és del tipus MaterialTextura:
+    if(dynamic_cast<MaterialTextura*>(info.mat_ptr)) {
+        float u = (info.p.x - Xmin) / (Xmax - Xmin);
+        float v = (info.p.z - Zmin) / (Zmax - Zmin);
+        info.uv = vec2(u,v);
+    }
     return true;
 }
 

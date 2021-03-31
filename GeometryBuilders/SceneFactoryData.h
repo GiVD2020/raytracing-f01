@@ -5,6 +5,7 @@
 #include "DataService/RealDataReader.h"
 #include "SceneFactory.h"
 #include "Mapping.h"
+#include "Geometry/MaterialTextura.h"
 
 class SceneFactoryData : public SceneFactory
 {

@@ -68,22 +68,23 @@ vec3 Scene::ComputeColor (Ray &ray, int depth, vec3 lookFrom) {
             return color;
         }
         info.mat_ptr->scatter(ray, info, scatterColor, reflected);
-        for (int i = 0; i < reflected.size(); i++) {
+        int reflectedAmount = reflected.size();
+        for (int i = 0; i < reflectedAmount; i++) {
             recColor += ComputeColor(reflected[i], depth+1, lookFrom);
         }
-        recColor /= reflected.size();
+        recColor /= max({1, reflectedAmount});
         //return (vec3(1)-info.mat_ptr->k)*color + recColor * scatterColor;
         return color + recColor * scatterColor;// Blinn-phong al transparent
     } else {
-        //if (depth == 0) {
+        if (depth == 0) {
             vec3 color1 = vec3(0.5, 0.7, 1);
             vec3 color2 = vec3(1, 1 ,1);
             // TODO: A canviar el càlcul del color en les diferents fases
             double y = 0.5*(ray2.y+1);
             color = (float)y*color1 + (float)(1-y)*color2;
             return color;
-        //}
-        //return globalLight;
+        }
+        return globalLight;
     }
 
 }
@@ -92,17 +93,19 @@ vec3 Scene::blinn_phong(Ray &ray, HitInfo &info, vec3 lookFrom){
     vec3 ca = vec3(0,0,0);
     vec3 cd = vec3(0,0,0);
     vec3 cs = vec3(0,0,0);
+    vec3 diffuse;
     //Per cada Light
     for(int i=0; i<pointLights.size(); i++){
         //Component ambient
         ca += info.mat_ptr->ambient * this->pointLights[i]->ambient;
+        diffuse = info.mat_ptr->getDiffuse(info.uv);
 
         float atenuacio = this->pointLights[i]->get_atenuation(info.p);
 
         float factorOmbra = shadowCalculation(info.p, this->pointLights[i]->position);
 
         //Component difusa amb atenuacio
-        cd += factorOmbra*atenuacio*this->pointLights[i]->diffuse * info.mat_ptr->diffuse*
+        cd += factorOmbra*atenuacio*this->pointLights[i]->diffuse * diffuse*
                 std::max(dot(info.normal, glm::normalize(pointLights[i]->get_vector_L(info.p))), 0.0f);
         vec3 H = normalize(lookFrom-info.p + pointLights[i]->get_vector_L(info.p));
         //vec3 H = normalize(-ray.dirVector() + pointLights[i]->get_vector_L(info.p));

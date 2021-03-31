@@ -124,7 +124,8 @@ void ConfigMappingReader::baseFound(QStringList fields) {
         normalPlaBase = vec3(fields[2].toDouble(), fields[3].toDouble(), fields[4].toDouble());
         dPlaBase = fields[5].toDouble();
 
-        // TODO Fase 4: llegir textura i afegir-la a l'objecte. Veure la classe Texture
+        // Fase 3: llegir textura i afegir-la a l'objecte. Veure la classe Texture
+        texturePlaBase = make_shared<Texture>(fields[6]);
     }
 }
 
@@ -144,6 +145,10 @@ void ConfigMappingReader::propFound(QStringList fields) {
         auto tipusObj = ObjectFactory::OBJECT_TYPES::SPHERE;
         if (QString::compare("COLOR_MAP_TYPE_INFERNO", fields[5], Qt::CaseInsensitive) == 0) {
             auto tipusColorMap = ColorMapStatic::COLOR_MAP_TYPE_INFERNO;
+            props.push_back(std::make_pair(tipusObj, tipusColorMap));
+        }
+        if (QString::compare("COLOR_MAP_TYPE_PLASMA", fields[5], Qt::CaseInsensitive) == 0) {
+            auto tipusColorMap = ColorMapStatic::COLOR_MAP_TYPE_PLASMA;
             props.push_back(std::make_pair(tipusObj, tipusColorMap));
         }
     }

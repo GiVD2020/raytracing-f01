@@ -30,6 +30,7 @@ SOURCES += \
         Geometry/Lambertian.cpp \
         Geometry/Light.cpp \
         Geometry/Material.cpp \
+        Geometry/MaterialTextura.cpp \
         Geometry/Metal.cpp \
         Geometry/Object.cpp \
         Geometry/Plane.cpp \
@@ -73,9 +74,13 @@ DISTFILES += \
     resources/earth1.png \
     resources/europa.png \
     resources/map.png \
+    resources/mapBCN.png \
     resources/mapZoom.png \
     resources/spheres.txt \
-    resources/spheres2.txt
+    resources/spheres2.txt \
+    resources/configMappingDataEuropa.txt \
+    resources/configVisDataEuropa.txt \
+    resources/dadesEuropa.txt
 
 HEADERS += \
     Controller.h \
@@ -95,6 +100,7 @@ HEADERS += \
     Geometry/Lambertian.h \
     Geometry/Light.h \
     Geometry/Material.h \
+    Geometry/MaterialTextura.h \
     Geometry/Metal.h \
     Geometry/Object.h \
     Geometry/Plane.h \
