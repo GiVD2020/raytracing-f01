@@ -28,6 +28,7 @@ bool Scene::hit(const Ray& raig, float t_min, float t_max, HitInfo& info) const 
     for (unsigned int i = 0; i< objects.size(); i++) {
         if (objects[i]->hit(raig, t_min, minim_t, info)) {
             minim_t = info.t;
+            info.indObject = i;
         }
     }
     // hit of the floor
@@ -94,6 +95,7 @@ vec3 Scene::blinn_phong(Ray &ray, HitInfo &info, vec3 lookFrom){
     vec3 cd = vec3(0,0,0);
     vec3 cs = vec3(0,0,0);
     vec3 diffuse;
+    vector<HitInfo> infoOmbra;
     //Per cada Light
     for(int i=0; i<pointLights.size(); i++){
         //Component ambient
@@ -122,6 +124,30 @@ vec3 Scene::blinn_phong(Ray &ray, HitInfo &info, vec3 lookFrom){
 
     //Retornem la llum ambient global més les tres components
     return  AOFactor*global + ca + cd + cs;
+}
+
+
+bool Scene::hitOmbra(vector<HitInfo>& infoOmbra, vec3 point, vec3 lightPosition) {
+    vec3 director = normalize(lightPosition - point);
+    float tMax = length(lightPosition - point);
+    Ray shadowRay = Ray(point, director);
+    HitInfo info;
+    int indBefore = -1;
+    while (hit(shadowRay, EPSILON, tMax, info)) {
+        //Si hi ha un objecte Lambertian no calcularem aquesta ombra
+        if(dynamic_cast<Lambertian*>(info.mat_ptr)) {
+            return false;
+        }
+        if(indBefore != info.indObject) {
+            infoOmbra.push_back(info);
+            shadowRay.origin = info.p;
+            tMax = length(lightPosition - info.p);
+        }
+        indBefore = info.indObject;
+    }
+    //Ara toca ordenar el vector d'objectes de mes proper a menys proper
+    //TODO
+    return true;
 }
 
 float Scene::ambientOcclusionFactor(HitInfo info) {
