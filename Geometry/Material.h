@@ -19,8 +19,6 @@ public:
     virtual vec3 getDiffuse(vec2 point) const;
     vec3 diffuse, ambient, specular, k;
     float shineness;
-
-protected:
     vec3 RandomInSphere() const;
 };
 

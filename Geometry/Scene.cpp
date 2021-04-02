@@ -28,6 +28,7 @@ bool Scene::hit(const Ray& raig, float t_min, float t_max, HitInfo& info) const 
     for (unsigned int i = 0; i< objects.size(); i++) {
         if (objects[i]->hit(raig, t_min, minim_t, info)) {
             minim_t = info.t;
+            info.indObject = i;
         }
     }
     // hit of the floor
@@ -94,6 +95,7 @@ vec3 Scene::blinn_phong(Ray &ray, HitInfo &info, vec3 lookFrom){
     vec3 cd = vec3(0,0,0);
     vec3 cs = vec3(0,0,0);
     vec3 diffuse;
+    vector<HitInfo> infoOmbra;
     //Per cada Light
     for(int i=0; i<pointLights.size(); i++){
         //Component ambient
@@ -117,8 +119,53 @@ vec3 Scene::blinn_phong(Ray &ray, HitInfo &info, vec3 lookFrom){
 
     vec3 global = this->globalLight*info.mat_ptr->ambient;
 
+    //Ambient occlusion: suposem escenes outdoor i llancem n raigs aleatoris des de p cap al 'cel'
+    float AOFactor = 1;
+    if(AOACTIVATED) {
+        AOFactor = ambientOcclusionFactor(info);
+    }
+
     //Retornem la llum ambient global més les tres components
-    return  global + ca + cd + cs;
+    return  AOFactor*global + ca + cd + cs;
+}
+
+
+bool Scene::hitOmbra(vector<HitInfo>& infoOmbra, vec3 point, vec3 lightPosition) {
+    vec3 director = normalize(lightPosition - point);
+    float tMax = length(lightPosition - point);
+    Ray shadowRay = Ray(point, director);
+    HitInfo info;
+    int indBefore = -1;
+    while (hit(shadowRay, EPSILON, tMax, info)) {
+        //Si hi ha un objecte Lambertian no calcularem aquesta ombra
+        if(dynamic_cast<Lambertian*>(info.mat_ptr)) {
+            return false;
+        }
+        if(indBefore != info.indObject) {
+            infoOmbra.push_back(info);
+            shadowRay.origin = info.p;
+            tMax = length(lightPosition - info.p);
+        }
+        indBefore = info.indObject;
+    }
+    //Ara toca ordenar el vector d'objectes de mes proper a menys proper
+    //TODO
+    return true;
+}
+
+float Scene::ambientOcclusionFactor(HitInfo info) {
+    vec3 rayOrigin;
+    vec3 rayDir;
+    HitInfo rayInfo;
+    int numSkyRays = 0;
+    for(int i = 0; i < NUMRAYSAO; i++) {
+        rayDir = info.normal + info.mat_ptr->RandomInSphere();
+        rayOrigin = info.p + 0.01f*rayDir;
+        if(!hit(Ray(rayOrigin, rayDir), 0, 100, rayInfo)) {
+            numSkyRays ++;
+        }
+    }
+    return numSkyRays/NUMRAYSAO;
 }
 
 float Scene::shadowCalculation(vec3 point, vec3 lightPosition) {

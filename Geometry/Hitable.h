@@ -2,7 +2,6 @@
 
 #include "Ray.h"
 
-
 using namespace std;
 class Material;
 
@@ -15,6 +14,7 @@ public:
     vec3      normal;    // normal en el punt d'intersecció
     Material *mat_ptr;   // material de l'objecte que s'ha intersectat
     vec2      uv;        //coordenades de textura (u,v) en cas de que el material sigui textura
+    int indObject;
     HitInfo():
         t(std::numeric_limits<float>::infinity()),
         p(0.0f),
