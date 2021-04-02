@@ -120,7 +120,10 @@ vec3 Scene::blinn_phong(Ray &ray, HitInfo &info, vec3 lookFrom){
     vec3 global = this->globalLight*info.mat_ptr->ambient;
 
     //Ambient occlusion: suposem escenes outdoor i llancem n raigs aleatoris des de p cap al 'cel'
-    float AOFactor = ambientOcclusionFactor(info);
+    float AOFactor = 1;
+    if(AOACTIVATED) {
+        AOFactor = ambientOcclusionFactor(info);
+    }
 
     //Retornem la llum ambient global més les tres components
     return  AOFactor*global + ca + cd + cs;
@@ -155,14 +158,14 @@ float Scene::ambientOcclusionFactor(HitInfo info) {
     vec3 rayDir;
     HitInfo rayInfo;
     int numSkyRays = 0;
-    for(int i = 0; i < numRaysAO; i++) {
+    for(int i = 0; i < NUMRAYSAO; i++) {
         rayDir = info.normal + info.mat_ptr->RandomInSphere();
         rayOrigin = info.p + 0.01f*rayDir;
         if(!hit(Ray(rayOrigin, rayDir), 0, 100, rayInfo)) {
             numSkyRays ++;
         }
     }
-    return numSkyRays/numRaysAO;
+    return numSkyRays/NUMRAYSAO;
 }
 
 float Scene::shadowCalculation(vec3 point, vec3 lightPosition) {
