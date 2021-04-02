@@ -106,6 +106,13 @@ vec3 Scene::blinn_phong(Ray &ray, HitInfo &info, vec3 lookFrom){
 
         float factorOmbra = shadowCalculation(info.p, this->pointLights[i]->position);
 
+        //Opcional 4: Ombres de colors
+        if(hitOmbra(infoOmbra, info.p, this->pointLights[i]->position)) {
+            //TODO: Calcular Cout i alpha
+
+            infoOmbra.clear();
+        }
+
         //Component difusa amb atenuacio
         cd += factorOmbra*atenuacio*this->pointLights[i]->diffuse * diffuse*
                 std::max(dot(info.normal, glm::normalize(pointLights[i]->get_vector_L(info.p))), 0.0f);
@@ -119,7 +126,7 @@ vec3 Scene::blinn_phong(Ray &ray, HitInfo &info, vec3 lookFrom){
 
     vec3 global = this->globalLight*info.mat_ptr->ambient;
 
-    //Ambient occlusion: suposem escenes outdoor i llancem n raigs aleatoris des de p cap al 'cel'
+    //Opcional 5: Ambient Occlusion. Suposem escenes outdoor i llancem n raigs aleatoris des de p cap al 'cel'
     float AOFactor = 1;
     if(AOACTIVATED) {
         AOFactor = ambientOcclusionFactor(info);
@@ -129,6 +136,15 @@ vec3 Scene::blinn_phong(Ray &ray, HitInfo &info, vec3 lookFrom){
     return  AOFactor*global + ca + cd + cs;
 }
 
+struct Compare {
+    vec3 point;
+    Compare(vec3 point) {
+        this->point = point;
+    }
+    bool operator()(const HitInfo& info1, const HitInfo& info2) const {
+        return length(info1.p-point) < length(info2.p-point);
+    }
+};
 
 bool Scene::hitOmbra(vector<HitInfo>& infoOmbra, vec3 point, vec3 lightPosition) {
     vec3 director = normalize(lightPosition - point);
@@ -143,13 +159,17 @@ bool Scene::hitOmbra(vector<HitInfo>& infoOmbra, vec3 point, vec3 lightPosition)
         }
         if(indBefore != info.indObject) {
             infoOmbra.push_back(info);
-            shadowRay.origin = info.p;
-            tMax = length(lightPosition - info.p);
         }
+        shadowRay.origin = info.p;
+        tMax = length(lightPosition - info.p);
         indBefore = info.indObject;
     }
+    if(infoOmbra.size() == 0) {
+        return false;
+    }
+
     //Ara toca ordenar el vector d'objectes de mes proper a menys proper
-    //TODO
+    std::sort(infoOmbra.begin(), infoOmbra.end(), Compare(point));
     return true;
 }
 
