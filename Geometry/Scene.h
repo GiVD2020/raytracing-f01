@@ -70,6 +70,7 @@ private:
     static const int MAXDEPTH = 3;
     static const int NUMRAYSAO = 30;
     static const bool AOACTIVATED = true;
+    static const bool COLORSHADOWASCTIVATED = true;
     constexpr static const double EPSILON = 1e-04;
 };
 

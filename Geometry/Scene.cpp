@@ -77,15 +77,15 @@ vec3 Scene::ComputeColor (Ray &ray, int depth, vec3 lookFrom) {
         //return (vec3(1)-info.mat_ptr->k)*color + recColor * scatterColor;
         return color + recColor * scatterColor;// Blinn-phong al transparent
     } else {
-        if (depth == 0) {
+        //if (depth == 0) {
             vec3 color1 = vec3(0.5, 0.7, 1);
             vec3 color2 = vec3(1, 1 ,1);
             // TODO: A canviar el càlcul del color en les diferents fases
             double y = 0.5*(ray2.y+1);
             color = (float)y*color1 + (float)(1-y)*color2;
             return color;
-        }
-        return globalLight;
+        //}
+        //return globalLight;
     }
 
 }
@@ -96,6 +96,13 @@ vec3 Scene::blinn_phong(Ray &ray, HitInfo &info, vec3 lookFrom){
     vec3 cs = vec3(0,0,0);
     vec3 diffuse;
     vector<HitInfo> infoOmbra;
+    vec3 cout;
+    vec3 cin;
+    double alphain;
+    double alphaout;
+    double alpha;
+    vec3 id;
+
     //Per cada Light
     for(int i=0; i<pointLights.size(); i++){
         //Component ambient
@@ -104,23 +111,38 @@ vec3 Scene::blinn_phong(Ray &ray, HitInfo &info, vec3 lookFrom){
 
         float atenuacio = this->pointLights[i]->get_atenuation(info.p);
 
-        float factorOmbra = shadowCalculation(info.p, this->pointLights[i]->position);
+        //float factorOmbra = shadowCalculation(info.p, this->pointLights[i]->position);
 
-        //Opcional 4: Ombres de colors
-        if(hitOmbra(infoOmbra, info.p, this->pointLights[i]->position)) {
+        //Opcional 4: Color shadows
+        if(COLORSHADOWASCTIVATED && hitOmbra(infoOmbra, info.p, this->pointLights[i]->position)) {
             //TODO: Calcular Cout i alpha
-
+            alphain = 0;
+            cin.x = 1;
+            cin.y = 1;
+            cin.z = 1;
+            for(int k=0; k<infoOmbra.size(); k++) {
+                alpha = this->pointLights[i]->get_atenuation(infoOmbra[k].p);
+                cout.x = cin.x*(1-alphain)*infoOmbra[k].mat_ptr->diffuse.x*alpha;
+                cout.y = cin.y*(1-alphain)*infoOmbra[k].mat_ptr->diffuse.y*alpha;
+                cout.z = cin.z*(1-alphain)*infoOmbra[k].mat_ptr->diffuse.z*alpha;
+                cin = cout;
+                alphaout = alphain + (1-alphain)*alpha;
+                alphain = alphaout;
+            }
+            id = cout;
             infoOmbra.clear();
+        } else {
+            id = this->pointLights[i]->diffuse;
         }
 
         //Component difusa amb atenuacio
-        cd += factorOmbra*atenuacio*this->pointLights[i]->diffuse * diffuse*
+        cd += atenuacio*id * diffuse*
                 std::max(dot(info.normal, glm::normalize(pointLights[i]->get_vector_L(info.p))), 0.0f);
         vec3 H = normalize(lookFrom-info.p + pointLights[i]->get_vector_L(info.p));
         //vec3 H = normalize(-ray.dirVector() + pointLights[i]->get_vector_L(info.p));
 
         //Component especular amb atenuacio
-        cs += factorOmbra*atenuacio*this->pointLights[i]->specular * info.mat_ptr->specular*
+        cs += atenuacio*this->pointLights[i]->specular * info.mat_ptr->specular*
                 pow(std::max(dot(info.normal, H), 0.0f), info.mat_ptr->shineness);
     }
 
