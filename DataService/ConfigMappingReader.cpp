@@ -38,6 +38,8 @@ void ConfigMappingReader::fileLineRead (QString lineReaded) {
         baseFound(fields);
     else if (QString::compare("prop", fields[0], Qt::CaseInsensitive) == 0)
         propFound(fields);
+    else if (QString::compare("numFrames", fields[0], Qt::CaseInsensitive) == 0)
+        numFramesFound(fields);
     else
         std::cerr << "Element unknown" << std::endl;
 }
@@ -72,7 +74,7 @@ void ConfigMappingReader::limitsRealFound(QStringList fields) {
         Rzmin = fields[3].toDouble();
         Rzmax = fields[4].toDouble();
 
-    } else if (this->dataType==Scene::DATA_TYPES::VIRTUALWORLD) {
+    } else {
         // limitsMonVirtual xmin xmax ymin ymax zmin zmax
         if (fields.size() != 7 ) {
             std::cerr << "Wrong limits format" << std::endl;
@@ -154,4 +156,10 @@ void ConfigMappingReader::propFound(QStringList fields) {
     }
 }
 
-
+void ConfigMappingReader::numFramesFound(QStringList fields) {
+    if (fields.size() != 2) {
+        std::cerr << "Wrong propietat format config mapping" << std::endl;
+        return;
+    }
+    numFrames = fields[1].toInt();
+}

@@ -88,6 +88,10 @@ void FittedPlane::aplicaTG(shared_ptr<TG> t) {
         this->point.y = newp.y;
         this->point.z = newp.z;
     }
-
 }
+
+void FittedPlane::applyAnimation(shared_ptr<CustomAnimation> anim, int nFrame){
+//Implementar si es vol poder animar aquest tipus d'objecte
+}
+
 

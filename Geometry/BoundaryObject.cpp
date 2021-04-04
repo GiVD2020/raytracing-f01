@@ -250,3 +250,7 @@ void BoundaryObject::aplicaTG(shared_ptr<TG> t) {
         }
     }
 }
+
+void BoundaryObject::applyAnimation(shared_ptr<CustomAnimation> anim, int nFrame){
+//Implementar si es vol poder animar aquest tipus d'objecte
+}

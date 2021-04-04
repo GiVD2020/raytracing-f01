@@ -1,0 +1,10 @@
+renderType,TEMPORAL
+lookFrom, 0, 90, 0.1
+lookAt, 0, 0, 0
+vup, 0, 1, 0
+vfov, 20.0
+aspectRatio, 1.7773
+pixelsX, 910
+output,resultat.ppm
+globalLight, 0.1, 0.1, 0.1
+light,POINTLIGHT, 5, 10, 5, 0.3, 0.3, 0.3, 0.7, 0.7, 0.7, 1, 1, 1, 0.01, 0, 0.5

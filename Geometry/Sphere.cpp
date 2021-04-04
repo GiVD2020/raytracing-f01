@@ -2,6 +2,7 @@
 #include "ScaleTG.h"
 
 Sphere::Sphere(vec3 cen, float r, float data) :Object(data) {
+    initCenter = cen;
     center = cen;
     radius = r;
 }
@@ -46,3 +47,10 @@ void Sphere::aplicaTG(shared_ptr<TG> t) {
     }
 }
 
+void Sphere::applyAnimation(shared_ptr<CustomAnimation> anim, int nFrame){
+    if(dynamic_pointer_cast<EllipseAnimation>(anim)){
+        shared_ptr<EllipseAnimation> elAnim = dynamic_pointer_cast<EllipseAnimation>(anim);
+        vec3 newPos = elAnim->getPosition(initCenter, nFrame); //Retorna animació elipse en el pla y = 0;
+        center = vec3(newPos.x, initCenter.y, newPos.z);
+    }
+}

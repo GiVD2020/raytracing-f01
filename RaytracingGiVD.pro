@@ -76,6 +76,7 @@ DISTFILES += \
     resources/map.png \
     resources/mapBCN.png \
     resources/mapZoom.png \
+    resources/outerSpace.png \
     resources/spheres.txt \
     resources/spheres2.txt \
     resources/configMappingDataEuropa.txt \

@@ -85,4 +85,7 @@ void Cylinder::aplicaTG(shared_ptr<TG> t) {
         center.x = c.x; center.y = c.y; center.z = c.z;
     }
 }
+void Cylinder::applyAnimation(shared_ptr<CustomAnimation> anim, int nFrame){
+//Implementar si es vol poder animar aquest tipus d'objecte
+}
 

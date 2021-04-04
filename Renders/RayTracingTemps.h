@@ -6,11 +6,12 @@ class RayTracingTemps : public RayTracingPPM
 {
 
 public:
-    RayTracingTemps();
+    RayTracingTemps(int numFrames);
     virtual ~RayTracingTemps();
 
     virtual void renderingScene();
 
-
+private:
+    int numFrames;
 };
 

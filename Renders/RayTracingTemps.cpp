@@ -1,7 +1,8 @@
 #include "RayTracingTemps.h"
 
-RayTracingTemps::RayTracingTemps()
+RayTracingTemps::RayTracingTemps(int numFrames)
 {
+    this->numFrames = numFrames;
 }
 
 RayTracingTemps::~RayTracingTemps()
@@ -9,14 +10,13 @@ RayTracingTemps::~RayTracingTemps()
 }
 
 void RayTracingTemps::renderingScene(){
-
     string resultName;
-    for (unsigned long i=0; i<MAXFRAMES; i++ ) {
-        resultName = filename.toStdString() + std::to_string(i) + ".ppm";
+    for (int f=0; f< numFrames; f++ ) {
+        resultName = filename.toStdString() + std::to_string(f) + ".ppm";
         RayTracingPPM::initRender(resultName);
         // update dels objectes de l'escena per a posar-los al seu lloc,
         // en el cas que tinguin animacions associades
-        scene->update(i);
+        scene->update(f);
         // càlcul del frame concret
         RayTracing::rendering();
         myfile.close();

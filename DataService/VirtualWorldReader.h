@@ -40,5 +40,7 @@ private:
     void fittedPlaneFound(QStringList fields);
 
     void cylinderFound(QStringList fields);
+
+    void readMaterialAndAnimation(QStringList fields, int startIndex, shared_ptr<Object> o);
 };
 

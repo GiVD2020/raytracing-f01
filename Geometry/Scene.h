@@ -69,7 +69,8 @@ private:
     bool hitOmbra(vector<HitInfo>& infoOmbra, vec3 point, vec3 lightPosition);
     static const int MAXDEPTH = 3;
     static const int NUMRAYSAO = 30;
-    static const bool AOACTIVATED = true;
+    static const bool AOACTIVATED = false;
+    static const bool TRANSPARENTNOSHADOW = false; //Si està true, fa que s'ignori els objectes amb material transparent al calcular el factor Ombra
     constexpr static const double EPSILON = 1e-04;
 };
 

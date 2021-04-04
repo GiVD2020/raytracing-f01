@@ -62,7 +62,7 @@ vec3 Scene::ComputeColor (Ray &ray, int depth, vec3 lookFrom) {
     ray2 = normalize(ray.dirVector());
 
     HitInfo info;
-    if (hit(ray, 0, 100, info)){
+    if (hit(ray, 0, 500, info)){
         //Segons el color que ens dona Blinn-Phong:
         color = blinn_phong(ray, info, lookFrom);
         if (depth == MAXDEPTH) {
@@ -106,11 +106,11 @@ vec3 Scene::blinn_phong(Ray &ray, HitInfo &info, vec3 lookFrom){
 
         float factorOmbra = shadowCalculation(info.p, this->pointLights[i]->position);
 
+
         //Component difusa amb atenuacio
         cd += factorOmbra*atenuacio*this->pointLights[i]->diffuse * diffuse*
                 std::max(dot(info.normal, glm::normalize(pointLights[i]->get_vector_L(info.p))), 0.0f);
         vec3 H = normalize(lookFrom-info.p + pointLights[i]->get_vector_L(info.p));
-        //vec3 H = normalize(-ray.dirVector() + pointLights[i]->get_vector_L(info.p));
 
         //Component especular amb atenuacio
         cs += factorOmbra*atenuacio*this->pointLights[i]->specular * info.mat_ptr->specular*
@@ -161,7 +161,7 @@ float Scene::ambientOcclusionFactor(HitInfo info) {
     for(int i = 0; i < NUMRAYSAO; i++) {
         rayDir = info.normal + info.mat_ptr->RandomInSphere();
         rayOrigin = info.p + 0.01f*rayDir;
-        if(!hit(Ray(rayOrigin, rayDir), 0, 100, rayInfo)) {
+        if(!hit(Ray(rayOrigin, rayDir), 0, 500, rayInfo)) {
             numSkyRays ++;
         }
     }
@@ -175,6 +175,9 @@ float Scene::shadowCalculation(vec3 point, vec3 lightPosition) {
     Ray shadowRay = Ray(point, director);
     HitInfo info = HitInfo();
     if (this->hit(shadowRay, tMin, tMax, info)) {
+        if(dynamic_cast<Transparent*>(info.mat_ptr) && TRANSPARENTNOSHADOW){
+            return 1.0;
+        }
         return 0.0;
     } else {
         return 1.0;
@@ -182,8 +185,14 @@ float Scene::shadowCalculation(vec3 point, vec3 lightPosition) {
 }
 
 void Scene::update(int nframe) {
+    //NO IMPLEMENTAT
+    //(Això seria per implementar Temporal per realWorldData
+    //for (unsigned int i = 0; i< objects.size(); i++) {
+    //    objects[i]->update(nframe);
+    //}
+    //METODOLOGIA PROPIA PER ANIMAR OBJECTES DE VIRTUALWORLD:
     for (unsigned int i = 0; i< objects.size(); i++) {
-        objects[i]->update(nframe);
+        objects[i]->applyAnimations(nframe);
     }
 }
 
