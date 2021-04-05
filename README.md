@@ -36,15 +36,15 @@ _Nota: En aquesta fase, tot i que els objectes tenen atribut `diffuse` que es po
 
 El primer que se'ns demanava era la implementació dels objectes tipus `Triangle`, amb el seu hit corresponent. Els triangles consisteixen en 3 punts (`vec3`) que corresponen als tres vèrtexs del triangle. A continuació podem veure 3 triangles situats a una escena virtual.
 
-    (Imatge triangle)
+![triangles](/readmeFiles/fase1/triangles.png)
     
 Pel cas dels `boundaryObject`, que són malles poligonals, els hem implentat utilitzant directament l'objecte `Triangle`que acabem de crear, i al seu mètode hit no hem fet res més que utilitzar el hit del conjunt de triangles que formen la malla triangular. Un exemple és `cube.obj`, un objecte que se'ns proporcionava i que utilitza 12 triangles per formar les 6 cares del cub. Hem obtingut la visualització següent.
 
-    (Imatge triangle)
+![cube](/readmeFiles/fase1/cube.png)
     
-Finalment, també hem implementat els objectes tipus `Cylinder`, utilitzant els atributs: centre, radi i alçada. Les generatrius dels cilindres sempre seran verticals, és a dir, paral·leles al vector (0,1,0), de manera que aquests 3 atributs són suficients pels cilindres que tindrem al nostre projecte.
+Finalment, també hem implementat els objectes tipus `Cylinder`, utilitzant els atributs: centre, radi i alçada. Les generatrius dels cilindres sempre seran verticals, és a dir, paral·leles al vector (0,1,0), de manera que aquests 3 atributs són suficients pels cilindres que tindrem al nostre projecte. Hem afegit 3 cilindres diferents a l'escena i hem obtingut la visualització següent.
 
-    (Imatge cilindre)
+![cylinders](/readmeFiles/fase1/cylinders.png)
 
 TODO: Explicar con? @pedemonte96
 
