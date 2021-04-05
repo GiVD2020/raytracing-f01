@@ -18,7 +18,7 @@ Afegint més esferes a l'escena i canviant certs paràmetres de la càmera com e
 
 ![spheres](/readmeFiles/fase0/fase0_spheres.png)
 
-Els fitxers `configVis.txt` i `spheres.txt` utilitzats per obtenir la visualització anterior es troben al directori readmeFiles.
+Els fitxers `configVis.txt` i `spheres.txt` utilitzats per obtenir la visualització anterior es troben al directori readmeFiles/fase0.
 
 ## Fase 1
 
@@ -62,13 +62,20 @@ Hem implementat el mapeig de dades reals a virtuals i els mètodes `aplicaTG` de
     glm::mat4 sumaVmin = glm::translate(glm::mat4(1.0f), Vmin);
     auto tg = make_shared<TG>(sumaVmin*vDiff*divisioRDiff*restamR);
     
-També se'ns demanava implementar la classe `FittedPlane`, que ens serveix per situar a sobre objectes a les escenes, com si fos el terra. A continuació mostrem un exemple.
+També se'ns demanava implementar la classe `FittedPlane`, que ens serveix per situar a sobre objectes a les escenes, com si fos el terra. A continuació en mostrem un exemple.
     
-    imatge fitted plane
+![fittedplane](/readmeFiles/fase1/fittedplane.png)
 
-Podem visualitzar... TODO
+Hem creat un fitxer de dades `data10.txt` de món real amb 10 files de dades amb valors arbitraris, tal com es demanava al guió. Podem visualitzar aquestes dades amb diferents objectes. A continuació mostrem les visualitzacions utilitzant esferes i cilindres.
 
-    imatge data10.txt
+
+Utilitzant `Sphere`         |  Utilitzant `Cylinder`
+:-------------------------:|:-------------------------:
+![data10spheres](/readmeFiles/fase1/data10spheres.png)  |  ![data10cylinders](/readmeFiles/fase1/data10cylinders.png)
+
+Els fitxers `data10.txt`,`configVisData10.txt` i `configMappingData10.txt` utilitzats per obtenir les visualitzacions anteriors es troben a readmeFiles/fase1.
+
+El que ens interessa d'aquesta fase és que el mapeig (tant de posició com de valor) es realitzi correctament, ja que quan introduïm la resta de funcionalitats a les fases 2 i 3 serà imprescindible aquesta part. Amb les visualitzacions anteriors podem veure que (en principi) això es realitza correctament, però ho tornarem a veure més endavant en les properes fases.
 
 ## Fase 2
 
