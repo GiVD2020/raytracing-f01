@@ -48,7 +48,27 @@ Finalment, també hem implementat els objectes tipus `Cylinder`, utilitzant els 
 
 TODO: Explicar con? @pedemonte96
 
-### REALDATA (TODO)
+### REALDATA
+
+En aquesta fase hem implementat el mapeig de dades del món real a dades del món virtual. L'objectiu final és poder representar dades geolocalitzades en una visualització per representar dades. 
+
+Per exemple, podríem representar la població de cada capital europea de la següent forma. Un conjunt esferes sobre un pla (que té de textura el mapa d'Europa), on el radi de cada esfera es proporcional a la població i cada esfera està situada al punt del mapa que representa la seva geolocalització real. De moment, a aquesta fase només hem implementat la part del mapeig.
+
+Hem implementat el mapeig de dades reals a virtuals i els mètodes `aplicaTG` de cada tipus d'objecte utilitzant la classe `TG` que havíem fet a la pràctica 0, tal com se'ns recomanava al guió. Per exemple, per mapejar un punt geolocalitzat del món real al món virtual utilitzem una sèrie de transformacions geomètriques aplicades seqüencialment que resulten en una nova transformaicó geomètrica que és que necessitem, com podem veure a continuació.
+
+    glm::mat4 restamR = glm::translate(glm::mat4(1.0f), -Rmin);
+    glm::mat4 divisioRDiff = glm::scale(glm::mat4(1.0f), vDiv);
+    glm::mat4 vDiff = glm::scale(glm::mat4(1.0f), Vmax - Vmin);
+    glm::mat4 sumaVmin = glm::translate(glm::mat4(1.0f), Vmin);
+    auto tg = make_shared<TG>(sumaVmin*vDiff*divisioRDiff*restamR);
+    
+També se'ns demanava implementar la classe `FittedPlane`, que ens serveix per situar a sobre objectes a les escenes, com si fos el terra. A continuació mostrem un exemple.
+    
+    imatge fitted plane
+
+Podem visualitzar... TODO
+
+    imatge data10.txt
 
 ## Fase 2
 
