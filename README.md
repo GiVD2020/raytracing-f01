@@ -88,9 +88,20 @@ Com les visualitzacions a partir d'aquest punt són més el·laborades, per  mil
 ![ssaa1](/readmeFiles/fase2/ssaa1.png)  |  ![ssaa10](/readmeFiles/fase2/ssaa10.png)
 ![ssaa1zoom](/readmeFiles/fase2/ssaa1zoom.png)  |  ![ssaa10](/readmeFiles/fase2/ssaa10zoom.png)
 
+ TODO:
+    - Blinn-Phong + ombres
+    - Transparencies
+    - Metal
+    - Visualization mapping
 
 ## Fase 3
 
-Code:
-
-    example
+ TODO:
+    - Textures
+    
+## Opcionals
+  
+  TODO:
+    - Ambient occlusion
+    - Ombres de colors
+    - Animacions de dades temporals
