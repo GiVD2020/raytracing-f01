@@ -81,15 +81,53 @@ El que ens interessa d'aquesta fase és que el mapeig (tant de posició com de v
 
 L'objectiu de la fase 2 de la pràctica era crear els materials de forma completa i desenvolupar el càlcul de la il·luminació de l'escena segons el model de Blinn-Phong. 
 
-Com les visualitzacions a partir d'aquest punt són més el·laborades, per  millorar la qualitat de les imatges resultants, hem implementat *supersampling*, i.e. tirar diversos rajos per píxel amb una certa petita variació aleatòria per reduir l'aliasing. A continuació podem veure la millora que suposa aquest petit canvi.
+Durant tota la part de món virtual de la fase 2 utilitzarem la mateixa escena amb mínims canvis (afegint certs objectes) per tal de veure els canvis que suposa cada nova implementació al nostre codi i poder evaluar cada part per separat.
+
+Com les visualitzacions a partir d'aquest punt són més el·laborades, per  millorar la qualitat de les imatges resultants, hem implementat *supersampling*, i.e. tirar diversos rajos per píxel amb una certa petita variació aleatòria per reduir l'aliasing. A continuació podem veure la millora que suposa aquest petit canvi. 
 
 `numSamples=1`        |  `numSamples=10`  
 :-------------------------:|:-------------------------:
 ![ssaa1](/readmeFiles/fase2/ssaa1.png)  |  ![ssaa10](/readmeFiles/fase2/ssaa10.png)
 ![ssaa1zoom](/readmeFiles/fase2/ssaa1zoom.png)  |  ![ssaa10](/readmeFiles/fase2/ssaa10zoom.png)
 
- TODO:
-    - Blinn-Phong + ombres
+
+El primer pas per desenvolupar escenes amb il·luminació és la creació d'un objecte `Light`, que de moment serà de tipus puntual, és a dir, un punt des d'on surten rajos de llum en totes direccions. Aquest objecte tindrà un atribut posició, tres components: ambient, difusa i especular i un polinomi d'atenuació del qual guardarem els 3 coeficients a, b, c. Aquest polinomi representa com s'atenua la llum a mesura que augmenta la distància entre el punt de llum i l'objecte que il·lumina. També tindrem llum ambient global, que representa els rajos de llum que reboten múltiples cops i acaben il·luminant tots els punts de l'escena de forma uniforme.
+
+Per a les properes visualitzacions, utilitzarem una llum puntual a la posició (2, 8, 10) amb Ia= (0.3, 0.3, 0.3), una Id = (0.7, 0.7, 0.7), una Is = (1.0, 1.0, 1.0) i un coeficient d'atenuació de 0.5 + 0.01d^2. També tindrem una llum ambient global (0.1, 0.1, 0.1).
+
+Hem implementat Blinn-Phong com s'indicava a les transparències i a continuació mostrarem els resultats obtinguts pas a pas. L'esfera que utilitzarem és de material `Lambertian` amb Ka =(0.2,0.2, 0.2), Kd=(0.5, 0.5, 0.5), K_s = (1.0, 1.0, 1.0) i una shineness de 10.0.
+
+Calcul·lant només la component ambient:
+
+![bp1](/readmeFiles/fase2/bp_ca.png)
+
+Només la component difusa:
+
+![bp2](/readmeFiles/fase2/bp_cd.png)
+
+Només la component especular:
+
+![bp3](/readmeFiles/fase2/bp_cs.png)
+
+Amb la suma de les tres components anteriors:
+
+![bp4](/readmeFiles/fase2/bp_sum.png)
+
+Afegint l'atenuació de la llum:
+
+![bp5](/readmeFiles/fase2/bp_att.png)
+
+Finalment, afegim la llum ambient global:
+
+![bp6](/readmeFiles/fase2/bp_gl.png)
+
+Afegint el raig d'ombra de Blinn-Phong:
+
+![bp7](/readmeFiles/fase2/bp_shadow.png)
+
+TODO:
+    - Cal explicar més Blinn-Phong / ombres?
+    - Despres d'ombres demana una visualitzacio de minim 10 objectes
     - Transparencies
     - Metal
     - Visualization mapping
