@@ -95,7 +95,7 @@ El primer pas per desenvolupar escenes amb il·luminació és la creació d'un o
 
 Per a les properes visualitzacions, utilitzarem una llum puntual a la posició (2, 8, 10) amb Ia= (0.3, 0.3, 0.3), una Id = (0.7, 0.7, 0.7), una Is = (1.0, 1.0, 1.0) i un coeficient d'atenuació de 0.5 + 0.01d^2. També tindrem una llum ambient global (0.1, 0.1, 0.1).
 
-Hem implementat Blinn-Phong com s'indicava a les transparències i a continuació mostrarem els resultats obtinguts pas a pas. L'esfera que utilitzarem és de material `Lambertian` amb Ka =(0.2,0.2, 0.2), Kd=(0.5, 0.5, 0.5), K_s = (1.0, 1.0, 1.0) i una shineness de 10.0.
+Hem implementat Blinn-Phong a la classe `Scene` com s'indicava a les transparències i a continuació mostrarem els resultats obtinguts pas a pas. L'esfera que utilitzarem és de material `Lambertian` amb Ka =(0.2,0.2, 0.2), Kd=(0.5, 0.5, 0.5), K_s = (1.0, 1.0, 1.0) i una shineness de 10.0.
 
 Calcul·lant només la component ambient:
 
@@ -125,9 +125,14 @@ Afegint el raig d'ombra de Blinn-Phong:
 
 ![bp7](/readmeFiles/fase2/bp_shadow.png)
 
+Arribats a aquest punt, podem aprofitar la varietat d'objectes que tenim implementada per aplicar Blinn-Phong a una escena més complexa, com la següent.
+
+![bpcomplex](/readmeFiles/fase2/2a_complex.png)
+
+_Afegim a readmeFiles/fase2 el fitxer `Scene_Fase2A_Complex.txt` que conté les 10 figures que formen l'escena._
+
 TODO:
     - Cal explicar més Blinn-Phong / ombres?
-    - Despres d'ombres demana una visualitzacio de minim 10 objectes
     - Transparencies
     - Metal
     - Visualization mapping
