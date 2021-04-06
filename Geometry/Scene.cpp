@@ -175,9 +175,6 @@ float Scene::shadowCalculation(vec3 point, vec3 lightPosition) {
     Ray shadowRay = Ray(point, director);
     HitInfo info = HitInfo();
     if (this->hit(shadowRay, tMin, tMax, info)) {
-        if(dynamic_cast<Transparent*>(info.mat_ptr) && TRANSPARENTNOSHADOW){
-            return 1.0;
-        }
         return 0.0;
     } else {
         return 1.0;
