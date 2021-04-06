@@ -1,6 +1,7 @@
 #include "Cylinder.h"
 
 Cylinder::Cylinder(vec3 cen, float r, float h, float data) :Object(data) {
+    initCenter = cen;
     center = cen;
     radius = r;
     height = h;
@@ -86,6 +87,10 @@ void Cylinder::aplicaTG(shared_ptr<TG> t) {
     }
 }
 void Cylinder::applyAnimation(shared_ptr<CustomAnimation> anim, int nFrame){
-//Implementar si es vol poder animar aquest tipus d'objecte
+    if(dynamic_pointer_cast<EllipseAnimation>(anim)){
+        shared_ptr<EllipseAnimation> elAnim = dynamic_pointer_cast<EllipseAnimation>(anim);
+        vec3 newPos = elAnim->getPosition(initCenter, nFrame);
+        center = vec3(newPos.x, initCenter.y, newPos.z);
+    }
 }
 

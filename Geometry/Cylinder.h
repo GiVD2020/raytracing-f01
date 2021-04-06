@@ -16,6 +16,8 @@ public:
     virtual void aplicaTG(shared_ptr<TG> tg) override;
     virtual void applyAnimation(shared_ptr<CustomAnimation> anim, int nFrame) override;
 private:
+    //Per animacions:
+    vec3 initCenter;
     // Centre de la base del cilindre
     vec3 center;
     // Radi

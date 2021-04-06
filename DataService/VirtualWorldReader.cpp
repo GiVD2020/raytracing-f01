@@ -154,10 +154,10 @@ void VirtualWorldReader::fittedPlaneFound(QStringList fields) {
     // Construccio de l'objecte al Mon Virtual
     o = ObjectFactory::getInstance().createObject(normalPla,
                                                   dPla,
-                                                  scene->pmin.x,
-                                                  scene->pmax.x,
-                                                  scene->pmin.z,
-                                                  scene->pmax.z,
+                                                  mapping->getVirtualMinCoord().x,
+                                                  mapping->getVirtualMaxCoord().x,
+                                                  mapping->getVirtualMinCoord().z,
+                                                  mapping->getVirtualMaxCoord().z,
                                                   -1.0f,
                                                   ObjectFactory::OBJECT_TYPES::FITTEDPLANE);
 
@@ -166,7 +166,6 @@ void VirtualWorldReader::fittedPlaneFound(QStringList fields) {
 
     // Afegir objecte a l'escena
     scene->objects.push_back(o);
-
 
 }
 
@@ -234,6 +233,19 @@ void VirtualWorldReader::readMaterialAndAnimation(QStringList fields, int startI
                 cout << "Animació: Ellipse: " << "Radi eix x " << xRadius << " | Radi eix z " << zRadius << " | Frames per volta " << framesPerVolta << endl;
                 o->animations.push_back(make_shared<EllipseAnimation>(framesPerVolta, xRadius, zRadius));
                 j = j+4;
+            }else if(QString::compare("DOUBLEELLIPSE", fields[j], Qt::CaseInsensitive) == 0){
+                float xRadius = fields[j+1].toFloat();
+                float zRadius = fields[j+2].toFloat();
+                int framesPerVolta = fields[j+3].toInt();
+                float xRadius2 = fields[j+4].toFloat();
+                float yRadius2 = fields[j+5].toFloat();
+                int framesSecundaria = fields[j+6].toInt();
+                cout << "Animació: Ellipse: " << "Radi eix x " << xRadius << " | Radi eix z " << zRadius << " | Frames per volta " << framesPerVolta << endl;
+                o->animations.push_back(make_shared<DoubleEllipseAnimation>(framesPerVolta, xRadius, zRadius, framesSecundaria, xRadius2, yRadius2));
+                j = j+7;
+            }else{
+                cout << "Unexpected parameter" << fields[j].toStdString() << "in fields[0]. Skipping..." << endl;
+                j = fields.size();
             }
         }
     }

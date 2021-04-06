@@ -65,17 +65,20 @@ vec3 Scene::ComputeColor (Ray &ray, int depth, vec3 lookFrom) {
     if (hit(ray, 0, 500, info)){
         //Segons el color que ens dona Blinn-Phong:
         color = blinn_phong(ray, info, lookFrom);
-        if (depth == MAXDEPTH) {
+
+        if(depth == MAXDEPTH || dynamic_cast<MaterialTextura*>(info.mat_ptr)){
             return color;
+        }else{
+            info.mat_ptr->scatter(ray, info, scatterColor, reflected);
+            int reflectedAmount = reflected.size();
+            for (int i = 0; i < reflectedAmount; i++) {
+                recColor += ComputeColor(reflected[i], depth+1, lookFrom);
+            }
+            recColor /= max({1, reflectedAmount});
+            //return (vec3(1)-info.mat_ptr->k)*color + recColor * scatterColor;
+            return color + recColor * scatterColor;// Blinn-phong al transparent
         }
-        info.mat_ptr->scatter(ray, info, scatterColor, reflected);
-        int reflectedAmount = reflected.size();
-        for (int i = 0; i < reflectedAmount; i++) {
-            recColor += ComputeColor(reflected[i], depth+1, lookFrom);
-        }
-        recColor /= max({1, reflectedAmount});
-        //return (vec3(1)-info.mat_ptr->k)*color + recColor * scatterColor;
-        return color + recColor * scatterColor;// Blinn-phong al transparent
+
     } else {
         if (depth == 0) {
             vec3 color1 = vec3(0.5, 0.7, 1);

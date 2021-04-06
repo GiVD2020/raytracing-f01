@@ -60,6 +60,29 @@ public:
     }
 };
 
+class DoubleEllipseAnimation : public CustomAnimation
+{
+public:
+    int secondDuration;
+    float xRadius1, zRadius1, xRadius2, yRadius2;
+    DoubleEllipseAnimation(int fD, float xR, float zR, int sD, float xR2, float yR2){
+        frameDuration = fD;
+        xRadius1 = xR;
+        zRadius1 = zR;
+        secondDuration = sD;
+        xRadius2 = xR2;
+        yRadius2 = yR2;
+    }
+    glm::vec3 getPosition(glm::vec3 center, int nFrame){
+        float t1 = float(nFrame) / float(frameDuration) * 2 * PI;
+        float t2 = float(nFrame) / float(secondDuration) * 2 * PI;
+        glm::vec3 ret= glm::vec3(center.x + xRadius1 * cos(t1) + xRadius2 * sin(t2), yRadius2 * cos(t2) , center.z + zRadius1 * sin(t1));
+        return ret;
+    }
+    ~DoubleEllipseAnimation(){
+    }
+};
+
 class Animable {
 public:
     Animable();
