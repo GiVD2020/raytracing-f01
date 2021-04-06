@@ -6,6 +6,7 @@
 #include "Geometry/FittedPlane.h"
 #include "Geometry/Triangle.h"
 #include "Geometry/Cylinder.h"
+#include "Geometry/Cone.h"
 #include <QString>
 #include "Geometry/BoundaryObject.h"
 #include "Geometry/ScaleTG.h"
@@ -20,6 +21,7 @@ public:
         TRIANGLE,
         BR_OBJECT,
         CYLINDER,
+        CONE,
         FITTEDPLANE
     };
 

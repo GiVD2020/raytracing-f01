@@ -41,6 +41,9 @@ private:
 
     void cylinderFound(QStringList fields);
 
+    void coneFound(QStringList fields);
+  
     void readMaterialAndAnimation(QStringList fields, int startIndex, shared_ptr<Object> o);
+
 };
 
