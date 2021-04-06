@@ -40,5 +40,7 @@ private:
     void fittedPlaneFound(QStringList fields);
 
     void cylinderFound(QStringList fields);
+
+    void coneFound(QStringList fields);
 };
 
