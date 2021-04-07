@@ -120,7 +120,7 @@ vec3 Scene::blinn_phong(Ray &ray, HitInfo &info, vec3 lookFrom){
             cin.y = 1;
             cin.z = 1;
             for(int k=0; k<infoOmbra.size(); k++) {
-                alpha = this->pointLights[i]->get_atenuation(infoOmbra[k].p);
+                alpha = 1-infoOmbra[k].t/(dynamic_cast<Transparent*>(infoOmbra[k].mat_ptr))->dmax;
                 cout.x = cin.x*(1-alphain)*infoOmbra[k].mat_ptr->diffuse.x*alpha;
                 cout.y = cin.y*(1-alphain)*infoOmbra[k].mat_ptr->diffuse.y*alpha;
                 cout.z = cin.z*(1-alphain)*infoOmbra[k].mat_ptr->diffuse.z*alpha;
@@ -128,7 +128,7 @@ vec3 Scene::blinn_phong(Ray &ray, HitInfo &info, vec3 lookFrom){
                 alphaout = alphain + (1-alphain)*alpha;
                 alphain = alphaout;
             }
-            id = cout;
+            id = cout*this->pointLights[i]->diffuse;
             factorOmbra = 1;
             infoOmbra.clear();
         } else {
@@ -175,6 +175,7 @@ bool Scene::hitOmbra(vector<HitInfo>& infoOmbra, vec3 point, vec3 lightPosition)
     Ray shadowRay = Ray(point, director);
     HitInfo info;
     int indBefore = -1;
+    vec3 pBefore;
     while (hit(shadowRay, EPSILON, tMax, info)) {
         //Si hi ha un objecte Lambertian no calcularem aquesta ombra
         if(dynamic_cast<Lambertian*>(info.mat_ptr)) {
@@ -182,6 +183,9 @@ bool Scene::hitOmbra(vector<HitInfo>& infoOmbra, vec3 point, vec3 lightPosition)
         }
         if(indBefore != info.indObject) {
             infoOmbra.push_back(info);
+            pBefore = info.p;
+        } else {
+            infoOmbra[infoOmbra.size()-1].t = length(info.p-pBefore);
         }
         shadowRay.origin = info.p;
         tMax = length(lightPosition - info.p);
