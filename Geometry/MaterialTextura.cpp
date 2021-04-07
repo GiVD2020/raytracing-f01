@@ -8,6 +8,6 @@ vec3 MaterialTextura::getDiffuse(vec2 point)const{
     return texture->getColorPixel(point);
 }
 bool MaterialTextura::scatter(const Ray& r_in, const HitInfo& rec, vec3& color, std::vector<Ray>& r_out) const  {
-    color = getDiffuse(rec.uv);
-    return true;
+    //color = getDiffuse(rec.uv);
+    return false;
 }

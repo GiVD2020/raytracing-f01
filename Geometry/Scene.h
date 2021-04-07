@@ -12,6 +12,7 @@
 #include "Lambertian.h"
 #include "Transparent.h"
 #include "Metal.h"
+#include "MaterialTextura.h"
 #include "ColorMap.h"
 #include "Light.h"
 

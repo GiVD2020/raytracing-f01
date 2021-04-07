@@ -1,17 +1,16 @@
-#include "Cylinder.h"
+#include "Cone.h"
 
-Cylinder::Cylinder(vec3 cen, float r, float h, float data) :Object(data) {
-    initCenter = cen;
+Cone::Cone(vec3 cen, float r, float h, float data) :Object(data) {
     center = cen;
     radius = r;
     height = h;
 }
 
-bool Cylinder::hit(const Ray& raig, float t_min, float t_max, HitInfo& info) const {
-    vec3 oc = raig.initialPoint() - center;
-    float a = raig.dirVector().x*raig.dirVector().x + raig.dirVector().z*raig.dirVector().z;
-    float b = 2*(raig.dirVector().x*oc.x + raig.dirVector().z*oc.z);
-    float c = oc.x*oc.x + oc.z*oc.z - radius*radius;
+bool Cone::hit(const Ray& raig, float t_min, float t_max, HitInfo& info) const {
+    vec3 oc = raig.initialPoint() - center - vec3(0,height,0);
+    float a = raig.dirVector().x*raig.dirVector().x + raig.dirVector().z*raig.dirVector().z - (radius/height)*(radius/height)*raig.dirVector().y*raig.dirVector().y;
+    float b = 2*(raig.dirVector().x*oc.x + raig.dirVector().z*oc.z - (radius/height)*(radius/height)*raig.dirVector().y*oc.y);
+    float c = oc.x*oc.x + oc.z*oc.z - (radius/height)*(radius/height)*oc.y*oc.y;
     float discriminant = b*b - 4*a*c;
     int hitSurface = 0;
     float closestTemp = t_max;
@@ -32,38 +31,24 @@ bool Cylinder::hit(const Ray& raig, float t_min, float t_max, HitInfo& info) con
             closestTemp = temp;
         }
     }
-    // Solucio tapa superior
-    temp =  (center.y + height - raig.initialPoint().y) / raig.dirVector().y;
+    // Solucio tapa interior
+    temp =  (center.y - raig.initialPoint().y) / raig.dirVector().y;
     float x = raig.pointAtParameter(temp).x;
     float z = raig.pointAtParameter(temp).z;
     if (temp < closestTemp && temp < t_max && temp > t_min && (x - center.x)*(x - center.x) + (z - center.z)*(z - center.z) <= radius*radius) {
         hitSurface = 2;
         closestTemp = temp;
     }
-    // Solucio tapa interior
-    temp =  (center.y - raig.initialPoint().y) / raig.dirVector().y;
-    x = raig.pointAtParameter(temp).x;
-    z = raig.pointAtParameter(temp).z;
-    if (temp < closestTemp && temp < t_max && temp > t_min && (x - center.x)*(x - center.x) + (z - center.z)*(z - center.z) <= radius*radius) {
-        hitSurface = 3;
-        closestTemp = temp;
-    }
     if (hitSurface == 1) {
-        y = raig.pointAtParameter(closestTemp).y;
         info.t = closestTemp;
         info.p = raig.pointAtParameter(info.t);
-        vec3 liftedCenter(center.x, y, center.z);
-        info.normal = (info.p - liftedCenter) / radius;
+        float vx = info.p.x - center.x;
+        float vz = info.p.z - center.z;
+        float vy = sqrt(vx*vx + vz*vz)*radius/height;
+        info.normal = normalize(vec3(vx, vy, vz));
         info.mat_ptr = material.get();
         return true;
     } else if (hitSurface == 2) {
-        info.t = closestTemp;
-        info.p = raig.pointAtParameter(info.t);
-        vec3 normal(0, 1, 0);
-        info.normal = normal;
-        info.mat_ptr = material.get();
-        return true;
-    } else if (hitSurface == 3) {
         info.t = closestTemp;
         info.p = raig.pointAtParameter(info.t);
         vec3 normal(0, -1, 0);
@@ -74,7 +59,7 @@ bool Cylinder::hit(const Ray& raig, float t_min, float t_max, HitInfo& info) con
     return false;
 }
 
-void Cylinder::aplicaTG(shared_ptr<TG> t) {
+void Cone::aplicaTG(shared_ptr<TG> t) {
     //TODO: no funciona instanceof
     //if (dynamic_pointer_cast<ScaleTG>(t)) {
     if(t->getTG()[3][0]==0 ){
@@ -84,13 +69,6 @@ void Cylinder::aplicaTG(shared_ptr<TG> t) {
         vec4 c(center, 1.0);
         c = t->getTG() * c;
         center.x = c.x; center.y = c.y; center.z = c.z;
-    }
-}
-void Cylinder::applyAnimation(shared_ptr<CustomAnimation> anim, int nFrame){
-    if(dynamic_pointer_cast<EllipseAnimation>(anim)){
-        shared_ptr<EllipseAnimation> elAnim = dynamic_pointer_cast<EllipseAnimation>(anim);
-        vec3 newPos = elAnim->getPosition(initCenter, nFrame);
-        center = vec3(newPos.x, initCenter.y, newPos.z);
     }
 }
 

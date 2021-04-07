@@ -14,6 +14,7 @@ public:
     virtual bool hit(const Ray& r, float t_min, float t_max, HitInfo& info) const override;
     virtual void aplicaTG(shared_ptr<TG> tg) override;
     vec3 calculaBaricentre();
+    virtual void applyAnimation(shared_ptr<CustomAnimation> anim, int nFrame) override;
 private:
     // Punts del triangle, orientat CCW
     vec3 p1;

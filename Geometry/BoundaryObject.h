@@ -27,7 +27,7 @@ public:
     BoundaryObject(const QString &fileName, float data);
     virtual bool hit(const Ray& r, float t_min, float t_max, HitInfo& info) const;
     void aplicaTG(shared_ptr<TG> t);
-
+    virtual void applyAnimation(shared_ptr<CustomAnimation> anim, int nFrame) override;
 private:
 
 

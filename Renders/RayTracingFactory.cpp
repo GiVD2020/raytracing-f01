@@ -5,7 +5,7 @@ RayTracingFactory *RayTracingFactory::instance = nullptr;
 RayTracingFactory::RayTracingFactory() {
 
 }
-shared_ptr<RayTracing> RayTracingFactory::getRender(RENDER_TYPES t, QString filename)
+shared_ptr<RayTracing> RayTracingFactory::getRender(RENDER_TYPES t, QString filename, Mapping mapping)
 {
     shared_ptr<RayTracing> r;
     switch (t) {
@@ -17,7 +17,7 @@ shared_ptr<RayTracing> RayTracingFactory::getRender(RENDER_TYPES t, QString file
         r->setOutputFile(filename);
         break;
     case TEMPORAL:
-        r = make_shared<RayTracingTemps>();
+        r = make_shared<RayTracingTemps>(mapping.getNumFrames());
          r->setOutputFile(filename);
         break;
          }

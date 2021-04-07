@@ -81,3 +81,11 @@ shared_ptr<Material> Mapping::mapeigMaterial(int i, ColorMapStatic::COLOR_MAP_TY
     }
 
 }
+
+Scene::DATA_TYPES Mapping::getDataType(){
+    return setup->dataType;
+}
+
+int Mapping::getNumFrames(){
+    return setup->numFrames;
+}

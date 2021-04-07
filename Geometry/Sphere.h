@@ -19,7 +19,10 @@ public:
         virtual ~Sphere() {}
         virtual bool hit(const Ray& r, float t_min, float t_max, HitInfo& info) const override;
         virtual void aplicaTG(shared_ptr<TG> tg) override;
+        virtual void applyAnimation(shared_ptr<CustomAnimation> anim, int nFrame) override;
 private:
+        //Animation purposes:
+        vec3 initCenter;
         // Centre de l'esfera
         vec3 center;
         // Radi de l'esfera

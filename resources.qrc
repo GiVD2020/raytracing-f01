@@ -12,7 +12,6 @@
         <file>resources/configMapping.txt</file>
         <file>resources/configVis.txt</file>
         <file>resources/configMappingData.txt</file>
-        <file>resources/configMappingVWTemporal.txt</file>
         <file>resources/configMappingDataTemporal.txt</file>
         <file>resources/configMappingData0.txt</file>
         <file>resources/spheres2.txt</file>
@@ -32,5 +31,9 @@
         <file>resources/dadesEuropa.txt</file>
         <file>resources/mapBCN.png</file>
         <file>resources/sphere.txt</file>
+        <file>resources/outerSpace.png</file>
+        <file>resources/configMappingDataTemporalVW.txt</file>
+        <file>resources/configVisDataTemporalVW.txt</file>
+        <file>resources/Scene_TemporalVW.txt</file>
     </qresource>
 </RCC>

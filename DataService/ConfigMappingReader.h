@@ -59,6 +59,7 @@ protected:
 
     void BrObjectFound(QStringList fields);
 
+    void numFramesFound(QStringList fields);
 public:
     Scene::DATA_TYPES   dataType;
     float               Rxmin, Rxmax, Rymin, Rymax, Rzmin, Rzmax;
@@ -73,5 +74,6 @@ public:
     float               VminDiff, RminDiff;
     vector<pair<double, double>> propLimits;
     vector<pair<ObjectFactory::OBJECT_TYPES, ColorMapStatic::COLOR_MAP_TYPES>> props;
+    int                 numFrames;
 };
 

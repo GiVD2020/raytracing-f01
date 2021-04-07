@@ -1,5 +1,5 @@
-#ifndef CYLINDER_H
-#define CYLINDER_H
+#ifndef CONE_H
+#define CONE_H
 
 #include "Object.h"
 #include "Animation.h"
@@ -7,17 +7,14 @@
 #include "ScaleTG.h"
 
 
-class Cylinder: public Object
+class Cone: public Object
 {
 public:
-    Cylinder(vec3 cen, float r, float h, float data);
-    virtual ~Cylinder() {}
+    Cone(vec3 cen, float r, float h, float data);
+    virtual ~Cone() {}
     virtual bool hit(const Ray& r, float t_min, float t_max, HitInfo& info) const override;
     virtual void aplicaTG(shared_ptr<TG> tg) override;
-    virtual void applyAnimation(shared_ptr<CustomAnimation> anim, int nFrame) override;
 private:
-    //Per animacions:
-    vec3 initCenter;
     // Centre de la base del cilindre
     vec3 center;
     // Radi
@@ -26,4 +23,4 @@ private:
     float height;
 };
 
-#endif // CYLINDER_H
+#endif // CONE_H
