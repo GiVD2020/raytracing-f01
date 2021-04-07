@@ -75,3 +75,6 @@ void Plane::aplicaTG(shared_ptr<TG> t) {
 
 }
 
+void Plane::applyAnimation(shared_ptr<CustomAnimation> anim, int nFrame){
+//Implementar si es vol poder animar aquest tipus d'objecte
+}

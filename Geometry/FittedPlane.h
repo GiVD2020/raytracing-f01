@@ -20,7 +20,7 @@ public:
     virtual ~FittedPlane(){}
     virtual bool hit(const Ray &r, float t_min, float t_max, HitInfo &info) const override;
     virtual void aplicaTG(shared_ptr<TG> tg) override;
-
+    virtual void applyAnimation(shared_ptr<CustomAnimation> anim, int nFrame) override;
 private:
     float Xmin, Xmax, Zmin, Zmax;
     bool visible;

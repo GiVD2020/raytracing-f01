@@ -51,7 +51,8 @@ public:
 
     shared_ptr<ColorMap> getColorMap(ColorMapStatic::COLOR_MAP_TYPES tCM);
 
-
+    Scene::DATA_TYPES    getDataType();
+    int                  getNumFrames();
 private:
     shared_ptr<ConfigMappingReader> setup;
 };

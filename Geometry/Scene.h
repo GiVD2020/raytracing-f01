@@ -12,6 +12,7 @@
 #include "Lambertian.h"
 #include "Transparent.h"
 #include "Metal.h"
+#include "MaterialTextura.h"
 #include "ColorMap.h"
 #include "Light.h"
 
@@ -69,7 +70,7 @@ private:
     bool hitOmbra(vector<HitInfo>& infoOmbra, vec3 point, vec3 lightPosition);
     static const int MAXDEPTH = 3;
     static const int NUMRAYSAO = 30;
-    static const bool AOACTIVATED = true;
+    static const bool AOACTIVATED = false;
     constexpr static const double EPSILON = 1e-04;
 };
 

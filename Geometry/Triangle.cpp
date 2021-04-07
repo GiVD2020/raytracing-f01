@@ -83,3 +83,6 @@ vec3 Triangle::calculaBaricentre(){
     return a*(p1+p2+p3);
 }
 
+void Triangle::applyAnimation(shared_ptr<CustomAnimation> anim, int nFrame){
+//Implementar si es vol poder animar aquest tipus d'objecte
+}
