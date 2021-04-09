@@ -19,7 +19,7 @@
         - [X] 4.2.b. Pla de terra: Martí
         - [X] 4.2.c. Gizmo de Triangle: Arnau
         - [X] 4.2.d. Gizmo de Cilindre
-        - [ ] Noves dades ?
+        - [X] Noves dades: Arnau
        
 
 - Fase 2
