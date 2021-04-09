@@ -196,10 +196,6 @@ void VirtualWorldReader::cylinderFound(QStringList fields) {
 void VirtualWorldReader::coneFound(QStringList fields) {
     // En el fitxer de dades tindràs
     // cone, centre.x, centre.y, centre.z, radi, height, 3 float (ambient), 3 float (diffuse), 3 float (specular), beta
-    if (fields.size() != 16) {
-        std::cerr << "Wrong cone format" << std::endl;
-        return;
-    }
     shared_ptr<Object> o;
 
     vec3 centre = vec3(fields[1].toDouble(), fields[2].toDouble(), fields[3].toDouble());

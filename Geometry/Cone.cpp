@@ -1,6 +1,7 @@
 #include "Cone.h"
 
 Cone::Cone(vec3 cen, float r, float h, float data) :Object(data) {
+    initCenter = cen;
     center = cen;
     radius = r;
     height = h;
@@ -69,6 +70,14 @@ void Cone::aplicaTG(shared_ptr<TG> t) {
         vec4 c(center, 1.0);
         c = t->getTG() * c;
         center.x = c.x; center.y = c.y; center.z = c.z;
+    }
+}
+
+void Cone::applyAnimation(shared_ptr<CustomAnimation> anim, int nFrame){
+    if(dynamic_pointer_cast<EllipseAnimation>(anim)){
+        shared_ptr<EllipseAnimation> elAnim = dynamic_pointer_cast<EllipseAnimation>(anim);
+        vec3 newPos = elAnim->getPosition(initCenter, nFrame);
+        center = vec3(newPos.x, initCenter.y, newPos.z);
     }
 }
 
