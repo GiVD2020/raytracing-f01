@@ -116,7 +116,7 @@ vec3 Scene::blinn_phong(Ray &ray, HitInfo &info, vec3 lookFrom){
         float atenuacio = this->pointLights[i]->get_atenuation(info.p);
 
         //Opcional 4: Color shadows
-        if(COLORSHADOWASCTIVATED && hitOmbra(infoOmbra, info.p, this->pointLights[i]->position)) {
+        if(COLORSHADOWASCTIVATED && hitOmbra(infoOmbra, info.p, info.indObject, this->pointLights[i]->position)) {
             //TODO: Calcular Cout i alpha
             alphain = 0;
             cin.x = 0;
@@ -172,7 +172,7 @@ struct Compare {
     }
 };
 
-bool Scene::hitOmbra(vector<HitInfo>& infoOmbra, vec3 point, vec3 lightPosition) {
+bool Scene::hitOmbra(vector<HitInfo>& infoOmbra, vec3 point, int ind, vec3 lightPosition) {
     vec3 director = normalize(lightPosition - point);
     float tMax = length(lightPosition - point);
     Ray shadowRay = Ray(point, director);

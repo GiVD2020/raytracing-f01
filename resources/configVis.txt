@@ -1,5 +1,5 @@
 renderType,ONLINE
-lookFrom, 13, 2, 10
+lookFrom, 0, 3, -17
 lookAt, 0, 0, 0
 vup, 0, 1, 0
 vfov, 20.0
