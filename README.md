@@ -1,7 +1,3 @@
-# RayTracingGiVD 2020-21 (WIP)
-
-En aquest readme mostrarem els resultats que hem obtingut seguint el guió proposat, així com escenes extres que hem creat i parts opcionals que decidit implementar.
-
 # RayTracingGiVD 2020-21
 
 ## Equip:
