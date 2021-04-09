@@ -23,7 +23,7 @@
        
 
 - Fase 2
-    - [X] Antialiasing: Albert, Arnau
+    - [X] Antialiasing: Albert, Arnau, Carla
     - [X] Gamma Correction: Albert, Arnau, Carla
     - [X] Blin-Phong: Arnau
     - [X] Ombres amb objectes opacs: Martí
