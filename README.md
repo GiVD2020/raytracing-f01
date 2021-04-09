@@ -10,7 +10,7 @@
     - [X] Background amb degradat: Arnau
 
     - Creació de nous objectes i interseccions (VIRTUALWORLD) 
-        - [X] 4.1.a. Mapping de mons virtuals
+        - [X] 4.1.a. Mapping de mons virtuals: Albert
         - [X] 4.1.b. Hit Triangle
         - [X] 4.1.c. Hit Boundary Object: Arnau
         - [X] 4.1.d. Hit Cilindre
@@ -28,7 +28,7 @@
     - [X] Blin-Phong: Arnau
     - [X] Ombres amb objectes opacs
     - [X] Reflexions
-    - [X] Transparències
+    - [X] Transparències: Albert (fix by Martí)
     - [X] Visualització amb dades reals: Arnau
     
     
@@ -46,7 +46,7 @@
     - [X] Ambient occlusion: Carla
     - [ ] Defocus blur
     - [ ] Més d'una propietat en les dades reals ?
-    - [X] Animacions amb dades temporals: Albert
+    - [X] Animacions amb dades temporals: Albert (tot i que no és amb dades temporals, sino en virtualWorld)
     - [ ] Ombres atenuades segons objectes transparents
     - [X] Colors d'ombra segons els colors dels objectes transparents: Carla
     - [ ] Mapeig de les dades reals en una esfera
