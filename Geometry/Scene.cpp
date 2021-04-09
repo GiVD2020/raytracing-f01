@@ -119,14 +119,14 @@ vec3 Scene::blinn_phong(Ray &ray, HitInfo &info, vec3 lookFrom){
         if(COLORSHADOWASCTIVATED && hitOmbra(infoOmbra, info.p, this->pointLights[i]->position)) {
             //TODO: Calcular Cout i alpha
             alphain = 0;
-            cin.x = 1;
-            cin.y = 1;
-            cin.z = 1;
+            cin.x = 0;
+            cin.y = 0;
+            cin.z = 0;
             for(int k=0; k<infoOmbra.size(); k++) {
                 alpha = 1-infoOmbra[k].t/(dynamic_cast<Transparent*>(infoOmbra[k].mat_ptr))->dmax;
-                cout.x = cin.x*(1-alphain)*infoOmbra[k].mat_ptr->diffuse.x*alpha;
-                cout.y = cin.y*(1-alphain)*infoOmbra[k].mat_ptr->diffuse.y*alpha;
-                cout.z = cin.z*(1-alphain)*infoOmbra[k].mat_ptr->diffuse.z*alpha;
+                cout.x = cin.x + ((1-alphain)*infoOmbra[k].mat_ptr->diffuse.x*alpha);
+                cout.y = cin.y + ((1-alphain)*infoOmbra[k].mat_ptr->diffuse.y*alpha);
+                cout.z = cin.z + ((1-alphain)*infoOmbra[k].mat_ptr->diffuse.z*alpha);
                 cin = cout;
                 alphaout = alphain + (1-alphain)*alpha;
                 alphain = alphaout;
@@ -186,10 +186,10 @@ bool Scene::hitOmbra(vector<HitInfo>& infoOmbra, vec3 point, vec3 lightPosition)
         }
         if(indBefore != info.indObject) {
             infoOmbra.push_back(info);
-            pBefore = info.p;
         } else {
             infoOmbra[infoOmbra.size()-1].t = length(info.p-pBefore);
         }
+        pBefore = info.p;
         shadowRay.origin = info.p;
         tMax = length(lightPosition - info.p);
         indBefore = info.indObject;
@@ -210,6 +210,9 @@ float Scene::ambientOcclusionFactor(HitInfo info) {
     int numSkyRays = 0;
     for(int i = 0; i < NUMRAYSAO; i++) {
         rayDir = info.normal + info.mat_ptr->RandomInSphere();
+        while (dot(rayDir, info.normal) < 0) {
+            rayDir = info.normal + info.mat_ptr->RandomInSphere();
+        }
         rayOrigin = info.p + 0.01f*rayDir;
         if(!hit(Ray(rayOrigin, rayDir), 0, 500, rayInfo)) {
             numSkyRays ++;
