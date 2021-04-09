@@ -14,9 +14,12 @@ public:
     virtual ~Cone() {}
     virtual bool hit(const Ray& r, float t_min, float t_max, HitInfo& info) const override;
     virtual void aplicaTG(shared_ptr<TG> tg) override;
+    virtual void applyAnimation(shared_ptr<CustomAnimation> anim, int nFrame) override;
 private:
     // Centre de la base del cilindre
     vec3 center;
+    //Per animacions:
+    vec3 initCenter;
     // Radi
     float radius;
     // Alçada des del centre de la base

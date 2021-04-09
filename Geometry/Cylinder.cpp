@@ -86,6 +86,7 @@ void Cylinder::aplicaTG(shared_ptr<TG> t) {
         center.x = c.x; center.y = c.y; center.z = c.z;
     }
 }
+
 void Cylinder::applyAnimation(shared_ptr<CustomAnimation> anim, int nFrame){
     if(dynamic_pointer_cast<EllipseAnimation>(anim)){
         shared_ptr<EllipseAnimation> elAnim = dynamic_pointer_cast<EllipseAnimation>(anim);
