@@ -15,7 +15,7 @@
         - [X] 4.1.c. Hit Boundary Object: Arnau
         - [X] 4.1.d. Hit Cilindre
     - Creació de REAL DATA
-        - [X] 4.2.a. Transformacions Translació i Escalat amb gizmos esferes: Arnau
+        - [X] 4.2.a. Transformacions Translació i Escalat amb gizmos esferes: Arnau, Albert
         - [X] 4.2.b. Pla de terra
         - [X] 4.2.c. Gizmo de Triangle: Arnau
         - [X] 4.2.d. Gizmo de Cilindre
