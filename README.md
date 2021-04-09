@@ -2,8 +2,65 @@
 
 En aquest readme mostrarem els resultats que hem obtingut seguint el guió proposat, així com escenes extres que hem creat i parts opcionals que decidit implementar.
 
-## Fase 0
+# RayTracingGiVD 2020-21
 
+## Equip:
+
+Identificador de l'equip (A01, ...): Persones que forment l'equip
+
+
+## Features
+- Fase 1
+    - [X] Background amb degradat: persones que ho han desenvolupat (es posa a tots els punts)
+
+    - Creació de nous objectes i interseccions (VIRTUALWORLD) 
+        - [ ] 4.1.a. Mapping de mons virtuals
+        - [ ] 4.1.b. Hit Triangle
+        - [ ] 4.1.c. Hit Boundary Object
+        - [ ] 4.1.d. Hit Cilindre
+    - Creació de REAL DATA
+        - [ ] 4.2.a. Transformacions Translació i Escalat amb gizmos esferes
+        - [ ] 4.2.b. Pla de terra
+        - [ ] 4.2.c. Gizmo de Triangle
+        - [ ] 4.2.d. Gizmo de Cilindre
+        - [ ] Noves dades
+       
+
+- Fase 2
+    - [ ] Antialiasing
+    - [ ] Gamma Correction
+    - [ ] Blin-Phong
+    - [ ] Ombres amb objectes opacs
+    - [ ] Reflexions
+    - [ ] Transparències
+    - [ ] Visualització amb dades reals
+    
+    
+- Fase 3
+    - [ ] Texture mapping en el pla
+    - [ ] MaterialTextura
+    - [ ] Nova escena de dades
+   
+- Parts opcionals
+    - [ ] Nous objectes paramètrics 
+    - [ ] Penombres 
+    - [ ] Diferents tipus de llums 
+    - [ ] Multiple-scattering 
+    - [ ] Escena CSG 
+    - [ ] Ambient occlusion
+    - [ ] Defocus blur
+    - [ ] Més d'una propietat en les dades reals
+    - [ ] Animacions amb dades temporals
+    - [ ] Ombres atenuades segons objectes transparents
+    - [ ] Colors d'ombra segons els colors dels objectes transparents
+    - [ ] Mapeig de les dades reals en una esfera
+    - [ ] Ús de diferents paletes 
+    
+## Explicació de la pràctica    
+_Comentaris de aspectes particulars de la vostra pràctica. Es pot seguir el guió de l'enunciat o fer una explicació més general amb alguns screenshots que avalin les vostres explicacions_
+
+### Fase 0
+    
 La fase 0 és una fase premiliminar en la qual l'objectiu era familiaritzar-se amb el projecte i obtenir les primeres visualitzacions.
 
 La primera que vam obtenir va ser el background de l'escena, un degradat des del blau RGB(0.5, 0.7, 1) fins el blanc RGB(1,1,1).
@@ -20,7 +77,7 @@ Afegint més esferes a l'escena i canviant certs paràmetres de la càmera com e
 
 Els fitxers `configVis.txt` i `spheres.txt` utilitzats per obtenir la visualització anterior es troben al directori readmeFiles/fase0.
 
-## Fase 1
+### Fase 1
 
 L'objectiu de la fase 1 era construïr una escena virtual, utilitzant tant dades virtuals (esferes, triangles, cilindres...) com dades reals representades en una escena virtual. Tot i que les visualitzacions d'aquesta fase continuïn en un estat molt preliminar, tot el codi que hem fet a aquesta fase ens ha serveix per poder fer visualitzacions més interessants a la fase 2 i 3.
 
@@ -30,7 +87,7 @@ Les tasques d'aquesta fase es divideixen en dues parts molt diferenciades però 
 - les que situen creen l'escena corresponent a les dades geolocalitzades a partir d'un fitxer de
 dades `REALDATA`
 
-### VIRTUALWORLD
+#### VIRTUALWORLD
 
 _Nota: En aquesta fase, tot i que els objectes tenen atribut `diffuse` que es pot utilitzar com a color de l'objecte, mostrarem les visualitzacions utilitzant com a color la normal del raig que intersecta cada punt de l'objecte, ja que ajuda a diferenciar millor les formes 3D._
 
@@ -48,7 +105,7 @@ Finalment, també hem implementat els objectes tipus `Cylinder`, utilitzant els 
 
 TODO: Explicar con? @pedemonte96
 
-### REALDATA
+#### REALDATA
 
 En aquesta fase hem implementat el mapeig de dades del món real a dades del món virtual. L'objectiu final és poder representar dades geolocalitzades en una visualització per representar dades. 
 
@@ -77,7 +134,7 @@ Els fitxers `data10.txt`,`configVisData10.txt` i `configMappingData10.txt` utili
 
 El que ens interessa d'aquesta fase és que el mapeig (tant de posició com de valor) es realitzi correctament, ja que quan introduïm la resta de funcionalitats a les fases 2 i 3 serà imprescindible aquesta part. Amb les visualitzacions anteriors podem veure que (en principi) això es realitza correctament, però ho tornarem a veure més endavant en les properes fases.
 
-## Fase 2
+### Fase 2
 
 L'objectiu de la fase 2 de la pràctica era crear els materials de forma completa i desenvolupar el càlcul de la il·luminació de l'escena segons el model de Blinn-Phong. 
 
@@ -137,14 +194,22 @@ TODO:
     - Metal
     - Visualization mapping
 
-## Fase 3
+### Fase 3
 
  TODO:
     - Textures
     
-## Opcionals
+### Opcionals
   
   TODO:
     - Ambient occlusion
     - Ombres de colors
     - Animacions de dades temporals
+    
+### Screenshots més rellevants
+
+_Recordeu que n'heu de triar-ne un per pujar-lo a la web: https://padlet.com/twopuig/d63depo6ql4tzqot_
+
+       
+### Informació addicional o observacions
+
