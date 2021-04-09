@@ -11,23 +11,23 @@
 
     - Creació de nous objectes i interseccions (VIRTUALWORLD) 
         - [X] 4.1.a. Mapping de mons virtuals: Albert
-        - [X] 4.1.b. Hit Triangle
+        - [X] 4.1.b. Hit Triangle: Carla
         - [X] 4.1.c. Hit Boundary Object: Arnau
         - [X] 4.1.d. Hit Cilindre: Martí
     - Creació de REAL DATA
-        - [X] 4.2.a. Transformacions Translació i Escalat amb gizmos esferes: Arnau, Albert
+        - [X] 4.2.a. Transformacions Translació i Escalat amb gizmos esferes: Arnau, Albert, Carla
         - [X] 4.2.b. Pla de terra: Martí
         - [X] 4.2.c. Gizmo de Triangle: Arnau
         - [X] 4.2.d. Gizmo de Cilindre
-        - [X] Noves dades: Arnau
+        - [ ] Noves dades ?
        
 
 - Fase 2
     - [X] Antialiasing: Albert, Arnau
-    - [X] Gamma Correction: Albert, Arnau
+    - [X] Gamma Correction: Albert, Arnau, Carla
     - [X] Blin-Phong: Arnau
     - [X] Ombres amb objectes opacs: Martí
-    - [X] Reflexions
+    - [X] Reflexions: Carla
     - [X] Transparències: Albert (fix by Martí)
     - [X] Visualització amb dades reals: Arnau
     
