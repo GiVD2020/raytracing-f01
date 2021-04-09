@@ -2,53 +2,53 @@
 
 ## Equip:
 
-Identificador de l'equip (A01, ...): Persones que forment l'equip
+**F01**: Albert Mir, Carla Morral, Martí Pedemonte, Arnau Quindós
 
 
 ## Features
 - Fase 1
-    - [X] Background amb degradat: persones que ho han desenvolupat (es posa a tots els punts)
+    - [X] Background amb degradat: Arnau
 
     - Creació de nous objectes i interseccions (VIRTUALWORLD) 
-        - [ ] 4.1.a. Mapping de mons virtuals
-        - [ ] 4.1.b. Hit Triangle
-        - [ ] 4.1.c. Hit Boundary Object
-        - [ ] 4.1.d. Hit Cilindre
+        - [X] 4.1.a. Mapping de mons virtuals
+        - [X] 4.1.b. Hit Triangle
+        - [X] 4.1.c. Hit Boundary Object: Arnau
+        - [X] 4.1.d. Hit Cilindre
     - Creació de REAL DATA
-        - [ ] 4.2.a. Transformacions Translació i Escalat amb gizmos esferes
-        - [ ] 4.2.b. Pla de terra
-        - [ ] 4.2.c. Gizmo de Triangle
-        - [ ] 4.2.d. Gizmo de Cilindre
-        - [ ] Noves dades
+        - [X] 4.2.a. Transformacions Translació i Escalat amb gizmos esferes: Arnau
+        - [X] 4.2.b. Pla de terra
+        - [X] 4.2.c. Gizmo de Triangle: Arnau
+        - [X] 4.2.d. Gizmo de Cilindre
+        - [ ] Noves dades ?
        
 
 - Fase 2
-    - [ ] Antialiasing
-    - [ ] Gamma Correction
-    - [ ] Blin-Phong
-    - [ ] Ombres amb objectes opacs
-    - [ ] Reflexions
-    - [ ] Transparències
-    - [ ] Visualització amb dades reals
+    - [X] Antialiasing: Albert, Arnau
+    - [X] Gamma Correction: Albert, Arnau
+    - [X] Blin-Phong: Arnau
+    - [X] Ombres amb objectes opacs
+    - [X] Reflexions
+    - [X] Transparències
+    - [X] Visualització amb dades reals: Arnau
     
     
 - Fase 3
-    - [ ] Texture mapping en el pla
-    - [ ] MaterialTextura
-    - [ ] Nova escena de dades
+    - [X] Texture mapping en el pla: Albert, Arnau
+    - [X] MaterialTextura: Albert, Arnau
+    - [ ] Nova escena de dades ?
    
 - Parts opcionals
-    - [ ] Nous objectes paramètrics 
+    - [X] Nous objectes paramètrics (Con): Martí
     - [ ] Penombres 
     - [ ] Diferents tipus de llums 
-    - [ ] Multiple-scattering 
+    - [ ] Multiple-scattering ?
     - [ ] Escena CSG 
-    - [ ] Ambient occlusion
+    - [X] Ambient occlusion: Carla
     - [ ] Defocus blur
-    - [ ] Més d'una propietat en les dades reals
-    - [ ] Animacions amb dades temporals
+    - [ ] Més d'una propietat en les dades reals ?
+    - [X] Animacions amb dades temporals: Albert
     - [ ] Ombres atenuades segons objectes transparents
-    - [ ] Colors d'ombra segons els colors dels objectes transparents
+    - [X] Colors d'ombra segons els colors dels objectes transparents: Carlos
     - [ ] Mapeig de les dades reals en una esfera
     - [ ] Ús de diferents paletes 
     
