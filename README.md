@@ -13,10 +13,10 @@
         - [X] 4.1.a. Mapping de mons virtuals: Albert
         - [X] 4.1.b. Hit Triangle
         - [X] 4.1.c. Hit Boundary Object: Arnau
-        - [X] 4.1.d. Hit Cilindre
+        - [X] 4.1.d. Hit Cilindre: Martí
     - Creació de REAL DATA
         - [X] 4.2.a. Transformacions Translació i Escalat amb gizmos esferes: Arnau, Albert
-        - [X] 4.2.b. Pla de terra
+        - [X] 4.2.b. Pla de terra: Martí
         - [X] 4.2.c. Gizmo de Triangle: Arnau
         - [X] 4.2.d. Gizmo de Cilindre
         - [ ] Noves dades ?
@@ -26,7 +26,7 @@
     - [X] Antialiasing: Albert, Arnau
     - [X] Gamma Correction: Albert, Arnau
     - [X] Blin-Phong: Arnau
-    - [X] Ombres amb objectes opacs
+    - [X] Ombres amb objectes opacs: Martí
     - [X] Reflexions
     - [X] Transparències: Albert (fix by Martí)
     - [X] Visualització amb dades reals: Arnau
@@ -95,11 +95,9 @@ Pel cas dels `boundaryObject`, que són malles poligonals, els hem implentat uti
 
 ![cube](/readmeFiles/fase1/cube.png)
     
-Finalment, també hem implementat els objectes tipus `Cylinder`, utilitzant els atributs: centre, radi i alçada. Les generatrius dels cilindres sempre seran verticals, és a dir, paral·leles al vector (0,1,0), de manera que aquests 3 atributs són suficients pels cilindres que tindrem al nostre projecte. Hem afegit 3 cilindres diferents a l'escena i hem obtingut la visualització següent.
+Finalment, també hem implementat els objectes tipus `Cylinder`, utilitzant els atributs: centre de la base, radi i alçada. Les generatrius dels cilindres sempre seran verticals, és a dir, paral·leles al vector (0,1,0), de manera que aquests 3 atributs són suficients pels cilindres que tindrem al nostre projecte. Hem afegit 3 cilindres diferents a l'escena i hem obtingut la visualització següent.
 
 ![cylinders](/readmeFiles/fase1/cylinders.png)
-
-TODO: Explicar con? @pedemonte96
 
 #### REALDATA
 
@@ -196,6 +194,12 @@ TODO:
     - Textures
     
 ### Opcionals
+
+#### Implementació de nous objectes paramètrics: Con
+
+A part de tots els objectes que se'ns demanaven, també hem implementat els objectes tipus `Cone`, utilitzant els atributs: centre de la base, radi de la base i alçada. Els cons sempre estaran orientats verticalment, és a dir, amb l'alçada paral·lela al vector (0,1,0), de manera que aquests 3 atributs són suficients. Hem afegit 4 cilindres diferents a l'escena, amb el color corresponent a la normal de cada cara, i hem obtingut la visualització següent.
+
+![cones](/readmeFiles/fase3/cones.png)
   
   TODO:
     - Ambient occlusion
