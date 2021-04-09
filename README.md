@@ -41,7 +41,7 @@
     - [X] Nous objectes paramètrics (Con): Martí
     - [ ] Penombres 
     - [ ] Diferents tipus de llums 
-    - [ ] Multiple-scattering ?
+    - [X] Multiple-scattering: Martí
     - [ ] Escena CSG 
     - [X] Ambient occlusion: Carla
     - [ ] Defocus blur
@@ -176,16 +176,37 @@ Afegint el raig d'ombra de Blinn-Phong:
 
 ![bp7](/readmeFiles/fase2/bp_shadow.png)
 
+Per aquesta part hem tingut en compte l'anomenat _shadow acné_, i en comptes de fer servir un `t_min=0` a la intersecció del raig d'ombra hem considerat un epsilon de 0.001.
+
 Arribats a aquest punt, podem aprofitar la varietat d'objectes que tenim implementada per aplicar Blinn-Phong a una escena més complexa, com la següent.
 
 ![bpcomplex](/readmeFiles/fase2/2a_complex.png)
 
 _Afegim a readmeFiles/fase2 el fitxer `Scene_Fase2A_Complex.txt` que conté les 10 figures que formen l'escena._
 
+Seguidament hem implementat la recursivitat al nostre algorisme de raytracing. Podem veure les diferències subtils entre una imatge amb profunditat màxima 1 i una amb profunditat màxima 10 a la taula següent:
+
+`MAXDEPTH=1`        |  `MAXDEPTH=10`  
+:-------------------------:|:-------------------------:
+![md1](/readmeFiles/fase2/md1.png)  |  ![md10](/readmeFiles/fase2/md10.png)
+
+Veiem que la de més profunditat és lleugerament més lluminosa. També hem implementat que els rajos secundaris que no intercepten amb l'escena no tinguin la llum del background, sino de la intensitat global. Com podem veure a la següent imatge, amb `MAXDEPTH=4`, és notablement més fosca:
+
+![md4_dark](/readmeFiles/fase2/md4_dark.png)
+
+Veiem ara com queden els materials metàlics, és a dir, els que reflexen els rajos de llum, amb `MAXDEPTH=4`:
+
+![metalic](/readmeFiles/fase2/metalic.png)
+
+A continuació hem implementat els materials transparents. A la taula següent podem veure una imatge amb diferents profunditats màximes de materials transparents. Tal com ens proposa el guió, l'índex de refracció de l'objecte transparent mostrat és 1.5 superior a l'aire de l'escena.
+
+`MAXDEPTH=1`        |  `MAXDEPTH=4`  
+:-------------------------:|:-------------------------:
+![trans_md1](/readmeFiles/fase2/trans_md1.png)  |  ![trans_md4](/readmeFiles/fase2/trans_md4.png)
+
+Veiem que sense gaire profunditat els rajos secundaris no poden adquirir el color dels elements refractats.
+
 TODO:
-    - Cal explicar més Blinn-Phong / ombres?
-    - Transparencies
-    - Metal
     - Visualization mapping
 
 ### Fase 3
@@ -200,6 +221,16 @@ TODO:
 A part de tots els objectes que se'ns demanaven, també hem implementat els objectes tipus `Cone`, utilitzant els atributs: centre de la base, radi de la base i alçada. Els cons sempre estaran orientats verticalment, és a dir, amb l'alçada paral·lela al vector (0,1,0), de manera que aquests 3 atributs són suficients. Hem afegit uns quants cilindres diferents a l'escena, amb el color corresponent a la normal de cada cara, i hem obtingut la visualització següent.
 
 ![cones](/readmeFiles/fase3/cones.png)
+
+#### Implementació de Multiple-scattering
+
+Hem implementat la dispersió de múltiples rajos per a materials lambertians, ja que es produeixen materials molt menys rugosos i més realistes (malgrat que també és més costos computacionalment a l'hora de generar les imatges, ja que és O(n^d), on n és el nombre de rajos dispersats i d és la profunditat màxima). Podem veure la diferència del multiple-scattering a les imatges següents:
+
+`MAXDEPTH=4, numRays=1`         |  `MAXDEPTH=4, numRays=20`
+:----------------------------------:|:----------------------------------:
+![1raig_depth4](/readmeFiles/fase3/1raig_depth4.png)  |  ![20raig_depth4](/readmeFiles/fase3/20raig_depth4.png)
+
+_Afegim a readmeFiles/fase3 els fitxers `configVis_multiple.txt` i `spheres_multiple.txt` per a recrear l'escena anterior._
   
   TODO:
     - Ambient occlusion
