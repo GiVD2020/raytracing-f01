@@ -48,7 +48,7 @@
     - [ ] Més d'una propietat en les dades reals ?
     - [X] Animacions amb dades temporals: Albert
     - [ ] Ombres atenuades segons objectes transparents
-    - [X] Colors d'ombra segons els colors dels objectes transparents: Carlos
+    - [X] Colors d'ombra segons els colors dels objectes transparents: Carla
     - [ ] Mapeig de les dades reals en una esfera
     - [ ] Ús de diferents paletes 
     
