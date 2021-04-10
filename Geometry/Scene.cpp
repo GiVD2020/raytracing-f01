@@ -181,7 +181,7 @@ bool Scene::hitOmbra(vector<HitInfo>& infoOmbra, vec3 point, int ind, vec3 light
     vec3 pBefore;
     while (hit(shadowRay, EPSILON, tMax, info)) {
         //Si hi ha un objecte Lambertian no calcularem aquesta ombra
-        if(dynamic_cast<Lambertian*>(info.mat_ptr)) {
+        if(!dynamic_cast<Transparent*>(info.mat_ptr)) {
             return false;
         }
         if(indBefore != info.indObject) {
