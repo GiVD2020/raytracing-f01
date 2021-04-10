@@ -19,7 +19,7 @@
         - [X] 4.2.b. Pla de terra: Martí
         - [X] 4.2.c. Gizmo de Triangle: Arnau
         - [X] 4.2.d. Gizmo de Cilindre: Martí?
-        - [ ] Noves dades ?
+        - [X] Noves dades: Arnau (fase 3)
        
 
 - Fase 2
@@ -34,8 +34,8 @@
     
 - Fase 3
     - [X] Texture mapping en el pla: Albert, Arnau
-    - [X] MaterialTextura: Albert, Arnau
-    - [ ] Nova escena de dades ?
+    - [X] MaterialTextura: Albert
+    - [X] Nova escena de dades: Arnau
    
 - Parts opcionals
     - [X] Nous objectes paramètrics (Con): Martí
