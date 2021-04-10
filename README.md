@@ -207,8 +207,15 @@ A continuació hem implementat els materials transparents. A la taula següent p
 
 Veiem que sense gaire profunditat els rajos secundaris no poden adquirir el color dels elements refractats.
 
-TODO:
-    - Visualization mapping
+#### Visualization mapping
+
+Per la part de dades reals d’aquesta fase, estava tot pràcticament implementat a la fase 1, amb la petita dificultat que havíem d’invertir l’eix de les Z, ja que si mirem l’origen de les z’s en el pla XZ, a les dades reals és abaix a la dreta mentre que l’origen al món real és a dalt a la dreta, per poder fer les correspondències amb el mapa de referència. Per fer això, vam canviar el mètode que mapeja els punts de món real a món virtual per tal que ho fes correctament.
+
+A continuació podem veure el resultat del mapeig de les esferes amb l’inversió de l’eix z utilitzant el fitxer `DataBCN.txt` i els paràmetres indicats al guió de la pràctica.
+
+![vizmappping](/readmeFiles/fase2/viz_mapping.png)
+
+_A la fase 3 implementarem les texures i veurem que el mapeig es realitza correctament sobre mapes._
 
 ### Fase 3
 
