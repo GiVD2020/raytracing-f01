@@ -34,5 +34,7 @@
         <file>resources/configMappingDataTemporalVW.txt</file>
         <file>resources/configVisDataTemporalVW.txt</file>
         <file>resources/Scene_TemporalVW.txt</file>
+        <file>resources/Scene_Penumbra.txt</file>
+        <file>resources/configVisPenumbra.txt</file>
     </qresource>
 </RCC>
