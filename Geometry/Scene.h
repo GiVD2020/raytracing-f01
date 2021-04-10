@@ -67,10 +67,11 @@ private:
     vector<shared_ptr<Light>> pointLights;
     vec3 globalLight;
     vec3 blinn_phong(Ray &ray, HitInfo &info, vec3 lookFrom);
-    bool hitOmbra(vector<HitInfo>& infoOmbra, vec3 point, vec3 lightPosition);
-    static const int MAXDEPTH = 3;
+    bool hitOmbra(vector<HitInfo>& infoOmbra, vec3 point, int ind, vec3 lightPosition);
+    static const int MAXDEPTH = 0;
     static const int NUMRAYSAO = 30;
     static const bool AOACTIVATED = false;
+    static const bool COLORSHADOWASCTIVATED = true;
     constexpr static const double EPSILON = 1e-04;
 };
 
