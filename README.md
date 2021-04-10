@@ -18,7 +18,7 @@
         - [X] 4.2.a. Transformacions Translació i Escalat amb gizmos esferes: Arnau, Albert, Carla
         - [X] 4.2.b. Pla de terra: Martí
         - [X] 4.2.c. Gizmo de Triangle: Arnau
-        - [X] 4.2.d. Gizmo de Cilindre
+        - [X] 4.2.d. Gizmo de Cilindre: Martí?
         - [ ] Noves dades ?
        
 
@@ -51,6 +51,7 @@
     - [X] Colors d'ombra segons els colors dels objectes transparents: Carla
     - [ ] Mapeig de les dades reals en una esfera
     - [ ] Ús de diferents paletes 
+    - [X] Acabament adaptatiu recursivitat: Martí
     
 ## Explicació de la pràctica    
 _Comentaris de aspectes particulars de la vostra pràctica. Es pot seguir el guió de l'enunciat o fer una explicació més general amb alguns screenshots que avalin les vostres explicacions_
@@ -231,6 +232,17 @@ Hem implementat la dispersió de múltiples rajos per a materials lambertians, j
 ![1raig_depth4](/readmeFiles/fase3/1raig_depth4.png)  |  ![20raig_depth4](/readmeFiles/fase3/20raig_depth4.png)
 
 _Afegim a readmeFiles/fase3 els fitxers `configVis_multiple.txt` i `spheres_multiple.txt` per a recrear l'escena anterior._
+
+#### Acabament adaptatiu de la recursivitat
+
+Hem implementat un acabament adaptatiu de la recursivitat dels raigs quan contribueixen poc al color del píxel. Hem afegit un argument al mètode ComputeColor de `Scene.cpp` que porta el color acumulat, i es para la recursivitat quan el mòdul del color acumulat és més petit que un cert valor `ACCCOLOR` definit a `Scene.h`. Així podem millorar eficiència de l'algorisme en detriment de menys lluminositat en certes parts de la iamtge (ja que estem despreciant contribucions petites). A continuació es poden veure tres imatges corresponents a la fase 2, amb `MAXDEPTH=5` i el nombre de raigs del lambertià a `NUMRAYS=5`, en tots els casos, però canviant el valor de `ACCCOLOR`. També es mostra el nombre de crides al mètode ComputeColor, que disminueix quan augmenta el paràmetre `ACCCOLOR`, ja que acaba l'algorisme abans.
+
+`ACCCOLOR=0`, crides = 9509461 |  `ACCCOLOR=0.5`, crides = 8257626 | `ACCCOLOR=0.9`, crides = 7296206 
+:----------------------------------:|:----------------------------------:|:----------------------------------:
+![no_acc](/readmeFiles/fase3/no_acc.png)  |  ![acc_05](/readmeFiles/fase3/acc_05.png)  |  ![acc_09](/readmeFiles/fase3/acc_09.png)
+
+Podem veure que a mesura que s'augmenta el paràmetre la imatge es torna una mica més fosca.
+
   
   TODO:
     - Ambient occlusion
