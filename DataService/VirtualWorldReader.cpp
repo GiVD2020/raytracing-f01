@@ -239,6 +239,14 @@ void VirtualWorldReader::readMaterialAndAnimation(QStringList fields, int startI
         auto mat = make_shared<MaterialTextura>(ambient,diffuse,specular,shineness, tex);
         o->setMaterial(mat);
         j = i + 12;
+        //Comrpovar flag IGNORELIGHTS
+        if(fields.size() >= i+13){
+            if(QString::compare("IGNORELIGHTS", fields[i+12], Qt::CaseInsensitive) == 0){
+                mat->ignoreLights = true;
+                j++;
+            }
+        }
+
     }
     else {
         std::cerr << "Wrong material name (" << fields[i+10].toStdString() << ")" << std::endl;

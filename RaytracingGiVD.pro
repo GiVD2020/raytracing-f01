@@ -82,7 +82,7 @@ DISTFILES += \
     resources/spheres2.txt \
     resources/configMappingDataEuropa.txt \
     resources/configVisDataEuropa.txt \
-    resources/dadesEuropa.txt
+    resources/dadesEuropa.txt \
 
 HEADERS += \
     Controller.h \

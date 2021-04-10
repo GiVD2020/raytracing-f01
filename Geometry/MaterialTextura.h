@@ -11,6 +11,7 @@ public:
     virtual bool scatter(const Ray& r_in, const HitInfo& rec, vec3& color, std::vector<Ray>& r_out) const;
     vec3 getDiffuse(vec2 point) const override;
     vec3 getAmbient(vec2 point) const;
+    bool ignoreLights = false;
 protected:
     shared_ptr<Texture> texture;
 };

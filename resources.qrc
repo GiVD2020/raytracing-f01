@@ -34,5 +34,7 @@
         <file>resources/configMappingDataTemporalVW.txt</file>
         <file>resources/configVisDataTemporalVW.txt</file>
         <file>resources/Scene_TemporalVW.txt</file>
+        <file>resources/sun_nasa.png</file>
+        <file>resources/moon_nasa.png</file>
     </qresource>
 </RCC>

@@ -21,7 +21,6 @@ bool Sphere::hit(const Ray& raig, float t_min, float t_max, HitInfo& info) const
             info.p = raig.pointAtParameter(info.t);
             info.normal = (info.p - center) / radius;
             info.mat_ptr = material.get();
-            return true;
             hit = true;
         }
         if(!hit){
@@ -35,19 +34,15 @@ bool Sphere::hit(const Ray& raig, float t_min, float t_max, HitInfo& info) const
             }
         }
     }
-    return false;
 
     //Textura
     if(dynamic_cast<MaterialTextura*>(info.mat_ptr)) {
-        vec3 point = (info.p - center) / radius;
-        float phi = atan2(point.x, point.z);
-        float u = 0.5 + phi / 2.0 * PI;
-        float theta = asin(point.y);
-        float v = theta / PI + 0.5;
-        info.uv = vec2(u, v);
-    }
-    if(hit == true){
-        cout << "a" << endl;
+        vec3 point = info.normal; //Coincideix amb (info.p - center) / radius que es el que volem
+        float theta = acos(point.y);
+        float phi = atan2(-point.x, point.z) + PI;
+        float u = phi / (2*PI);
+        float v = theta / PI;
+        info.uv = vec2(u,v);
     }
     return hit;
 }

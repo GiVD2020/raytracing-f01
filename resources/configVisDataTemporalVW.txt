@@ -1,9 +1,9 @@
 renderType,TEMPORAL
-lookFrom, 0, 90, -40.1
+lookFrom, 0, 90, -30.1
 lookAt, 0, 0, 0
 vup, 0, 1, 0
 vfov, 20.0
-aspectRatio, 1.7773
-pixelsX, 910
+aspectRatio, 1.777778
+pixelsX, 1280
 output,resultat.ppm
-globalLight, 0.1, 0.1, 0.1
+globalLight, 0.4, 0.4, 0.4

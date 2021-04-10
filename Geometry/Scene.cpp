@@ -102,8 +102,11 @@ vec3 Scene::blinn_phong(Ray &ray, HitInfo &info, vec3 lookFrom){
     //Per cada Light
     for(int i=0; i<pointLights.size(); i++){
         //Component ambient
-        if(dynamic_cast<MaterialTextura*>(info.mat_ptr)){
-            ca += dynamic_cast<MaterialTextura*>(info.mat_ptr)->getAmbient(info.uv) * this->pointLights[i]->ambient;
+        if(MaterialTextura* mat = dynamic_cast<MaterialTextura*>(info.mat_ptr)){
+            if(mat->ignoreLights){ //Si el materialtextura té la flag IGNORELIGHTS a la configuració, s'ignoren les llums
+                continue;
+            }
+            ca += mat->getAmbient(info.uv) * this->pointLights[i]->ambient;
         }else{
             ca += info.mat_ptr->ambient * this->pointLights[i]->ambient;
         }
@@ -111,7 +114,20 @@ vec3 Scene::blinn_phong(Ray &ray, HitInfo &info, vec3 lookFrom){
 
         float atenuacio = this->pointLights[i]->get_atenuation(info.p);
 
-        float factorOmbra = shadowCalculation(info.p, this->pointLights[i]->position);
+        float factorOmbra;
+        bool ignoraOmbra = false;
+        if(MaterialTextura* mat = dynamic_cast<MaterialTextura*>(info.mat_ptr)){
+            if(mat->ignoreLights){
+                ignoraOmbra = true;
+            }
+        }
+        if(ignoraOmbra){
+            factorOmbra = 1;
+        }else{
+            factorOmbra = shadowCalculation(info.p, this->pointLights[i]->position);
+        }
+        //Si el materialtextura té la flag IGNORELIGHTS a la configuració, s'ignoren les ombres
+
 
 
         //Component difusa amb atenuacio
@@ -125,8 +141,11 @@ vec3 Scene::blinn_phong(Ray &ray, HitInfo &info, vec3 lookFrom){
     }
 
     vec3 global;
-    if(dynamic_cast<MaterialTextura*>(info.mat_ptr)){
-       global = dynamic_cast<MaterialTextura*>(info.mat_ptr)->getAmbient(info.uv);
+    if(MaterialTextura* mat = dynamic_cast<MaterialTextura*>(info.mat_ptr)){
+        global = mat->getAmbient(info.uv);
+        if(!mat->ignoreLights){ //Si el materialtextura té la flag IGNORELIGHTS a la configuració, s'ignoren les llums
+            global *= this->globalLight;
+        }
     }else{
        global = this->globalLight*info.mat_ptr->ambient;
     }
