@@ -217,10 +217,13 @@ A continuació podem veure el resultat del mapeig de les esferes amb l’inversi
 
 _A la fase 3 implementarem les texures i veurem que el mapeig es realitza correctament sobre mapes._
 
-### Fase 3
+### Fase 3: Textures
+Per implementar les textures, hem creat una nova classe subclasse de `Material`, `MaterialTextura`. A més, un nou mètode de la classe `Material`, el `getDiffuse`. Aquest mètode, tal i com s'indicava a l'enunciat, és un mètode virtual i per tant s'implementa per a tot els materials, i es crida cada cop que es vol obtenir la component `diffuse` d'un `Material`. 
 
- TODO:
-    - Textures
+Tots els materials excepte el `MaterialTextura` retornaran simplement la component difosa, mentres que a `MaterialTextura`, donades les coordenades u,v normalitzades (entre 0 i 1), retorna el color corresponent un cop aplicat el mapeig de u,v a les coordenades de la imatge de la textura del material. Un cop tenim això, només cal que, a blinn-phong, en comptes de retornar la component difosa del material com es feia fins ara, es cridi a aquest nou mètode `getDiffuse`, amb les components u,v normalitzades. Aquestes components u,v s'afageixen ara com a paràmetre, i es calculen en el mètode hit de cada objecte del qual es vulgui implementar Textures, posant un if en cas que el material de l'objecte sigui `MaterialTextura` (altrament, es deixen en 0,0, o qualsevol valor, ja que `getDiffuse` simplement retornarà la component difosa). 
+Inicialment, només implementem textures per a objectes del tipus `fittedPlane`:
+
+![textures](/readmeFiles/fase3/tex_1.png)
     
 ### Opcionals
 
@@ -255,7 +258,20 @@ Podem veure que a mesura que s'augmenta el paràmetre la imatge es torna una mic
     - Ambient occlusion
     - Ombres de colors
     - Animacions de dades temporals
-    
+
+
+#### Animacions
+Hem decidit implementar animacions però no per dades del món real, si no per a objectes del món virtual.
+S'ha aprofitat un tipus de data no implementat anomenat `TEMPORALVW`, per tal que es realitzés l'animació si el tipus de mon era `TemporalVW`. D'aquesta manera s'inicialitzarà un render del tipus `RayTracingTemps`, que a cada frame cridarà el mètode `update` de `Scene`, i farà un renderitzat.
+Al fitxer `Animation.h`, hem creat una nova classe anomenada `CustomAnimation`, i hem afegit a cada objecte de tipus `Animable` un vector d'aquests `CustomAnimation`, de manera que és possible que un objecte tingui més d'una animació. Després, la classe `Object` implementa un mètode d'`Animable` anomenat `applyAnimations`, que es cridarà a cada frame des de `Scene` per a cada objecte i itera per aquest vector i crida al mètode virtual d'`Animable` anomenat `applyAnimation`, que agafa per parametres l'animació que s'està iterant i el número de frame. Cada objecte ha d'implementar aquest mètode `applyAnimation`, i el mètode es deixa buit i només s'omple per a aquells objectes que es vulgui implementar animacions (filosofia similar a aplicaTG).
+
+També, a `VirtualWorldReader`, per a cada objecte que es vulgui animar, es llegeixen les animacions i es pushegen en el vector d'animacions de l'objecte. Les animacions s'escriuen en el fitxer de configuració de l'escena al final de cada objecte. 
+
+Per tant, per a cada animació nova que es vulgui afegir, només cal crear una subclasse de `CustomAnimation`, i en el mètode `applyAnimation` de l'objecte desitjat, fet un dynamic_cast a aquell tipus d'animació i fer la lògica que es deistgi. Nosaltres hem creat una animació del tipus Ellipse (al pla y = 0).
+El format per a afegir-l a a un objecte és posar al final de l'objecte ELLIPSE, x, z, nF, on `x` és el radi de l'eix x, `y` el radi de l'eix y, i `nF` el nombre de frames que es triga a realitzar una volta sencera. Pel centre de la elipse s'agafa el centre que es defineix per l'esfera en el fitxer.
+Els fitxers utilitzats per aquesta animació són [configVis](/readmeFiles/fase3/configVisAnim_1.txt), [configMapping](/readmeFiles/fase3/configMappingAnim_1.txt), [scene](/readmeFiles/fase3/sceneAnim_1.txt)
+![animacio_1](/readmeFiles/fase3/anim_1.gif)
+
 ### Screenshots més rellevants
 
 _Recordeu que n'heu de triar-ne un per pujar-lo a la web: https://padlet.com/twopuig/d63depo6ql4tzqot_
