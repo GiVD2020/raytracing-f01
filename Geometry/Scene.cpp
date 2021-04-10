@@ -124,9 +124,9 @@ vec3 Scene::blinn_phong(Ray &ray, HitInfo &info, vec3 lookFrom){
             cin.z = 0;
             for(int k=0; k<infoOmbra.size(); k++) {
                 alpha = 1-infoOmbra[k].t/(dynamic_cast<Transparent*>(infoOmbra[k].mat_ptr))->dmax;
-                cout.x = cin.x + ((1-alphain)*infoOmbra[k].mat_ptr->diffuse.x*alpha);
-                cout.y = cin.y + ((1-alphain)*infoOmbra[k].mat_ptr->diffuse.y*alpha);
-                cout.z = cin.z + ((1-alphain)*infoOmbra[k].mat_ptr->diffuse.z*alpha);
+                cout.x = cin.x - ((1-alphain)*infoOmbra[k].mat_ptr->diffuse.x*alpha);
+                cout.y = cin.y - ((1-alphain)*infoOmbra[k].mat_ptr->diffuse.y*alpha);
+                cout.z = cin.z - ((1-alphain)*infoOmbra[k].mat_ptr->diffuse.z*alpha);
                 cin = cout;
                 alphaout = alphain + (1-alphain)*alpha;
                 alphain = alphaout;
