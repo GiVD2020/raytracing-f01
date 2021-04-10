@@ -253,12 +253,6 @@ Hem implementat un acabament adaptatiu de la recursivitat dels raigs quan contri
 
 Podem veure que a mesura que s'augmenta el paràmetre la imatge es torna una mica més fosca.
 
-  
-  TODO:
-    - Ambient occlusion
-    - Ombres de colors
-    - Animacions de dades temporals
-
 #### Ambient Occlusion
 
 A continuació podem veure el resultat de la implementació del Ambient Occlusion en una escena amb bastants objectes. Com es pot veure, l'Ambient Occlusion provoca que aquelles parts entre els objectes i les ombres s'enfosqueixin una mica. Es pot apreciar en les imatges. Per tal de fer les visualitzacions tots els objectes s'han fet de material lambertià i en el cas del Ambient Occlusion s'ha suposat escena outdoor i s'han tirat 30 raigs (`NUMRAYSAO=30`). Quan a la produnditat, no hem tirat raigs reflectits en cap cas i per tant `MAXDEPTH=0`.
@@ -266,6 +260,14 @@ A continuació podem veure el resultat de la implementació del Ambient Occlusio
 Resultat sense Ambient Occlusion |  Resultat amb Ambient Occlusion
 :----------------------------------:|:----------------------------------:
 ![no_acc](/readmeFiles/fase3/noAO.png)  |  ![acc_05](/readmeFiles/fase3/AO.png)
+
+
+#### Ombres de colors
+Seguidament podem veure una visialització amb esferes transparents que tenen ombres de diferents colors. Cal comentar que no hem aconseguit que les ombres prenguin el color de les esferes, però creiem que així queda molt maco visualment. 
+
+Resultat
+:----------------------------------:
+![no_acc](/readmeFiles/fase3/shadowcolors.png)
 
 
 #### Animacions
