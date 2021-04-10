@@ -259,6 +259,14 @@ Podem veure que a mesura que s'augmenta el paràmetre la imatge es torna una mic
     - Ombres de colors
     - Animacions de dades temporals
 
+#### Ambient Occlusion
+
+A continuació podem veure el resultat de la implementació del Ambient Occlusion en una escena amb bastants objectes. Com es pot veure, l'Ambient Occlusion provoca que aquelles parts entre els objectes i les ombres s'enfosqueixin una mica. Es pot apreciar en les imatges. Per tal de fer les visualitzacions tots els objectes s'han fet de material lambertià i en el cas del Ambient Occlusion s'ha suposat escena outdoor i s'han tirat 30 raigs (`NUMRAYSAO=30`). Quan a la produnditat, no hem tirat raigs reflectits en cap cas i per tant `MAXDEPTH=0`.
+
+Resultat sense Ambient Occlusion |  Resultat amb Ambient Occlusion
+:----------------------------------:|:----------------------------------:
+![no_acc](/readmeFiles/fase3/noAO.png)  |  ![acc_05](/readmeFiles/fase3/AO.png)
+
 
 #### Animacions
 Hem decidit implementar animacions però no per dades del món real, si no per a objectes del món virtual.
