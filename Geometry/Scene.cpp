@@ -52,8 +52,8 @@ bool Scene::hit(const Ray& raig, float t_min, float t_max, HitInfo& info) const 
 ** TODO: Fase 2 per a tractar reflexions i transparències
 **
 */
-vec3 Scene::ComputeColor (Ray &ray, int depth, vec3 lookFrom) {
-
+vec3 Scene::ComputeColor (Ray &ray, int depth, vec3 lookFrom, vec3 accCol) {
+    numCompColors++;
     vec3 color;
     vec3 recColor = vec3(0);
     vec3 scatterColor;
@@ -66,13 +66,13 @@ vec3 Scene::ComputeColor (Ray &ray, int depth, vec3 lookFrom) {
         //Segons el color que ens dona Blinn-Phong:
         color = blinn_phong(ray, info, lookFrom);
 
-        if(depth == MAXDEPTH || dynamic_cast<MaterialTextura*>(info.mat_ptr)){
+        if(depth == MAXDEPTH || dynamic_cast<MaterialTextura*>(info.mat_ptr) || length(accCol) < ACCCOLOR){
             return color;
         }else{
             info.mat_ptr->scatter(ray, info, scatterColor, reflected);
             int reflectedAmount = reflected.size();
             for (int i = 0; i < reflectedAmount; i++) {
-                recColor += ComputeColor(reflected[i], depth+1, lookFrom);
+                recColor += ComputeColor(reflected[i], depth+1, lookFrom, accCol*scatterColor);
             }
             recColor /= max({1, reflectedAmount});
             //return (vec3(1)-info.mat_ptr->k)*color + recColor * scatterColor;
@@ -80,7 +80,9 @@ vec3 Scene::ComputeColor (Ray &ray, int depth, vec3 lookFrom) {
         }
 
     } else {
-        if (depth == 0) {
+        if (depth != 0 && AMBIENTSECRAYS) {
+            return globalLight;
+        } else {
             vec3 color1 = vec3(0.5, 0.7, 1);
             vec3 color2 = vec3(1, 1 ,1);
             // TODO: A canviar el càlcul del color en les diferents fases
@@ -88,7 +90,6 @@ vec3 Scene::ComputeColor (Ray &ray, int depth, vec3 lookFrom) {
             color = (float)y*color1 + (float)(1-y)*color2;
             return color;
         }
-        return globalLight;
     }
 
 }
