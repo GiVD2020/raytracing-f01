@@ -51,7 +51,7 @@ public:
     * Simula elipse en el pla y = 0:
     */
     glm::vec3 getPosition(glm::vec3 center, int nFrame){
-        float t = float(nFrame) / float(frameDuration) * 2 * PI;
+        float t = (3*PI/2) + float(nFrame) / float(frameDuration) * 2 * PI;
         glm::vec3 ret= glm::vec3(center.x + xRadius * cos(t), center.y, center.z + zRadius * sin(t));
         return ret;
     }
@@ -74,8 +74,8 @@ public:
         zRadius2 = yR2;
     }
     glm::vec3 getPosition(glm::vec3 center, int nFrame){
-        float t1 = float(nFrame) / float(frameDuration) * 2 * PI;
-        float t2 = float(nFrame) / float(secondDuration) * 2 * PI;
+        float t1 = (3*PI/2) + float(nFrame) / float(frameDuration) * 2 * PI;
+        float t2 = (3*PI/2) + float(nFrame) / float(secondDuration) * 2 * PI;
         glm::vec3 ret= glm::vec3(center.x + xRadius1 * cos(t1) + xRadius2 * cos(t2), center.y, center.z + zRadius1 * sin(t1) + zRadius2 * sin(t2));
         //glm::vec3 ret= glm::vec3(center.x + xRadius1 * cos(t1) + xRadius2 * sin(t2), zRadius2 * cos(t2) , center.z + zRadius1 * sin(t1));
         return ret;
@@ -83,6 +83,20 @@ public:
     ~DoubleEllipseAnimation(){
     }
 };
+
+class RotationAnimation : public CustomAnimation
+{
+public:
+    RotationAnimation(int frameDuration){
+        this->frameDuration = frameDuration;
+    }
+    float getAngle(int nFrame){
+        return float(2)*PI*float(nFrame) / float(frameDuration);
+    }
+    ~RotationAnimation(){
+    }
+};
+
 
 class Animable {
 public:

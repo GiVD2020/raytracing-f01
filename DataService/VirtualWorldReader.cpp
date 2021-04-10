@@ -274,6 +274,11 @@ void VirtualWorldReader::readMaterialAndAnimation(QStringList fields, int startI
                 cout << "Animació: Ellipse: " << "Radi eix x " << xRadius << " | Radi eix z " << zRadius << " | Frames per volta " << framesPerVolta << endl;
                 o->animations.push_back(make_shared<DoubleEllipseAnimation>(framesPerVolta, xRadius, zRadius, framesSecundaria, xRadius2, yRadius2));
                 j = j+7;
+            }else if(QString::compare("ROTATION", fields[j], Qt::CaseInsensitive) == 0){
+                int frames = fields[j+1].toInt();
+                cout << "Animació: Rotació " << " | Frames per volta " << frames << endl;
+                o->animations.push_back(make_shared<RotationAnimation>(frames));
+                j = j+2;
             }else{
                 cout << "Unexpected parameter" << fields[j].toStdString() << "in fields[0]. Skipping..." << endl;
                 j = fields.size();

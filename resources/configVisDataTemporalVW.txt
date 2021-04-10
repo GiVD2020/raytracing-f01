@@ -6,4 +6,5 @@ vfov, 20.0
 aspectRatio, 1.777778
 pixelsX, 1280
 output,resultat.ppm
-globalLight, 0.4, 0.4, 0.4
+globalLight, 0.05, 0.05, 0.05
+light,POINTLIGHT, 0, 10, -2, 0.0, 0.0, 0.0, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.00025, 0.001, 0.01

@@ -36,5 +36,7 @@
         <file>resources/Scene_TemporalVW.txt</file>
         <file>resources/sun_nasa.png</file>
         <file>resources/moon_nasa.png</file>
+        <file>resources/Scene_Penumbra.txt</file>
+        <file>resources/configVisPenumbra.txt</file>
     </qresource>
 </RCC>

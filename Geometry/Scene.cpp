@@ -103,7 +103,7 @@ vec3 Scene::blinn_phong(Ray &ray, HitInfo &info, vec3 lookFrom){
     for(int i=0; i<pointLights.size(); i++){
         //Component ambient
         if(MaterialTextura* mat = dynamic_cast<MaterialTextura*>(info.mat_ptr)){
-            if(mat->ignoreLights){ //Si el materialtextura té la flag IGNORELIGHTS a la configuració, s'ignoren les llums
+            if(mat->ignoreLights){ //IGNOREM OMBRES I INTERACCIONS AMB LLUM SI ES MATERIAL TEXTURA AMB FLAG DE IGNORELIGHTS
                 continue;
             }
             ca += mat->getAmbient(info.uv) * this->pointLights[i]->ambient;
@@ -116,6 +116,8 @@ vec3 Scene::blinn_phong(Ray &ray, HitInfo &info, vec3 lookFrom){
 
         float factorOmbra;
         bool ignoraOmbra = false;
+
+        //IGNOREM OMBRES I INTERACCIONS AMB LLUM SI ES MATERIAL TEXTURA AMB FLAG DE IGNORELIGHTS
         if(MaterialTextura* mat = dynamic_cast<MaterialTextura*>(info.mat_ptr)){
             if(mat->ignoreLights){
                 ignoraOmbra = true;
@@ -126,10 +128,6 @@ vec3 Scene::blinn_phong(Ray &ray, HitInfo &info, vec3 lookFrom){
         }else{
             factorOmbra = shadowCalculation(info.p, this->pointLights[i]->position);
         }
-        //Si el materialtextura té la flag IGNORELIGHTS a la configuració, s'ignoren les ombres
-
-
-
         //Component difusa amb atenuacio
         cd += factorOmbra*atenuacio*this->pointLights[i]->diffuse * diffuse*
                 std::max(dot(info.normal, glm::normalize(pointLights[i]->get_vector_L(info.p))), 0.0f);
@@ -143,7 +141,7 @@ vec3 Scene::blinn_phong(Ray &ray, HitInfo &info, vec3 lookFrom){
     vec3 global;
     if(MaterialTextura* mat = dynamic_cast<MaterialTextura*>(info.mat_ptr)){
         global = mat->getAmbient(info.uv);
-        if(!mat->ignoreLights){ //Si el materialtextura té la flag IGNORELIGHTS a la configuració, s'ignoren les llums
+        if(!mat->ignoreLights){ //IGNOREM OMBRES I INTERACCIONS AMB LLUM SI ES MATERIAL TEXTURA AMB FLAG DE IGNORELIGHTS
             global *= this->globalLight;
         }
     }else{
@@ -206,6 +204,13 @@ float Scene::shadowCalculation(vec3 point, vec3 lightPosition) {
     Ray shadowRay = Ray(point, director);
     HitInfo info = HitInfo();
     if (this->hit(shadowRay, tMin, tMax, info)) {
+        //IGNOREM OMBRES I INTERACCIONS AMB LLUM SI ES MATERIAL TEXTURA AMB FLAG DE IGNORELIGHTS
+        if(auto tex_mat = dynamic_cast<MaterialTextura*>(info.mat_ptr)){
+            if(tex_mat->ignoreLights){
+                return 1.0;
+            }
+        }
+        //
         return 0.0;
     } else {
         return 1.0;
