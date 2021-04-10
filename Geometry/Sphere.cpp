@@ -13,6 +13,7 @@ bool Sphere::hit(const Ray& raig, float t_min, float t_max, HitInfo& info) const
     float b = dot(oc, raig.dirVector());
     float c = dot(oc, oc) - radius*radius;
     float discriminant = b*b - a*c;
+    bool hit = false;
     if (discriminant > 0) {
         float temp = (-b - sqrt(discriminant))/a;
         if (temp < t_max && temp > t_min) {
@@ -21,17 +22,34 @@ bool Sphere::hit(const Ray& raig, float t_min, float t_max, HitInfo& info) const
             info.normal = (info.p - center) / radius;
             info.mat_ptr = material.get();
             return true;
+            hit = true;
         }
-        temp = (-b + sqrt(discriminant)) / a;
-        if (temp < t_max && temp > t_min) {
-            info.t = temp;
-            info.p = raig.pointAtParameter(info.t);
-            info.normal = (info.p - center) / radius;
-            info.mat_ptr = material.get();
-            return true;
+        if(!hit){
+            temp = (-b + sqrt(discriminant)) / a;
+            if (temp < t_max && temp > t_min) {
+                info.t = temp;
+                info.p = raig.pointAtParameter(info.t);
+                info.normal = (info.p - center) / radius;
+                info.mat_ptr = material.get();
+                hit = true;
+            }
         }
     }
     return false;
+
+    //Textura
+    if(dynamic_cast<MaterialTextura*>(info.mat_ptr)) {
+        vec3 point = (info.p - center) / radius;
+        float phi = atan2(point.x, point.z);
+        float u = 0.5 + phi / 2.0 * PI;
+        float theta = asin(point.y);
+        float v = theta / PI + 0.5;
+        info.uv = vec2(u, v);
+    }
+    if(hit == true){
+        cout << "a" << endl;
+    }
+    return hit;
 }
 
 void Sphere::aplicaTG(shared_ptr<TG> t) {

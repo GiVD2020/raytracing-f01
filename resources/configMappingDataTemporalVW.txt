@@ -1,4 +1,4 @@
 dataType,TEMPORALVW
-limitsMonVirtual, -50, 50, -5, 5, -50, 50
-limitsMonReal, -50, 50, -5, 5, -50, 50
+limitsMonReal, -20, 20, -20, 20, -20, 20
+limitsMonVirtual, -40, 40, -20, 20, -25, 25
 numFrames, 960

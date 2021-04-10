@@ -102,7 +102,11 @@ vec3 Scene::blinn_phong(Ray &ray, HitInfo &info, vec3 lookFrom){
     //Per cada Light
     for(int i=0; i<pointLights.size(); i++){
         //Component ambient
-        ca += info.mat_ptr->ambient * this->pointLights[i]->ambient;
+        if(dynamic_cast<MaterialTextura*>(info.mat_ptr)){
+            ca += dynamic_cast<MaterialTextura*>(info.mat_ptr)->getAmbient(info.uv) * this->pointLights[i]->ambient;
+        }else{
+            ca += info.mat_ptr->ambient * this->pointLights[i]->ambient;
+        }
         diffuse = info.mat_ptr->getDiffuse(info.uv);
 
         float atenuacio = this->pointLights[i]->get_atenuation(info.p);
@@ -120,7 +124,12 @@ vec3 Scene::blinn_phong(Ray &ray, HitInfo &info, vec3 lookFrom){
                 pow(std::max(dot(info.normal, H), 0.0f), info.mat_ptr->shineness);
     }
 
-    vec3 global = this->globalLight*info.mat_ptr->ambient;
+    vec3 global;
+    if(dynamic_cast<MaterialTextura*>(info.mat_ptr)){
+       global = dynamic_cast<MaterialTextura*>(info.mat_ptr)->getAmbient(info.uv);
+    }else{
+       global = this->globalLight*info.mat_ptr->ambient;
+    }
 
     //Ambient occlusion: suposem escenes outdoor i llancem n raigs aleatoris des de p cap al 'cel'
     float AOFactor = 1;
