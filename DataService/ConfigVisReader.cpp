@@ -168,7 +168,7 @@ void ConfigVisReader::lightFound(QStringList fields) {
     b = fields[15].toDouble();
     c = fields[16].toDouble();
 
-    if (QString::compare("noTypeYet", fields[1], Qt::CaseInsensitive) == 0){
+    if (QString::compare("noTypeYet", fields[1], Qt::CaseInsensitive) == 0 || QString::compare("POINTLIGHT", fields[1], Qt::CaseInsensitive) == 0){
         pointLights.push_back(make_shared<Light>(position, ambient, diffuse, specular, a, b, c));
     } else if (QString::compare("sphericalLight", fields[1], Qt::CaseInsensitive) == 0){
         int numLights = fields[17].toInt();

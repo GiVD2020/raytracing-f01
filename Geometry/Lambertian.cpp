@@ -7,6 +7,10 @@ using namespace glm;
 Lambertian::Lambertian(const vec3& color): Material()
 {
     diffuse = color;
+    ambient = vec3(0.1);
+    specular = vec3(0);
+    shineness = 1;
+    k = vec3(0.3);
 }
 
 Lambertian::Lambertian(vec3 a, vec3 d, vec3 s, float beta): Material(a,d,s,vec3(0,0,0),beta)
