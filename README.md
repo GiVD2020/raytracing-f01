@@ -119,10 +119,10 @@ També se'ns demanava implementar la classe `FittedPlane`, que ens serveix per s
     
 ![fittedplane](readmeFiles/fase1/fittedplane.png)
 
-Hem creat un fitxer de dades `data10.txt` de món real amb 10 files de dades amb valors arbitraris, tal com es demanava al guió. Podem visualitzar aquestes dades amb diferents objectes. A continuació mostrem les visualitzacions utilitzant esferes i cilindres.
+Hem creat un fitxer de dades `data10.txt` de món real amb 10 files de dades amb valors arbitraris, tal com es demanava al guió. Podem visualitzar aquestes dades amb diferents objectes, el que s'anomena _gizmo_. A continuació mostrem les visualitzacions utilitzant els gizmos d'esferes i cilindres.
 
 
-Utilitzant `Sphere`         |  Utilitzant `Cylinder`
+gizmo `Sphere`         |  gizmos `Cylinder`
 :-------------------------:|:-------------------------:
 ![data10spheres](readmeFiles/fase1/data10spheres.png)  |  ![data10cylinders](readmeFiles/fase1/data10cylinders.png)
 
@@ -212,9 +212,11 @@ Veiem que sense gaire profunditat els rajos secundaris no poden adquirir el colo
 
 Per la part de dades reals d’aquesta fase, estava tot pràcticament implementat a la fase 1, amb la petita dificultat que havíem d’invertir l’eix de les Z, ja que si mirem l’origen de les z’s en el pla XZ, a les dades reals és abaix a la dreta mentre que l’origen al món real és a dalt a la dreta, per poder fer les correspondències amb el mapa de referència. Per fer això, vam canviar el mètode que mapeja els punts de món real a món virtual per tal que ho fes correctament.
 
+També cal comentar que no mapegem el valor del rang inicial (VminReal, VmaxReal) al rang (0, VmaxVirtual), ja que llavors el punt mínim del món real tindria un valor al món virtual de 0 (i per tant un radi de 0 en el cas del gizmo esfera). Per aquest motiu, vam decidir realitzar el (VminReal, VmaxReal) al rang (0.01·VmaxVirtual, VmaxVirtual), i d'aquesta manera, els gizmos amb valor mínim es veuen molt petits però es veuen, cosa que ens interessa per la representació de dades.
+
 A continuació podem veure el resultat del mapeig de les esferes amb l’inversió de l’eix z utilitzant el fitxer `DataBCN.txt` i els paràmetres indicats al guió de la pràctica, i `MAXDEPTH=0` (i.e. sense recursivitat).
 
-<img src="/readmeFiles/fase2/viz_mapping.png" width="400">
+<img src="readmeFiles/fase2/viz_mapping.png" width="400">
 
 _A la fase 3 implementarem les texures i veurem que el mapeig es realitza correctament sobre mapes._
 
