@@ -334,10 +334,10 @@ TODO
 
 #### Animació Outer Space
 Per realitzar aquesta animació, hem utilitzat els opcionals d'animació i de textura en esferes, i, a més, hem afegit alguns extres:
-- Un paràmetre opcional INGORELIGHTS que permet als materials del tipus `MaterialTextura` ignorar les llums i les ombres, és a dir, a l'hora de calcular llums i ombres, s'ignoraran totalment els objectes amb aquesta flag activada. La col·locarem tant a l'esfera del Sol com al fittedPlane del fons d'estrelles. D'aquesta manera, una única llum al centre del Sol simula més adequadament la llum que arriba a la Terra i a la LLuna, i es pot visualitzar l'eclipse. Si posavem moltes llums a l'exterior del Sol, arribava llum pels costats i no quedava tant bé.
-- Una nova animació, ROTACIO, que fa que la textura de l'esfera roti sobre l'eix y.
-- Una nova animació, DOUBLEELLIPSE, que fa que l'esfera segueixi dues elipses. La utilitzem per la lluna, ja que segueix la mateixa elipse que la Terra, i després una altra elipse per rotar al voltant de la Terra.
-- Hem fet que la llum ambient dels materials amb textura sigui la mateixa que la difosa, és a dir, basada en la imatge de la textura. D'aquesta manera, podem posar una llum global fosca, i així les cares no il·luminades pel Sol de la Terra i la Lluna, tot i estar fosques, tenen la imatge de la textura.
+- Un paràmetre opcional `INGORELIGHTS` que permet als materials del tipus `MaterialTextura` ignorar les llums i les ombres, és a dir, a l'hora de calcular llums i ombres, s'ignoraran totalment els objectes amb aquesta flag activada. La col·locarem tant a l'esfera del Sol com al `fittedPlane` del fons d'estrelles. D'aquesta manera, una única llum al centre del Sol simula més adequadament la llum que arriba a la Terra i a la LLuna, i es pot visualitzar l'eclipse. Si posavem moltes llums a l'exterior del Sol, arribava llum pels costats i no quedava tant bé.
+- Una nova animació, `ROTACIO`, que fa que la textura de l'esfera roti sobre l'eix y.
+- Una nova animació, `DOUBLEELLIPSE`, que fa que l'esfera segueixi dues elipses. La utilitzem per la lluna, ja que segueix la mateixa elipse que la Terra, i després una altra elipse per rotar al voltant de la Terra.
+- Hem donat la opció (variable `AMBIENTTEXTURA` de scene.h) que la llum ambient dels materials amb textura sigui la mateixa que la difosa, és a dir, basada en la imatge de la textura. D'aquesta manera, podem posar una llum global fosca, i així les cares no il·luminades pel Sol de la Terra i la Lluna, tot i estar fosques, tenen la imatge de la textura.
 - La llum puntual té component ambient 0, i els materials tenen tots component especular 0. De fet, en aquesta escena, no utilitzem recursivitat ni reflexos.
 
 
