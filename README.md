@@ -63,15 +63,15 @@ La fase 0 és una fase premiliminar en la qual l'objectiu era familiaritzar-se a
 
 La primera que vam obtenir va ser el background de l'escena, un degradat des del blau RGB(0.5, 0.7, 1) fins el blanc RGB(1,1,1).
 
-![background](/readmeFiles/fase0/fase0_background.png)
+![background](readmeFiles/fase0/fase0_background.png)
 
 Les esferes ja estaven implementades al projecte i nosaltres vam implementar el mètode `hit` per detectar la col·lisió dels rajos del RayTracing amb les esferes de l'escena. Un cop implementat això i utilitzant la normal del raig sobre cada punt de l'objecte com a color, aquest és el resultat obtingut amb una sola esfera.
 
-![sphere](/readmeFiles/fase0/fase0_sphere.png)
+![sphere](readmeFiles/fase0/fase0_sphere.png)
 
 Afegint més esferes a l'escena i canviant certs paràmetres de la càmera com el `vfov` i el `lookFrom`, hem obtingut la següent imatge.
 
-![spheres](/readmeFiles/fase0/fase0_spheres.png)
+![spheres](readmeFiles/fase0/fase0_spheres.png)
 
 Els fitxers `configVis.txt` i `spheres.txt` utilitzats per obtenir la visualització anterior es troben al directori readmeFiles/fase0.
 
@@ -91,15 +91,15 @@ _Nota: En aquesta fase, tot i que els objectes tenen atribut `diffuse` que es po
 
 El primer que se'ns demanava era la implementació dels objectes tipus `Triangle`, amb el seu hit corresponent. Els triangles consisteixen en 3 punts (`vec3`) que corresponen als tres vèrtexs del triangle. A continuació podem veure 3 triangles situats a una escena virtual.
 
-![triangles](/readmeFiles/fase1/triangles.png)
+![triangles](readmeFiles/fase1/triangles.png)
     
 Pel cas dels `boundaryObject`, que són malles poligonals, els hem implentat utilitzant directament l'objecte `Triangle`que acabem de crear, i al seu mètode hit no hem fet res més que utilitzar el hit del conjunt de triangles que formen la malla triangular. Un exemple és `cube.obj`, un objecte que se'ns proporcionava i que utilitza 12 triangles per formar les 6 cares del cub. Hem obtingut la visualització següent.
 
-![cube](/readmeFiles/fase1/cube.png)
+![cube](readmeFiles/fase1/cube.png)
     
 Finalment, també hem implementat els objectes tipus `Cylinder`, utilitzant els atributs: centre de la base, radi i alçada. Les generatrius dels cilindres sempre seran verticals, és a dir, paral·leles al vector (0,1,0), de manera que aquests 3 atributs són suficients pels cilindres que tindrem al nostre projecte. Hem afegit 3 cilindres diferents a l'escena i hem obtingut la visualització següent.
 
-![cylinders](/readmeFiles/fase1/cylinders.png)
+![cylinders](readmeFiles/fase1/cylinders.png)
 
 #### REALDATA
 
@@ -117,14 +117,14 @@ Hem implementat el mapeig de dades reals a virtuals i els mètodes `aplicaTG` de
     
 També se'ns demanava implementar la classe `FittedPlane`, que ens serveix per situar a sobre objectes a les escenes, com si fos el terra. A continuació en mostrem un exemple.
     
-![fittedplane](/readmeFiles/fase1/fittedplane.png)
+![fittedplane](readmeFiles/fase1/fittedplane.png)
 
 Hem creat un fitxer de dades `data10.txt` de món real amb 10 files de dades amb valors arbitraris, tal com es demanava al guió. Podem visualitzar aquestes dades amb diferents objectes. A continuació mostrem les visualitzacions utilitzant esferes i cilindres.
 
 
 Utilitzant `Sphere`         |  Utilitzant `Cylinder`
 :-------------------------:|:-------------------------:
-![data10spheres](/readmeFiles/fase1/data10spheres.png)  |  ![data10cylinders](/readmeFiles/fase1/data10cylinders.png)
+![data10spheres](readmeFiles/fase1/data10spheres.png)  |  ![data10cylinders](readmeFiles/fase1/data10cylinders.png)
 
 Els fitxers `data10.txt`,`configVisData10.txt` i `configMappingData10.txt` utilitzats per obtenir les visualitzacions anteriors es troben a readmeFiles/fase1.
 
@@ -140,8 +140,8 @@ Com les visualitzacions a partir d'aquest punt són més el·laborades, per  mil
 
 `numSamples=1`        |  `numSamples=10`  
 :-------------------------:|:-------------------------:
-![ssaa1](/readmeFiles/fase2/ssaa1.png)  |  ![ssaa10](/readmeFiles/fase2/ssaa10.png)
-![ssaa1zoom](/readmeFiles/fase2/ssaa1zoom.png)  |  ![ssaa10](/readmeFiles/fase2/ssaa10zoom.png)
+![ssaa1](readmeFiles/fase2/ssaa1.png)  |  ![ssaa10](readmeFiles/fase2/ssaa10.png)
+![ssaa1zoom](readmeFiles/fase2/ssaa1zoom.png)  |  ![ssaa10](readmeFiles/fase2/ssaa10zoom.png)
 
 
 El primer pas per desenvolupar escenes amb il·luminació és la creació d'un objecte `Light`, que de moment serà de tipus puntual, és a dir, un punt des d'on surten rajos de llum en totes direccions. Aquest objecte tindrà un atribut posició, tres components: ambient, difusa i especular i un polinomi d'atenuació del qual guardarem els 3 coeficients a, b, c. Aquest polinomi representa com s'atenua la llum a mesura que augmenta la distància entre el punt de llum i l'objecte que il·lumina. També tindrem llum ambient global, que representa els rajos de llum que reboten múltiples cops i acaben il·luminant tots els punts de l'escena de forma uniforme.
@@ -152,37 +152,37 @@ Hem implementat Blinn-Phong a la classe `Scene` com s'indicava a les transparèn
 
 Calcul·lant només la component ambient:
 
-![bp1](/readmeFiles/fase2/bp_ca.png)
+![bp1](readmeFiles/fase2/bp_ca.png)
 
 Només la component difusa:
 
-![bp2](/readmeFiles/fase2/bp_cd.png)
+![bp2](readmeFiles/fase2/bp_cd.png)
 
 Només la component especular:
 
-![bp3](/readmeFiles/fase2/bp_cs.png)
+![bp3](readmeFiles/fase2/bp_cs.png)
 
 Amb la suma de les tres components anteriors:
 
-![bp4](/readmeFiles/fase2/bp_sum.png)
+![bp4](readmeFiles/fase2/bp_sum.png)
 
 Afegint l'atenuació de la llum:
 
-![bp5](/readmeFiles/fase2/bp_att.png)
+![bp5](readmeFiles/fase2/bp_att.png)
 
 Finalment, afegim la llum ambient global:
 
-![bp6](/readmeFiles/fase2/bp_gl.png)
+![bp6](readmeFiles/fase2/bp_gl.png)
 
 Afegint el raig d'ombra de Blinn-Phong:
 
-![bp7](/readmeFiles/fase2/bp_shadow.png)
+![bp7](readmeFiles/fase2/bp_shadow.png)
 
 Per aquesta part hem tingut en compte l'anomenat _shadow acné_, i en comptes de fer servir un `t_min=0` a la intersecció del raig d'ombra hem considerat un epsilon de 0.001.
 
 Arribats a aquest punt, podem aprofitar la varietat d'objectes que tenim implementada per aplicar Blinn-Phong a una escena més complexa, com la següent.
 
-![bpcomplex](/readmeFiles/fase2/2a_complex.png)
+![bpcomplex](readmeFiles/fase2/2a_complex.png)
 
 _Afegim a readmeFiles/fase2 el fitxer `Scene_Fase2A_Complex.txt` que conté les 10 figures que formen l'escena._
 
@@ -190,21 +190,21 @@ Seguidament hem implementat la recursivitat al nostre algorisme de raytracing. P
 
 `MAXDEPTH=1`        |  `MAXDEPTH=10`  
 :-------------------------:|:-------------------------:
-![md1](/readmeFiles/fase2/md1.png)  |  ![md10](/readmeFiles/fase2/md10.png)
+![md1](readmeFiles/fase2/md1.png)  |  ![md10](readmeFiles/fase2/md10.png)
 
 Veiem que la de més profunditat és lleugerament més lluminosa. També hem implementat que els rajos secundaris que no intercepten amb l'escena no tinguin la llum del background, sino de la intensitat global. Com podem veure a la següent imatge, amb `MAXDEPTH=4`, és notablement més fosca:
 
-![md4_dark](/readmeFiles/fase2/md4_dark.png)
+![md4_dark](readmeFiles/fase2/md4_dark.png)
 
 Veiem ara com queden els materials metàlics, és a dir, els que reflexen els rajos de llum, amb `MAXDEPTH=4`:
 
-![metalic](/readmeFiles/fase2/metalic.png)
+![metalic](readmeFiles/fase2/metalic.png)
 
 A continuació hem implementat els materials transparents. A la taula següent podem veure una imatge amb diferents profunditats màximes de materials transparents. Tal com ens proposa el guió, l'índex de refracció de l'objecte transparent mostrat és 1.5 superior a l'aire de l'escena.
 
 `MAXDEPTH=1`        |  `MAXDEPTH=4`  
 :-------------------------:|:-------------------------:
-![trans_md1](/readmeFiles/fase2/trans_md1.png)  |  ![trans_md4](/readmeFiles/fase2/trans_md4.png)
+![trans_md1](readmeFiles/fase2/trans_md1.png)  |  ![trans_md4](readmeFiles/fase2/trans_md4.png)
 
 Veiem que sense gaire profunditat els rajos secundaris no poden adquirir el color dels elements refractats.
 
@@ -224,7 +224,7 @@ Per implementar les textures, hem creat una nova classe subclasse de `Material`,
 Tots els materials excepte el `MaterialTextura` retornaran simplement la component difosa, mentres que a `MaterialTextura`, donades les coordenades u,v normalitzades (entre 0 i 1), retorna el color corresponent un cop aplicat el mapeig de u,v a les coordenades de la imatge de la textura del material. Un cop tenim això, només cal que, a blinn-phong, en comptes de retornar la component difosa del material com es feia fins ara, es cridi a aquest nou mètode `getDiffuse`, amb les components u,v normalitzades. Aquestes components u,v s'afageixen ara com a paràmetre, i es calculen en el mètode hit de cada objecte del qual es vulgui implementar Textures, posant un if en cas que el material de l'objecte sigui `MaterialTextura` (altrament, es deixen en 0,0, o qualsevol valor, ja que `getDiffuse` simplement retornarà la component difosa). 
 Inicialment, només implementem textures per a objectes del tipus `fittedPlane`:
 
-![textures](/readmeFiles/fase3/tex_1.png)
+![textures](readmeFiles/fase3/tex_1.png)
     
 ### Opcionals
 
@@ -232,7 +232,7 @@ Inicialment, només implementem textures per a objectes del tipus `fittedPlane`:
 
 A part de tots els objectes que se'ns demanaven, també hem implementat els objectes tipus `Cone`, utilitzant els atributs: centre de la base, radi de la base i alçada. Els cons sempre estaran orientats verticalment, és a dir, amb l'alçada paral·lela al vector (0,1,0), de manera que aquests 3 atributs són suficients. Hem afegit uns quants cilindres diferents a l'escena, amb el color corresponent a la normal de cada cara, i hem obtingut la visualització següent.
 
-![cones](/readmeFiles/fase3/cones.png)
+![cones](readmeFiles/fase3/cones.png)
 
 #### Implementació de Multiple-scattering
 
@@ -240,7 +240,7 @@ Hem implementat la dispersió de múltiples rajos per a materials lambertians, j
 
 `MAXDEPTH=4, numRays=1`         |  `MAXDEPTH=4, numRays=20`
 :----------------------------------:|:----------------------------------:
-![1raig_depth4](/readmeFiles/fase3/1raig_depth4.png)  |  ![20raig_depth4](/readmeFiles/fase3/20raig_depth4.png)
+![1raig_depth4](readmeFiles/fase3/1raig_depth4.png)  |  ![20raig_depth4](readmeFiles/fase3/20raig_depth4.png)
 
 _Afegim a readmeFiles/fase3 els fitxers `configVis_multiple.txt` i `spheres_multiple.txt` per a recrear l'escena anterior._
 
@@ -250,7 +250,7 @@ Hem implementat un acabament adaptatiu de la recursivitat dels raigs quan contri
 
 `ACCCOLOR=0`, crides = 9509461 |  `ACCCOLOR=0.5`, crides = 8257626 | `ACCCOLOR=0.9`, crides = 7296206 
 :----------------------------------:|:----------------------------------:|:----------------------------------:
-![no_acc](/readmeFiles/fase3/no_acc.png)  |  ![acc_05](/readmeFiles/fase3/acc_05.png)  |  ![acc_09](/readmeFiles/fase3/acc_09.png)
+![no_acc](readmeFiles/fase3/no_acc.png)  |  ![acc_05](readmeFiles/fase3/acc_05.png)  |  ![acc_09](readmeFiles/fase3/acc_09.png)
 
 Podem veure que a mesura que s'augmenta el paràmetre la imatge es torna una mica més fosca.
 
@@ -260,7 +260,7 @@ A continuació podem veure el resultat de la implementació del Ambient Occlusio
 
 Resultat sense Ambient Occlusion |  Resultat amb Ambient Occlusion
 :----------------------------------:|:----------------------------------:
-![no_acc](/readmeFiles/fase3/noAO.png)  |  ![acc_05](/readmeFiles/fase3/AO.png)
+![no_acc](readmeFiles/fase3/noAO.png)  |  ![acc_05](readmeFiles/fase3/AO.png)
 
 
 #### Ombres de colors
@@ -268,7 +268,7 @@ Seguidament podem veure una visialització amb esferes transparents que tenen om
 
 Resultat
 :----------------------------------:
-![no_acc](/readmeFiles/fase3/shadowcolors.png)
+![no_acc](readmeFiles/fase3/shadowcolors.png)
 
 
 #### Animacions
@@ -280,8 +280,8 @@ També, a `VirtualWorldReader`, per a cada objecte que es vulgui animar, es lleg
 
 Per tant, per a cada animació nova que es vulgui afegir, només cal crear una subclasse de `CustomAnimation`, i en el mètode `applyAnimation` de l'objecte desitjat, fet un dynamic_cast a aquell tipus d'animació i fer la lògica que es deistgi. Nosaltres hem creat una animació del tipus Ellipse (al pla y = 0).
 El format per a afegir-l a a un objecte és posar al final de l'objecte ELLIPSE, x, z, nF, on `x` és el radi de l'eix x, `y` el radi de l'eix y, i `nF` el nombre de frames que es triga a realitzar una volta sencera. Pel centre de la elipse s'agafa el centre que es defineix per l'esfera en el fitxer.
-Els fitxers utilitzats per aquesta animació són [configVis](/readmeFiles/fase3/configVisAnim_1.txt), [configMapping](/readmeFiles/fase3/configMappingAnim_1.txt), [scene](/readmeFiles/fase3/sceneAnim_1.txt)
-![animacio_1](/readmeFiles/fase3/anim_1.gif)
+Els fitxers utilitzats per aquesta animació són [configVis](readmeFiles/fase3/configVisAnim_1.txt), [configMapping](readmeFiles/fase3/configMappingAnim_1.txt), [scene](readmeFiles/fase3/sceneAnim_1.txt)
+![animacio_1](readmeFiles/fase3/anim_1.gif)
 
 ### Screenshots més rellevants
 
