@@ -266,11 +266,11 @@ Resultat sense Ambient Occlusion |  Resultat amb Ambient Occlusion
 
 
 #### Ombres de colors
-Seguidament podem veure una visialització amb esferes transparents que tenen ombres de diferents colors. Cal comentar que no hem aconseguit que les ombres prenguin el color de les esferes, però creiem que així queda molt maco visualment. 
+Seguidament podem veure una visialització amb esferes transparents que tenen ombres de diferents colors. 
 
 Resultat
 :----------------------------------:
-![no_acc](readmeFiles/fase3/shadowcolors.png)
+![no_acc](readmeFiles/fase3/6colors.png)
 
 
 #### Animacions
