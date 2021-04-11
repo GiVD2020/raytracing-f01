@@ -30,9 +30,12 @@
         <file>resources/configVisDataEuropa.txt</file>
         <file>resources/dadesEuropa.txt</file>
         <file>resources/mapBCN.png</file>
+        <file>resources/color_spheres.txt</file>
         <file>resources/outerSpace.png</file>
         <file>resources/configMappingDataTemporalVW.txt</file>
         <file>resources/configVisDataTemporalVW.txt</file>
         <file>resources/Scene_TemporalVW.txt</file>
+        <file>resources/Scene_Penumbra.txt</file>
+        <file>resources/configVisPenumbra.txt</file>
     </qresource>
 </RCC>
