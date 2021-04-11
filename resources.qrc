@@ -37,5 +37,10 @@
         <file>resources/Scene_TemporalVW.txt</file>
         <file>resources/Scene_Penumbra.txt</file>
         <file>resources/configVisPenumbra.txt</file>
+        <file>resources/cities.txt</file>
+        <file>resources/configMappingDataCities.txt</file>
+        <file>resources/configVisDataCities.txt</file>
+        <file>resources/mapCities.png</file>
+        <file>resources/mapCities2.png</file>
     </qresource>
 </RCC>

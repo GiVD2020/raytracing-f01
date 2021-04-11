@@ -1,0 +1,5 @@
+dataType,REALDATA
+limitsMonVirtual, -5, 5, -1, 1, -5, 5
+limitsMonReal, -15.0, 30.0, 36.0, 68.0
+base,plane, 0.0, 1.0, 0.0, 1.0,://resources/mapCities2.png
+prop, 1, 508916, 7020000,cylinder,COLOR_MAP_TYPE_INFERNO
