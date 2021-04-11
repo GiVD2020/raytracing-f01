@@ -286,6 +286,8 @@ Els fitxers utilitzats per aquesta animació són [configVis](readmeFiles/fase3/
 
 ![animacio_1](readmeFiles/fase3/anim_1.gif)
 
+_(això és una animació que només es podrà visualitzar al readme en versió web, no al pdf)_
+
 ### Screenshots més rellevants
 
 _Recordeu que n'heu de triar-ne un per pujar-lo a la web: https://padlet.com/twopuig/d63depo6ql4tzqot_
