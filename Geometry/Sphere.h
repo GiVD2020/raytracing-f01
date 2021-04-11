@@ -11,7 +11,7 @@
 #include "Animation.h"
 #include "Translate.h"
 #include "Translate.h"
-
+#include "MaterialTextura.h"
 
 class Sphere: public Object  {
 public:
@@ -27,6 +27,8 @@ private:
         vec3 center;
         // Radi de l'esfera
         float radius;
+        //Angle (per animació de rotació)
+        float angle;
 
 };
 

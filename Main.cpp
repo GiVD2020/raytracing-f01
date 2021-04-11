@@ -15,9 +15,9 @@ int main(int argc, char **argv) {
     //auto controller = make_shared<Controller>("://resources/Scene_Fase2A.txt", "://resources/configMapping_Fase2A.txt", "://resources/configVis.txt");
     //auto controller = make_shared<Controller>("://resources/Scene_Fase2A_Complex.txt", "://resources/configMapping_Fase2A.txt", "://resources/configVis.txt");
     //auto controller = make_shared<Controller>("://resources/color_spheres.txt", "://resources/configMapping_Fase2A.txt", "://resources/configVis.txt");
-    auto controller = make_shared<Controller>("://resources/Scene_Penumbra.txt", "://resources/configMapping_Fase2A.txt", "://resources/configVisPenumbra.txt");
     //auto controller = make_shared<Controller>("://resources/dadesEuropa.txt", "://resources/configMappingDataEuropa.txt", "://resources/configVisDataEuropa.txt");
-    //auto controller = make_shared<Controller>("://resources/Scene_TemporalVW.txt", "://resources/configMappingDataTemporalVW.txt", "://resources/configVisDataTemporalVW.txt");
+    auto controller = make_shared<Controller>("://resources/Scene_TemporalVW.txt", "://resources/configMappingDataTemporalVW.txt", "://resources/configVisDataTemporalVW.txt");
+    //auto controller = make_shared<Controller>("://resources/Scene_Penumbra.txt", "://resources/configMapping_Fase2A.txt", "://resources/configVisPenumbra.txt");
 
     controller->start(argc, argv);
 

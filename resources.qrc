@@ -35,6 +35,8 @@
         <file>resources/configMappingDataTemporalVW.txt</file>
         <file>resources/configVisDataTemporalVW.txt</file>
         <file>resources/Scene_TemporalVW.txt</file>
+        <file>resources/sun_nasa.png</file>
+        <file>resources/moon_nasa.png</file>
         <file>resources/Scene_Penumbra.txt</file>
         <file>resources/configVisPenumbra.txt</file>
         <file>resources/cities.txt</file>

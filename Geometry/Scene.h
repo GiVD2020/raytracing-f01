@@ -68,10 +68,10 @@ private:
     vector<shared_ptr<Light>> pointLights;
     vec3 globalLight;
     vec3 blinn_phong(Ray &ray, HitInfo &info, vec3 lookFrom);
-
-    static const int MAXDEPTH = 5;
+    static const int MAXDEPTH = 3;
+    static const bool AMBIENTTEXTURA = false; //Utilitzar la imatge de la textura com a component ambient també
     constexpr static const double ACCCOLOR = 0.1;
-    static const bool AMBIENTSECRAYS = true;
+    static const bool AMBIENTSECRAYS = false;
     bool hitOmbra(vector<HitInfo>& infoOmbra, vec3 point, int ind, vec3 lightPosition);
     static const int NUMRAYSAO = 30;
     static const bool AOACTIVATED = false;

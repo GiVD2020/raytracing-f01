@@ -168,6 +168,7 @@ void ConfigVisReader::lightFound(QStringList fields) {
     b = fields[15].toDouble();
     c = fields[16].toDouble();
 
+
     if (QString::compare("noTypeYet", fields[1], Qt::CaseInsensitive) == 0 || QString::compare("POINTLIGHT", fields[1], Qt::CaseInsensitive) == 0){
         if (fields.size() == 17 + 4) {//directional light
             vec3 direction = vec3(fields[17].toDouble(), fields[18].toDouble(), fields[19].toDouble());

@@ -1,4 +1,4 @@
-sphere, 0, 10, 0, 2.5, 0.2, 0.2, 0.2, 0.3, 0.3, 1, 1, 1, 1, 10,LAMBERTIAN,ELLIPSE, 20, 17, 960
-sphere, 0, 10, 0, 1, 0.2, 0.2, 0.2, 0.5, 0.5, 0.5, 1, 1, 1, 10,LAMBERTIAN,DOUBLEELLIPSE, 20, 17, 480, 7,5, 480
-sphere, 0, 10, 0, 4, 0.2, 0.2, 0.2, 1, 0.5, 0.1, 1, 1, 1, 10,LAMBERTIAN
-fittedplane, 0.0, 1.0, 0.0, 0.0, 0.1, 0.1, 0.1, 0, 0.0, 0.9, 1.0, 1.0, 1.0, 10,METAL
+sphere, 0, 10, -5, 2.4, 0.1, 0.1, 0.1, 1, 0.5, 0.1, 0, 0, 0, 10,TEXTURE,://resources/earth1.png,ELLIPSE, 20, -14, 720,ROTATION, 180
+sphere, 0, 10, -5, 0.6, 0.1, 0.1, 0.1, 1, 0.5, 0.1, 0, 0, 0, 10,TEXTURE,://resources/moon_nasa.png,DOUBLEELLIPSE, 20, -14, 720, 3.5, 3.2, 360
+sphere, 0, 10, -5, 4.5, 0.01, 0.01, 0.01, 1, 0.5, 0.1, 0, 0, 0, 10,TEXTURE,://resources/sun_nasa.png,IGNORELIGHTS
+fittedplane, 0.0, 1.0, 0.0, 0.0, 0.1, 0.1, 0.1, 0, 0.0, 0.9, 1.0, 1.0, 1.0, 10,TEXTURE,://resources/outerSpace.png,IGNORELIGHTS

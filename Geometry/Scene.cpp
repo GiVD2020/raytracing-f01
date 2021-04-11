@@ -106,16 +106,28 @@ vec3 Scene::blinn_phong(Ray &ray, HitInfo &info, vec3 lookFrom){
     double alphaout;
     double alpha;
     vec3 id;
-    float factorOmbra;
-
     //Per cada Light
     for(int i=0; i<pointLights.size(); i++){
+        bool ambientTextura = false;
         //Component ambient
-        ca += info.mat_ptr->ambient * this->pointLights[i]->ambient;
+        if(MaterialTextura* mat = dynamic_cast<MaterialTextura*>(info.mat_ptr)){
+            if(mat->ignoreLights){ //IGNOREM OMBRES I INTERACCIONS AMB LLUM SI ES MATERIAL TEXTURA AMB FLAG DE IGNORELIGHTS
+                continue;
+            }
+            ambientTextura = AMBIENTTEXTURA; //Utilitzar la imatge de la textura com a component ambient també
+            if(ambientTextura){
+                ca += mat->getAmbient(info.uv) * this->pointLights[i]->ambient;
+            }
+        }
+        if(!ambientTextura){
+            ca += info.mat_ptr->ambient * this->pointLights[i]->ambient;
+        }
+
         diffuse = info.mat_ptr->getDiffuse(info.uv);
 
         float atenuacio = this->pointLights[i]->get_atenuation(info.p);
 
+        float factorOmbra;
         //Opcional 4: Color shadows
         if(COLORSHADOWASCTIVATED && hitOmbra(infoOmbra, info.p, info.indObject, this->pointLights[i]->position)) {
             //TODO: Calcular Cout i alpha
@@ -137,9 +149,19 @@ vec3 Scene::blinn_phong(Ray &ray, HitInfo &info, vec3 lookFrom){
             infoOmbra.clear();
         } else {
             id = this->pointLights[i]->diffuse;
-            factorOmbra = shadowCalculation(info.p, this->pointLights[i]);
+            //IGNOREM OMBRES I INTERACCIONS AMB LLUM SI ES MATERIAL TEXTURA AMB FLAG DE IGNORELIGHTS
+            bool ignoraOmbra = false;
+            if(MaterialTextura* mat = dynamic_cast<MaterialTextura*>(info.mat_ptr)){
+                if(mat->ignoreLights){
+                    ignoraOmbra = true;
+                }
+            }
+            if(ignoraOmbra){
+                factorOmbra = 1;
+            }else{
+                factorOmbra = shadowCalculation(info.p, this->pointLights[i]);
+            }
         }
-
 
         //Component difusa amb atenuacio
         cd += factorOmbra*atenuacio*id * diffuse*
@@ -151,7 +173,15 @@ vec3 Scene::blinn_phong(Ray &ray, HitInfo &info, vec3 lookFrom){
                 pow(std::max(dot(info.normal, H), 0.0f), info.mat_ptr->shineness);
     }
 
-    vec3 global = this->globalLight*info.mat_ptr->ambient;
+    vec3 global;
+    if(MaterialTextura* mat = dynamic_cast<MaterialTextura*>(info.mat_ptr)){
+        global = mat->getAmbient(info.uv);
+        if(!mat->ignoreLights){ //IGNOREM OMBRES I INTERACCIONS AMB LLUM SI ES MATERIAL TEXTURA AMB FLAG DE IGNORELIGHTS
+            global *= this->globalLight;
+        }
+    }else{
+       global = this->globalLight*info.mat_ptr->ambient;
+    }
 
     //Opcional 5: Ambient Occlusion. Suposem escenes outdoor i llancem n raigs aleatoris des de p cap al 'cel'
     float AOFactor = 1;
@@ -230,6 +260,13 @@ float Scene::shadowCalculation(vec3 point, shared_ptr<Light> light) {
     Ray shadowRay = Ray(point, director);
     HitInfo info = HitInfo();
     if (this->hit(shadowRay, tMin, tMax, info)) {
+        //IGNOREM OMBRES I INTERACCIONS AMB LLUM SI ES MATERIAL TEXTURA AMB FLAG DE IGNORELIGHTS
+        if(auto tex_mat = dynamic_cast<MaterialTextura*>(info.mat_ptr)){
+            if(tex_mat->ignoreLights){
+                return 1.0;
+            }
+        }
+        //
         return 0.0;
     } else {
         if (light->isPointInCone(point)) {
