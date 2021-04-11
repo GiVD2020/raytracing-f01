@@ -35,7 +35,7 @@
 - Fase 3
     - [X] Texture mapping en el pla: Albert, Arnau
     - [X] MaterialTextura: Albert
-    - [X] Nova escena de dades: Arnau
+    - [ ] Nova escena de dades
    
 - Parts opcionals
     - [X] Nous objectes paramètrics (Con): Martí
