@@ -61,7 +61,7 @@ public:
     void setGlobalLight(vec3 globalLight);
     void setPointLights(vector<shared_ptr<Light>> pointLights);
 
-    float shadowCalculation(vec3 point, vec3 lightPosition);
+    float shadowCalculation(vec3 point, shared_ptr<Light> light);
     float ambientOcclusionFactor(HitInfo info);
     int numCompColors = 0;
 private:
@@ -69,9 +69,9 @@ private:
     vec3 globalLight;
     vec3 blinn_phong(Ray &ray, HitInfo &info, vec3 lookFrom);
 
-    static const int MAXDEPTH = 10;
+    static const int MAXDEPTH = 5;
     constexpr static const double ACCCOLOR = 0.1;
-    static const bool AMBIENTSECRAYS = false;
+    static const bool AMBIENTSECRAYS = true;
     bool hitOmbra(vector<HitInfo>& infoOmbra, vec3 point, int ind, vec3 lightPosition);
     static const int NUMRAYSAO = 30;
     static const bool AOACTIVATED = false;
