@@ -229,7 +229,7 @@ Inicialment, només implementem textures per a objectes del tipus `fittedPlane`:
 
 ![textures](readmeFiles/fase3/tex_1.png)
 
-Finalment, per tal de provar més escenes amb dades virtuals hem obtingut les dades geolocalitzades de població de les ciutats dd'Europa de més d'un milió d'habitants d'un dataset de Kaggle. A continuació podem veure un mapa d'Europa amb un gizmo cilindre que representa la població.
+Finalment, per tal de provar més escenes amb dades virtuals hem obtingut les dades geolocalitzades de població de les ciutats dd'Europa de més d'un milió d'habitants d'un dataset de Kaggle. A partir d'aquest fitxer hem generat `cities.txt` que inclou aquestes dades adaptades pel nostre projecte. A continuació podem veure un mapa d'Europa amb un gizmo cilindre que representa la població.
 
 ![cities](readmeFiles/fase3/viz_cities.png)
     
