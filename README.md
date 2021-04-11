@@ -39,8 +39,8 @@
    
 - Parts opcionals
     - [X] Nous objectes paramètrics (Con): Martí
-    - [ ] Penombres 
-    - [ ] Diferents tipus de llums 
+    - [X] Penombres: Martí
+    - [X] Diferents tipus de llums: Martí
     - [X] Multiple-scattering: Martí
     - [ ] Escena CSG 
     - [X] Ambient occlusion: Carla
@@ -48,7 +48,7 @@
     - [ ] Més d'una propietat en les dades reals ?
     - [X] Animacions amb dades temporals: Albert (tot i que no és amb dades temporals, sino en virtualWorld)
          - [X] Escena animació planetes (rotació i translació): Albert i Arnau 
-    - [ ] Ombres atenuades segons objectes transparents
+    - [X] Ombres atenuades segons objectes transparents: Carla
     - [X] Colors d'ombra segons els colors dels objectes transparents: Carla
     - [ ] Mapeig de les dades reals en una esfera
     - [ ] Ús de diferents paletes 
@@ -235,6 +235,24 @@ Inicialment, només implementem textures per a objectes del tipus `fittedPlane`:
 A part de tots els objectes que se'ns demanaven, també hem implementat els objectes tipus `Cone`, utilitzant els atributs: centre de la base, radi de la base i alçada. Els cons sempre estaran orientats verticalment, és a dir, amb l'alçada paral·lela al vector (0,1,0), de manera que aquests 3 atributs són suficients. Hem afegit uns quants cilindres diferents a l'escena, amb el color corresponent a la normal de cada cara, i hem obtingut la visualització següent.
 
 ![cones](readmeFiles/fase3/cones.png)
+
+#### Penombres
+
+En aquesta fase també hem implementat penombres. Per a fer-ho hem definit dos tipus de llum addicionals: `sphericalLight` i `linearLight`.
+- En la llum esfèrica s'ha d'especificar el seu tipus, i al final s'han d'afegir dos paràmetres addicionals: un enter (el nombre de llums puntuals que formen la llum esfèrica) i un double (que serà el radi de la llum esfèrica). Així, en `ConfigVisReader.cpp` es creen les llums puntuals de forma aleatòria dins d'una esfera amb el radi proporcionat.
+- En la llum lineal s'ha d'especificar el seu tipus, i al final s'han d'afegir quatre paràmetres addicionals: un enter (el nombre de llums puntuals que formen la llum esfèrica) i tres doubles (que seran les coordenades de la posicio final de la llum lineal). Així, en `ConfigVisReader.cpp` es creen les llums puntuals de forma uniforme entre la posició inicial i la posició final, formant una llum lineal, com la d'un fluorescent. Amb aquest disseny podem implementar qualsevol direcció de llum lineal i no només aquelles dels eixos coordenats.
+
+A continuació es pot veure una imatge de prova amb una única llum puntual.
+
+![np_pen](readmeFiles/fase3/np_pen.png)
+
+Canviant la llum puntual per una d'esfèrica s'aconsegueixen penombres:
+
+![sph_pen](readmeFiles/fase3/sph_pen.png)
+
+La següent imatge és amb una llum lineal en l'eix X:
+
+![linX_pen](readmeFiles/fase3/linX_pen.png)
 
 #### Implementació de Multiple-scattering
 
