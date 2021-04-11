@@ -283,6 +283,7 @@ També, a `VirtualWorldReader`, per a cada objecte que es vulgui animar, es lleg
 Per tant, per a cada animació nova que es vulgui afegir, només cal crear una subclasse de `CustomAnimation`, i en el mètode `applyAnimation` de l'objecte desitjat, fet un dynamic_cast a aquell tipus d'animació i fer la lògica que es deistgi. Nosaltres hem creat una animació del tipus Ellipse (al pla y = 0).
 El format per a afegir-l a a un objecte és posar al final de l'objecte ELLIPSE, x, z, nF, on `x` és el radi de l'eix x, `y` el radi de l'eix y, i `nF` el nombre de frames que es triga a realitzar una volta sencera. Pel centre de la elipse s'agafa el centre que es defineix per l'esfera en el fitxer.
 Els fitxers utilitzats per aquesta animació són [configVis](readmeFiles/fase3/configVisAnim_1.txt), [configMapping](readmeFiles/fase3/configMappingAnim_1.txt), [scene](readmeFiles/fase3/sceneAnim_1.txt)
+
 ![animacio_1](readmeFiles/fase3/anim_1.gif)
 
 ### Screenshots més rellevants
