@@ -255,6 +255,15 @@ La següent imatge és amb una llum lineal en l'eix X:
 
 ![linX_pen](readmeFiles/fase3/linX_pen.png)
 
+#### Diferents tipus de llums
+
+Hem decidit també crear llums direccionals. Per a fer-ho hem afegit dos atributs més a la classe `Light`, un angle d'obertura (double) i una direcció (vec3), i un mètode booleà que, donada una posició vec3, retorna si es troba dins el con de llum o no. Aquest mètode booleà es crida quan es calculen les ombres a la classe `Scene`. A continuació es pot veure una aplicació de llums direccionals amb i sense àrea.
+
+Llum puntual        |  Llum esfèrica
+:----------------------------------:|:----------------------------------:
+![directional_np](readmeFiles/fase3/directional_np.png)  |  ![directional](readmeFiles/fase3/directional.png)
+
+
 #### Implementació de Multiple-scattering
 
 Hem implementat la dispersió de múltiples rajos per a materials lambertians, ja que es produeixen materials molt menys rugosos i més realistes (malgrat que també és més costos computacionalment a l'hora de generar les imatges, ja que és O(n^d), on n és el nombre de rajos dispersats i d és la profunditat màxima). Podem veure la diferència del multiple-scattering a les imatges següents:
