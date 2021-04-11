@@ -47,6 +47,7 @@
     - [ ] Defocus blur
     - [ ] Més d'una propietat en les dades reals ?
     - [X] Animacions amb dades temporals: Albert (tot i que no és amb dades temporals, sino en virtualWorld)
+         - [X] Escena animació planetes (rotació i translació): Albert i Arnau 
     - [ ] Ombres atenuades segons objectes transparents
     - [X] Colors d'ombra segons els colors dels objectes transparents: Carla
     - [ ] Mapeig de les dades reals en una esfera
