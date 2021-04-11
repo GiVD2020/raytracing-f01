@@ -292,6 +292,16 @@ _(això és una animació que només es podrà visualitzar al readme en versió 
 
 _Recordeu que n'heu de triar-ne un per pujar-lo a la web: https://padlet.com/twopuig/d63depo6ql4tzqot_
 
+#### Visualització Raytracing
+
+TODO
+
+#### Animació Outer Space
+
+https://drive.google.com/file/d/1BFmGIjDK2qPsKRGUcaR8AUymLD_UzqsJ/view?usp=sharing
+
+TODO
+
        
 ### Informació addicional o observacions
 
