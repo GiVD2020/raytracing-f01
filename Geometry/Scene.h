@@ -43,7 +43,7 @@ public:
 
     // Funcio recursiva que calcula el color. Inicialment es
     // es crida a cada pixel. Tambe es crida en calcular les ombres o les reflexions.
-    vec3 ComputeColor (Ray &ray, int depth, vec3 lookFrom);
+    vec3 ComputeColor (Ray &ray, int depth, vec3 lookFrom, vec3 accColor);
 
     void update(int nframe);
 
@@ -63,12 +63,16 @@ public:
 
     float shadowCalculation(vec3 point, vec3 lightPosition);
     float ambientOcclusionFactor(HitInfo info);
+    int numCompColors = 0;
 private:
     vector<shared_ptr<Light>> pointLights;
     vec3 globalLight;
     vec3 blinn_phong(Ray &ray, HitInfo &info, vec3 lookFrom);
+
+    static const int MAXDEPTH = 20;
+    constexpr static const double ACCCOLOR = 0.1;
+    static const bool AMBIENTSECRAYS = false;
     bool hitOmbra(vector<HitInfo>& infoOmbra, vec3 point, int ind, vec3 lightPosition);
-    static const int MAXDEPTH = 0;
     static const int NUMRAYSAO = 30;
     static const bool AOACTIVATED = false;
     static const bool COLORSHADOWASCTIVATED = true;
