@@ -1,4 +1,4 @@
-sphere, 0, 10, -2, 3, 0.1, 0.1, 0.1, 1, 0.5, 0.1, 0, 0, 0, 10,TEXTURE,://resources/earth1.png,ELLIPSE, 15, -11, 12,ROTATION, 4
-sphere, 0, 10, -2, 0.8, 0.1, 0.1, 0.1, 1, 0.5, 0.1, 0, 0, 0, 10,TEXTURE,://resources/moon_nasa.png,DOUBLEELLIPSE, 15, -11, 12, 4.5, 4, 12
-sphere, 0, 10, -2, 6, 0.01, 0.01, 0.01, 1, 0.5, 0.1, 0, 0, 0, 10,TEXTURE,://resources/sun_nasa.png,IGNORELIGHTS
+sphere, 0, 10, -5, 2.4, 0.1, 0.1, 0.1, 1, 0.5, 0.1, 0, 0, 0, 10,TEXTURE,://resources/earth1.png,ELLIPSE, 20, -14, 720,ROTATION, 180
+sphere, 0, 10, -5, 0.6, 0.1, 0.1, 0.1, 1, 0.5, 0.1, 0, 0, 0, 10,TEXTURE,://resources/moon_nasa.png,DOUBLEELLIPSE, 20, -14, 720, 3.5, 3.2, 360
+sphere, 0, 10, -5, 4.5, 0.01, 0.01, 0.01, 1, 0.5, 0.1, 0, 0, 0, 10,TEXTURE,://resources/sun_nasa.png,IGNORELIGHTS
 fittedplane, 0.0, 1.0, 0.0, 0.0, 0.1, 0.1, 0.1, 0, 0.0, 0.9, 1.0, 1.0, 1.0, 10,TEXTURE,://resources/outerSpace.png,IGNORELIGHTS
