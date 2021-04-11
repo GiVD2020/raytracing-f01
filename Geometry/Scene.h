@@ -71,7 +71,7 @@ private:
     static const int MAXDEPTH = 3;
     static const bool AMBIENTTEXTURA = false; //Utilitzar la imatge de la textura com a component ambient també
     constexpr static const double ACCCOLOR = 0.1;
-    static const bool AMBIENTSECRAYS = true;
+    static const bool AMBIENTSECRAYS = false;
     bool hitOmbra(vector<HitInfo>& infoOmbra, vec3 point, int ind, vec3 lightPosition);
     static const int NUMRAYSAO = 30;
     static const bool AOACTIVATED = false;

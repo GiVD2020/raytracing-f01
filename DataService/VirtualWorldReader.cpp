@@ -241,6 +241,7 @@ void VirtualWorldReader::readMaterialAndAnimation(QStringList fields, int startI
         o->setMaterial(mat);
         j = i + 12;
         //Comrpovar flag IGNORELIGHTS
+        mat -> ignoreLights = false;
         if(fields.size() >= i+13){
             if(QString::compare("IGNORELIGHTS", fields[i+12], Qt::CaseInsensitive) == 0){
                 mat->ignoreLights = true;
