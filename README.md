@@ -351,7 +351,7 @@ _(això és una animació que només es podrà visualitzar al readme en versió 
 Animació en format video (més fluida):
 https://drive.google.com/file/d/1BFmGIjDK2qPsKRGUcaR8AUymLD_UzqsJ/view?usp=sharing
 
-
+---------------------------------------------------------------------------------------------------------------------------------------------------------------
        
-### Informació addicional o observacions
+Projecte acabat
 
