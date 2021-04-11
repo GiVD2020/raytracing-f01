@@ -153,6 +153,16 @@ void ConfigMappingReader::propFound(QStringList fields) {
             auto tipusColorMap = ColorMapStatic::COLOR_MAP_TYPE_PLASMA;
             props.push_back(std::make_pair(tipusObj, tipusColorMap));
         }
+    }if (QString::compare("cylinder", fields[4], Qt::CaseInsensitive) == 0) {
+        auto tipusObj = ObjectFactory::OBJECT_TYPES::CYLINDER;
+        if (QString::compare("COLOR_MAP_TYPE_INFERNO", fields[5], Qt::CaseInsensitive) == 0) {
+            auto tipusColorMap = ColorMapStatic::COLOR_MAP_TYPE_INFERNO;
+            props.push_back(std::make_pair(tipusObj, tipusColorMap));
+        }
+        if (QString::compare("COLOR_MAP_TYPE_PLASMA", fields[5], Qt::CaseInsensitive) == 0) {
+            auto tipusColorMap = ColorMapStatic::COLOR_MAP_TYPE_PLASMA;
+            props.push_back(std::make_pair(tipusObj, tipusColorMap));
+        }
     }
 }
 

@@ -161,7 +161,7 @@ vec3 Scene::blinn_phong(Ray &ray, HitInfo &info, vec3 lookFrom){
             if(ignoraOmbra){
                 factorOmbra = 1;
             }else{
-                factorOmbra = shadowCalculation(info.p, this->pointLights[i]->position);
+                factorOmbra = shadowCalculation(info.p, this->pointLights[i]);
             }
         }
 
@@ -254,7 +254,8 @@ float Scene::ambientOcclusionFactor(HitInfo info) {
     return numSkyRays/NUMRAYSAO;
 }
 
-float Scene::shadowCalculation(vec3 point, vec3 lightPosition) {
+float Scene::shadowCalculation(vec3 point, shared_ptr<Light> light) {
+    vec3 lightPosition = light->position;
     vec3 director = normalize(lightPosition - point);
     float tMax = length(lightPosition - point);
     float tMin = 0.01; //Should be 0.0 but to avoid shadow acne must be some small epsilon
@@ -270,7 +271,11 @@ float Scene::shadowCalculation(vec3 point, vec3 lightPosition) {
         //
         return 0.0;
     } else {
-        return 1.0;
+        if (light->isPointInCone(point)) {
+            return 1.0;
+        } else {
+            return 0.0;
+        }
     }
 }
 

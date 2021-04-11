@@ -61,7 +61,7 @@ public:
     void setGlobalLight(vec3 globalLight);
     void setPointLights(vector<shared_ptr<Light>> pointLights);
 
-    float shadowCalculation(vec3 point, vec3 lightPosition);
+    float shadowCalculation(vec3 point, shared_ptr<Light> light);
     float ambientOcclusionFactor(HitInfo info);
     int numCompColors = 0;
 private:
@@ -71,7 +71,7 @@ private:
     static const int MAXDEPTH = 3;
     static const bool AMBIENTTEXTURA = false; //Utilitzar la imatge de la textura com a component ambient també
     constexpr static const double ACCCOLOR = 0.1;
-    static const bool AMBIENTSECRAYS = false;
+    static const bool AMBIENTSECRAYS = true;
     bool hitOmbra(vector<HitInfo>& infoOmbra, vec3 point, int ind, vec3 lightPosition);
     static const int NUMRAYSAO = 30;
     static const bool AOACTIVATED = false;
