@@ -330,7 +330,9 @@ _Recordeu que n'heu de triar-ne un per pujar-lo a la web: https://padlet.com/two
 
 #### Visualització Raytracing
 
-TODO
+Hem fet unes quantes imatges en alta definició. La primera, que es pot veure a continuació, consta d'un con, un pla i una esfera lambertianes (amb 10 raigs aleatoris per reduir el soroll), una esfera metàlica i una llum esfèrica (per això es poden veure penombres). Els fitxers de configuració i la composició de l'escena es poden trobar a [configVis](readmeFiles/imatges/ConfigVisIm1.txt) i [scene](readmeFiles/imatges/SceneIm1.txt).
+
+![imatge1](readmeFiles/imatges/resultat1.png)
 
 #### Animació Outer Space
 Per realitzar aquesta animació, hem utilitzat els opcionals d'animació i de textura en esferes, i, a més, hem afegit alguns extres:
