@@ -340,7 +340,13 @@ Per realitzar aquesta animació, hem utilitzat els opcionals d'animació i de te
 - Hem donat la opció (variable `AMBIENTTEXTURA` de scene.h) que la llum ambient dels materials amb textura sigui la mateixa que la difosa, és a dir, basada en la imatge de la textura. D'aquesta manera, podem posar una llum global fosca, i així les cares no il·luminades pel Sol de la Terra i la Lluna, tot i estar fosques, tenen la imatge de la textura.
 - La llum puntual té component ambient 0, i els materials tenen tots component especular 0. De fet, en aquesta escena, no utilitzem recursivitat ni reflexos.
 
+Els fitxers utilitzats per aquesta animació són [configVis](readmeFiles/fase3/configVisOuterSpace.txt), [configMapping](readmeFiles/fase3/configMappingOuterSpace.txt), [scene](readmeFiles/fase3/sceneOuterSpace.txt).
+Animació en format gif (menys fluida):
+![animacio_1](readmeFiles/fase3/animOuterSpace.gif)
 
+_(això és una animació que només es podrà visualitzar al readme en versió web, no al pdf)_
+
+Animació en format video (més fluida):
 https://drive.google.com/file/d/1BFmGIjDK2qPsKRGUcaR8AUymLD_UzqsJ/view?usp=sharing
 
 
