@@ -106,8 +106,6 @@ vec3 Scene::blinn_phong(Ray &ray, HitInfo &info, vec3 lookFrom){
     double alphaout;
     double alpha;
     vec3 id;
-    float factorOmbra;
-
     //Per cada Light
     for(int i=0; i<pointLights.size(); i++){
         bool ambientTextura = false;
