@@ -231,8 +231,9 @@ void VirtualWorldReader::readMaterialAndAnimation(QStringList fields, int startI
     } else if (QString::compare("TRANSPARENT", fields[i+10], Qt::CaseInsensitive) == 0) {
         vec3 k = vec3(fields[i+11].toDouble(), fields[i+12].toDouble(),fields[i+13].toDouble());
         float refractionRatio = fields[i+14].toDouble();
-        j = i + 15;
-        auto mat = make_shared<Transparent>(ambient, diffuse, specular, shineness, k, refractionRatio);
+        float dmax = fields[i+15].toDouble();
+        j = i + 16;
+        auto mat = make_shared<Transparent>(ambient, diffuse, specular, shineness, k, refractionRatio, dmax);
         o->setMaterial(mat);
     }else if(QString::compare("TEXTURE", fields[i+10], Qt::CaseInsensitive) == 0){
         shared_ptr<Texture> tex = make_shared<Texture>(fields[i+11]);
