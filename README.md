@@ -46,8 +46,9 @@
     - [X] Ambient occlusion: Carla
     - [ ] Defocus blur
     - [ ] Més d'una propietat en les dades reals ?
+    - [X] Textura esferes: Albert 
     - [X] Animacions amb dades temporals: Albert (tot i que no és amb dades temporals, sino en virtualWorld)
-         - [X] Escena animació planetes (rotació i translació): Albert i Arnau 
+         - [X] Escena animació planetes (moviment segons corba elipse i rotació textura): Albert i Arnau 
     - [X] Ombres atenuades segons objectes transparents: Carla
     - [X] Colors d'ombra segons els colors dels objectes transparents: Carla
     - [ ] Mapeig de les dades reals en una esfera
@@ -306,6 +307,11 @@ Els fitxers utilitzats per aquesta animació són [configVis](readmeFiles/fase3/
 
 _(això és una animació que només es podrà visualitzar al readme en versió web, no al pdf)_
 
+#### Textures en esferes
+Hem implementat textures també per a les esferes. Ho hem fet de la mateixa manera que amb FittedPlane, l'únic que canvia és la fòrmula pels calculs de les coordenades u i v segons el punt d'intersecció. Primerament normalitzem el punt (mapeig a esfera unitaria centrada a l'origen), després calculem els angles phi (de 0 a 2Pi) i theta (de 0 a PI), i per últim els mapegem a 0 i 1 dividint. 
+
+La visualització anomenada `Animació Outer Space` més abaix fa ús de les textures amb esferes, juntament amb animacions.
+
 ### Screenshots més rellevants
 
 _Recordeu que n'heu de triar-ne un per pujar-lo a la web: https://padlet.com/twopuig/d63depo6ql4tzqot_
@@ -315,10 +321,16 @@ _Recordeu que n'heu de triar-ne un per pujar-lo a la web: https://padlet.com/two
 TODO
 
 #### Animació Outer Space
+Per realitzar aquesta animació, hem utilitzat els opcionals d'animació i de textura en esferes, i, a més, hem afegit alguns extres:
+- Un paràmetre opcional INGORELIGHTS que permet als materials del tipus `MaterialTextura` ignorar les llums i les ombres, és a dir, a l'hora de calcular llums i ombres, s'ignoraran totalment els objectes amb aquesta flag activada. La col·locarem tant a l'esfera del Sol com al fittedPlane del fons d'estrelles. D'aquesta manera, una única llum al centre del Sol simula més adequadament la llum que arriba a la Terra i a la LLuna, i es pot visualitzar l'eclipse. Si posavem moltes llums a l'exterior del Sol, arribava llum pels costats i no quedava tant bé.
+- Una nova animació, ROTACIO, que fa que la textura de l'esfera roti sobre l'eix y.
+- Una nova animació, DOUBLEELLIPSE, que fa que l'esfera segueixi dues elipses. La utilitzem per la lluna, ja que segueix la mateixa elipse que la Terra, i després una altra elipse per rotar al voltant de la Terra.
+- Hem fet que la llum ambient dels materials amb textura sigui la mateixa que la difosa, és a dir, basada en la imatge de la textura. D'aquesta manera, podem posar una llum global fosca, i així les cares no il·luminades pel Sol de la Terra i la Lluna, tot i estar fosques, tenen la imatge de la textura.
+- La llum puntual té component ambient 0, i els materials tenen tots component especular 0. De fet, en aquesta escena, no utilitzem recursivitat ni reflexos.
+
 
 https://drive.google.com/file/d/1BFmGIjDK2qPsKRGUcaR8AUymLD_UzqsJ/view?usp=sharing
 
-TODO
 
        
 ### Informació addicional o observacions
