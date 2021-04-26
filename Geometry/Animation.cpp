@@ -13,6 +13,7 @@ void Animable::addAnimation(shared_ptr<Animation> anim) {
     animFrames.push_back(anim);
 }
 
+//AQUEST NO S'UTILITZA
 void Animable::update(int nframe) {
 
     bool trobat = false;
@@ -21,4 +22,11 @@ void Animable::update(int nframe) {
         trobat = animFrames[i]->frameFinal>=nframe;
 
     aplicaTG(animFrames[i-1]->transf);
+}
+
+//ANIMACIONS VIRTUALWORLD
+void Animable::applyAnimations(int nframe){
+    for(unsigned long i = 0; i<animations.size(); i++){
+        applyAnimation(animations[i], nframe);
+    }
 }

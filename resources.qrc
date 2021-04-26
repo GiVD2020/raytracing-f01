@@ -12,8 +12,37 @@
         <file>resources/configMapping.txt</file>
         <file>resources/configVis.txt</file>
         <file>resources/configMappingData.txt</file>
-        <file>resources/configMappingVWTemporal.txt</file>
         <file>resources/configMappingDataTemporal.txt</file>
         <file>resources/configMappingData0.txt</file>
+        <file>resources/spheres2.txt</file>
+        <file>resources/triangles.txt</file>
+        <file>resources/boundaryObject.txt</file>
+        <file>resources/cylinders.txt</file>
+        <file>resources/plane.txt</file>
+        <file>resources/3D_Scene_myScene.txt</file>
+        <file>resources/configMapping_Fase2A.txt</file>
+        <file>resources/Scene_Fase2A.txt</file>
+        <file>resources/Scene_Fase2A_Complex.txt</file>
+        <file>resources/configVisData0.txt</file>
+        <file>resources/configMappingDataBCN.txt</file>
+        <file>resources/configVisDataBCN.txt</file>
+        <file>resources/configMappingDataEuropa.txt</file>
+        <file>resources/configVisDataEuropa.txt</file>
+        <file>resources/dadesEuropa.txt</file>
+        <file>resources/mapBCN.png</file>
+        <file>resources/color_spheres.txt</file>
+        <file>resources/outerSpace.png</file>
+        <file>resources/configMappingDataTemporalVW.txt</file>
+        <file>resources/configVisDataTemporalVW.txt</file>
+        <file>resources/Scene_TemporalVW.txt</file>
+        <file>resources/sun_nasa.png</file>
+        <file>resources/moon_nasa.png</file>
+        <file>resources/Scene_Penumbra.txt</file>
+        <file>resources/configVisPenumbra.txt</file>
+        <file>resources/cities.txt</file>
+        <file>resources/configMappingDataCities.txt</file>
+        <file>resources/configVisDataCities.txt</file>
+        <file>resources/mapCities.png</file>
+        <file>resources/mapCities2.png</file>
     </qresource>
 </RCC>

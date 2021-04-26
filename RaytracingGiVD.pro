@@ -24,16 +24,25 @@ SOURCES += \
         Geometry/BoundaryObject.cpp \
         Geometry/Cara.cpp \
         Geometry/ColorMapStatic.cpp \
+        Geometry/Cone.cpp \
+        Geometry/Cylinder.cpp \
+        Geometry/FittedPlane.cpp \
         Geometry/Hitable.cpp \
         Geometry/Lambertian.cpp \
+        Geometry/Light.cpp \
         Geometry/Material.cpp \
+        Geometry/MaterialTextura.cpp \
+        Geometry/Metal.cpp \
         Geometry/Object.cpp \
         Geometry/Plane.cpp \
         Geometry/Scene.cpp \
         Geometry/Sphere.cpp \
+        Geometry/ScaleTG.cpp \
         Geometry/TG.cpp \
         Geometry/Texture.cpp \
         Geometry/Translate.cpp \
+        Geometry/Transparent.cpp \
+        Geometry/Triangle.cpp \
         GeometryBuilders/Mapping.cpp \
         GeometryBuilders/ObjectFactory.cpp \
         GeometryBuilders/SceneFactory.cpp \
@@ -50,19 +59,30 @@ SOURCES += \
 RESOURCES += \
     resources.qrc
 
+
 DISTFILES += \
     README.md \
     resources/configMapping.txt \
     resources/configMappingData.txt \
+    resources/configMappingData0.txt \
+    resources/configMappingDataBCN.txt \
     resources/configVis.txt \
+    resources/configVisData0.txt \
+    resources/configVisDataBCN.txt \
     resources/data0.txt \
     resources/dataBCN.txt \
     resources/dataBCNZoom.txt \
     resources/earth1.png \
     resources/europa.png \
     resources/map.png \
+    resources/mapBCN.png \
     resources/mapZoom.png \
-    resources/spheres.txt
+    resources/outerSpace.png \
+    resources/spheres.txt \
+    resources/spheres2.txt \
+    resources/configMappingDataEuropa.txt \
+    resources/configVisDataEuropa.txt \
+    resources/dadesEuropa.txt \
 
 HEADERS += \
     Controller.h \
@@ -76,17 +96,26 @@ HEADERS += \
     Geometry/Cara.h \
     Geometry/ColorMap.h \
     Geometry/ColorMapStatic.h \
+    Geometry/Cone.h \
+    Geometry/Cylinder.h \
+    Geometry/FittedPlane.h \
     Geometry/Hitable.h \
     Geometry/Lambertian.h \
+    Geometry/Light.h \
     Geometry/Material.h \
+    Geometry/MaterialTextura.h \
+    Geometry/Metal.h \
     Geometry/Object.h \
     Geometry/Plane.h \
     Geometry/Ray.h \
     Geometry/Scene.h \
     Geometry/Sphere.h \
+    Geometry/ScaleTG.h \
     Geometry/TG.h \
     Geometry/Texture.h \
     Geometry/Translate.h \
+    Geometry/Transparent.h \
+    Geometry/Triangle.h \
     GeometryBuilders/Mapping.h \
     GeometryBuilders/ObjectFactory.h \
     GeometryBuilders/SceneFactory.h \

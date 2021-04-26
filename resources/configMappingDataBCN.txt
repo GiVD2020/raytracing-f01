@@ -1,0 +1,5 @@
+dataType,REALDATA
+limitsMonVirtual, -5, 5, -1, 2, -5, 5
+limitsMonReal, 2.1103, 2.2075, 41.3581, 41.4423
+base,plane, 0.0, 1.0, 0.0, 1,://resources/mapBCN.png
+prop, 1, 1800, 382703,sphere,COLOR_MAP_TYPE_INFERNO

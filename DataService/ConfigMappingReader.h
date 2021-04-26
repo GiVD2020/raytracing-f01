@@ -13,7 +13,7 @@
 #include "Geometry/Scene.h"
 #include "GeometryBuilders/ObjectFactory.h"
 #include "Geometry/ColorMapStatic.h"
-
+#include "Geometry/Texture.h"
 /*
  * Format del fitxer de configuració del mapping:
  *
@@ -59,6 +59,7 @@ protected:
 
     void BrObjectFound(QStringList fields);
 
+    void numFramesFound(QStringList fields);
 public:
     Scene::DATA_TYPES   dataType;
     float               Rxmin, Rxmax, Rymin, Rymax, Rzmin, Rzmax;
@@ -66,9 +67,13 @@ public:
     int                 numProp;
     vec3                normalPlaBase;
     double              dPlaBase;
-    // Fase 4: Caldrà tenir aqui la textura del pla
-
+    //Fase3: Textura del pla
+    shared_ptr<Texture> texturePlaBase;
+    //Per comoditat, oferim també els limits com a vectors i altres mesures:
+    vec3                Rmin, Rmax, Vmin, Vmax, Rdiff, Vdiff;
+    float               VminDiff, RminDiff;
     vector<pair<double, double>> propLimits;
     vector<pair<ObjectFactory::OBJECT_TYPES, ColorMapStatic::COLOR_MAP_TYPES>> props;
+    int                 numFrames;
 };
 

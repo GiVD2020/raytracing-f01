@@ -19,6 +19,7 @@ void VirtualWorldReader::readFile(QString fileName, shared_ptr<Mapping> map) {
     }
 
     QTextStream in(&file);
+
     while(!in.atEnd()) {
         QString line = in.readLine();
         fileLineRead(line);
@@ -27,37 +28,39 @@ void VirtualWorldReader::readFile(QString fileName, shared_ptr<Mapping> map) {
     file.close();
 }
 
-// TODO: Fase 1: Cal afegir més tipus d'objectes
 void VirtualWorldReader::fileLineRead (QString lineReaded) {
     QStringList fields = lineReaded.split(",");
     if (QString::compare("sphere", fields[0], Qt::CaseInsensitive) == 0)
         sphereFound(fields);
+    else if (QString::compare("triangle", fields[0], Qt::CaseInsensitive) == 0)
+        triangleFound(fields);
+    else if (QString::compare("brobject", fields[0], Qt::CaseInsensitive) == 0)
+        brObjectFound(fields);
+    else if (QString::compare("cylinder", fields[0], Qt::CaseInsensitive) == 0)
+        cylinderFound(fields);
+    else if (QString::compare("cone", fields[0], Qt::CaseInsensitive) == 0)
+        coneFound(fields);
+    else if (QString::compare("plane", fields[0], Qt::CaseInsensitive) == 0)
+        planeFound(fields);
+    else if (QString::compare("fittedplane", fields[0], Qt::CaseInsensitive) == 0)
+        fittedPlaneFound(fields);
     else
         std::cerr << "Element unknown" << std::endl;
 }
 
-// Exemple d'esfera
-// sphere, 0.5, 0.5, 0.0, 0.25
-// centre i radi
 void VirtualWorldReader::sphereFound(QStringList fields) {
     // En el fitxer de dades tindràs
-    // sphere, centre.x, centre.y, centre.z, radi, propietats del material, textura
-    if (fields.size() != 8 ) {
-        std::cerr << "Wrong sphere format" << std::endl;
-        return;
-    }
+    // sphere, centre.x, centre.y, centre.z, radi, 3 float (ambient), 3 float (diffuse), 3 float (specular), beta
     shared_ptr<Object> o;
 
     vec3 centre = vec3(fields[1].toDouble(), fields[2].toDouble(), fields[3].toDouble());
 
     // Construccio de l'objecte al Mon Virtual
     o = ObjectFactory::getInstance().createObject(mapping->mapeigPunt(centre),
-                                                   mapping->mapeigValor(fields[4].toDouble()),
-                                                   -1.0f,
-                                                   ObjectFactory::OBJECT_TYPES::SPHERE);
-    // Construccio i assignacio del material
-    auto mat = make_shared<Lambertian>(vec3(fields[5].toDouble(),fields[6].toDouble(),fields[7].toDouble()));
-    o->setMaterial(mat);
+                                                  mapping->mapeigValor(fields[4].toDouble()),
+                                                  -1.0f,
+                                                  ObjectFactory::OBJECT_TYPES::SPHERE);
+    readMaterialAndAnimation(fields, 5, o);
 
     // Afegir objecte a l'escena
     scene->objects.push_back(o);
@@ -69,11 +72,22 @@ void VirtualWorldReader::brObjectFound(QStringList fields) {
     // TODO Fase 1: Per incloure BrObjecte
     //  Es suposa que serà una linia del fitxer de l'estil
     //  brobject, nomDelFitxer, propietats del material, textura
+    // brobject,path, 3 float (ambient), 3 float (diffuse), 3 float (specular), beta
 
-    if (fields.size() != 6) {
-        std::cerr << "Wrong brObject format" << std::endl;
-        return;
-    }
+    QString s = fields[1];
+
+    shared_ptr<Object> o;
+
+    // Construccio de l'objecte al Mon Virtual
+    o = ObjectFactory::getInstance().createObject(s,
+                                                  -1.0f,
+                                                  ObjectFactory::OBJECT_TYPES::BR_OBJECT);
+
+    //LLegir material i animació (en cas de TemporalVW)
+    readMaterialAndAnimation(fields, 2, o);
+
+    // Afegir objecte a l'escena
+    scene->objects.push_back(o);
 
 }
 
@@ -81,32 +95,197 @@ void VirtualWorldReader::triangleFound(QStringList fields) {
 
     // TODO Fase 1: Per incloure Triangle
     //  Es suposa que serà una linia del fitxer de l'estil
-    //  triangle, x1, y1, z1, x2, y2, z2, x3, y3, z3,, propietats del material, textura
+    //  triangle, x1, y1, z1, x2, y2, z2, x3, y3, z3, 3 float (ambient), 3 float (diffuse), 3 float (specular), beta
 
-    if (fields.size() != 10) {
-        std::cerr << "Wrong brObject format" << std::endl;
-        return;
-    }
+    shared_ptr<Object> o;
+
+    vec3 p1 = vec3(fields[1].toDouble(),fields[2].toDouble(),fields[3].toDouble());
+    vec3 p2 = vec3(fields[4].toDouble(),fields[5].toDouble(),fields[6].toDouble());
+    vec3 p3 = vec3(fields[7].toDouble(),fields[8].toDouble(),fields[9].toDouble());
+
+
+    // Construccio de l'objecte al Mon Virtual
+    o = ObjectFactory::getInstance().createObject(mapping->mapeigPunt(p1),
+                                                  mapping->mapeigPunt(p2),
+                                                  mapping->mapeigPunt(p3),
+                                                  -1.0f,
+                                                  ObjectFactory::OBJECT_TYPES::TRIANGLE);
+
+    //LLegir material i animació (en cas de TemporalVW)
+    readMaterialAndAnimation(fields, 10, o);
+
+    // Afegir objecte a l'escena
+    scene->objects.push_back(o);
 
 }
 
 
-void VirtualWorldReader::plaFound(QStringList fields) {
-     // TODO Fase 1: Per incloure pla
-    //Es suposa que tindràs una línia en el fitxer
-    // plane, nx, ny, nz, d, , propietats del material, textura
-    if (fields.size() != 7) {
-        std::cerr << "Wrong base format" << std::endl;
+void VirtualWorldReader::planeFound(QStringList fields) {
+    // TODO Fase 1: Per incloure pla infinit
+    // Es suposa que tindràs una línia en el fitxer
+    // plane, nx, ny, nz, d, 3 float (ambient), 3 float (diffuse), 3 float (specular), beta
+    shared_ptr<Object> o;
+
+    vec3 normalPla = vec3(fields[1].toDouble(), fields[2].toDouble(), fields[3].toDouble());
+    float dPla = fields[4].toDouble();
+
+    // Construccio de l'objecte al Mon Virtual
+    o = ObjectFactory::getInstance().createObject(normalPla,
+                                                  dPla,
+                                                  -1.0f,
+                                                  ObjectFactory::OBJECT_TYPES::PLANE);
+
+    //LLegir material i animació (en cas de TemporalVW)
+    readMaterialAndAnimation(fields, 5, o);
+
+    // Afegir objecte a l'escena
+    scene->objects.push_back(o);
+
+    // TODO Fase 4: llegir textura i afegir-la a l'objecte. Veure la classe Texture
+
+}
+
+void VirtualWorldReader::fittedPlaneFound(QStringList fields) {
+    // TODO Fase 1: Per incloure pla acotat. Les dimensions del pla acotat seran les dimensions de l'escena en x i z
+    // fittedplane, nx, ny, nz, d, 3 float (ambient), 3 float (diffuse), 3 float (specular), beta
+    shared_ptr<Object> o;
+
+    vec3 normalPla = vec3(fields[1].toDouble(), fields[2].toDouble(), fields[3].toDouble());
+    float dPla = fields[4].toDouble();
+
+    // Construccio de l'objecte al Mon Virtual
+    o = ObjectFactory::getInstance().createObject(normalPla,
+                                                  dPla,
+                                                  mapping->getVirtualMinCoord().x,
+                                                  mapping->getVirtualMaxCoord().x,
+                                                  mapping->getVirtualMinCoord().z,
+                                                  mapping->getVirtualMaxCoord().z,
+                                                  -1.0f,
+                                                  ObjectFactory::OBJECT_TYPES::FITTEDPLANE);
+
+    //LLegir material i animació (en cas de TemporalVW)
+    readMaterialAndAnimation(fields, 5, o);
+
+    // Afegir objecte a l'escena
+    scene->objects.push_back(o);
+
+}
+
+void VirtualWorldReader::cylinderFound(QStringList fields) {
+    // En el fitxer de dades tindràs
+    // cylinder, centre.x, centre.y, centre.z, radi, height, 3 float (ambient), 3 float (diffuse), 3 float (specular), beta
+    shared_ptr<Object> o;
+
+    vec3 centre = vec3(fields[1].toDouble(), fields[2].toDouble(), fields[3].toDouble());
+
+    // Construccio de l'objecte al Mon Virtual
+    o = ObjectFactory::getInstance().createObject(mapping->mapeigPunt(centre),
+                                                  mapping->mapeigValor(fields[4].toDouble()),
+                                                  mapping->mapeigValor(fields[5].toDouble()),
+                                                  -1.0f,
+                                                  ObjectFactory::OBJECT_TYPES::CYLINDER);
+
+    //LLegir material i animació (en cas de TemporalVW)
+    readMaterialAndAnimation(fields, 6, o);
+
+    // Afegir objecte a l'escena
+    scene->objects.push_back(o);
+}
+
+
+void VirtualWorldReader::coneFound(QStringList fields) {
+    // En el fitxer de dades tindràs
+    // cone, centre.x, centre.y, centre.z, radi, height, 3 float (ambient), 3 float (diffuse), 3 float (specular), beta
+    shared_ptr<Object> o;
+
+    vec3 centre = vec3(fields[1].toDouble(), fields[2].toDouble(), fields[3].toDouble());
+
+    // Construccio de l'objecte al Mon Virtual
+    o = ObjectFactory::getInstance().createObject(mapping->mapeigPunt(centre),
+                                                  mapping->mapeigValor(fields[4].toDouble()),
+                                                  mapping->mapeigValor(fields[5].toDouble()),
+                                                  -1.0f,
+                                                  ObjectFactory::OBJECT_TYPES::CONE);
+    //LLegir material i animació (en cas de TemporalVW)
+    readMaterialAndAnimation(fields, 6, o);
+
+    // Afegir objecte a l'escena
+    scene->objects.push_back(o);
+}
+
+void VirtualWorldReader::readMaterialAndAnimation(QStringList fields, int startIndex, shared_ptr<Object> o){
+    int i = startIndex;
+    int j = i + 11;
+    // Construccio i assignacio del material
+    vec3 ambient = vec3(fields[i].toDouble(),fields[i+1].toDouble(),fields[i+2].toDouble());
+    vec3 diffuse =vec3(fields[i+3].toDouble(),fields[i+4].toDouble(),fields[i+5].toDouble());
+    vec3 specular= vec3(fields[i+6].toDouble(),fields[i+7].toDouble(),fields[i+8].toDouble());
+    float shineness = fields[i+9].toDouble();
+
+    if (QString::compare("LAMBERTIAN", fields[i+10], Qt::CaseInsensitive) == 0) {
+        auto mat = make_shared<Lambertian>(ambient, diffuse, specular, shineness);
+        o->setMaterial(mat);
+    } else if (QString::compare("METAL", fields[i+10], Qt::CaseInsensitive) == 0) {
+        auto mat = make_shared<Metal>(ambient, diffuse, specular, shineness);
+        o->setMaterial(mat);
+    } else if (QString::compare("TRANSPARENT", fields[i+10], Qt::CaseInsensitive) == 0) {
+        vec3 k = vec3(fields[i+11].toDouble(), fields[i+12].toDouble(),fields[i+13].toDouble());
+        float refractionRatio = fields[i+14].toDouble();
+        float dmax = fields[i+15].toDouble();
+        j = i + 16;
+        auto mat = make_shared<Transparent>(ambient, diffuse, specular, shineness, k, refractionRatio, dmax);
+        o->setMaterial(mat);
+    }else if(QString::compare("TEXTURE", fields[i+10], Qt::CaseInsensitive) == 0){
+        shared_ptr<Texture> tex = make_shared<Texture>(fields[i+11]);
+        auto mat = make_shared<MaterialTextura>(ambient,diffuse,specular,shineness, tex);
+        o->setMaterial(mat);
+        j = i + 12;
+        //Comrpovar flag IGNORELIGHTS
+        mat -> ignoreLights = false;
+        if(fields.size() >= i+13){
+            if(QString::compare("IGNORELIGHTS", fields[i+12], Qt::CaseInsensitive) == 0){
+                mat->ignoreLights = true;
+                j++;
+            }
+        }
+
+    }
+    else {
+        std::cerr << "Wrong material name (" << fields[i+10].toStdString() << ")" << std::endl;
         return;
     }
 
-    if (QString::compare("plane", fields[1], Qt::CaseInsensitive) == 0) {
-        // TODO Fase 1: Donar d'alta el pla com objecte de l'escena. Fixa't en el codi del mètode sphereFound
-        // TODO Fase 1: Cal fer un pla acotat i no un pla infinit. Les dimensions del pla acotat seran les dimensions de l'escena en x i z
-
-        vec3 normalPlaBase = vec3(fields[2].toDouble(), fields[3].toDouble(), fields[4].toDouble());
-        float dPlaBase = fields[5].toDouble();
-
-        // TODO Fase 4: llegir textura i afegir-la a l'objecte. Veure la classe Texture
+    //Check for animation:
+    if(mapping->getDataType() == Scene::DATA_TYPES::TEMPORALVW){
+        //Un objecte pot tenir més d'una animació, es van llegint sequencialment:
+        while(fields.size() >= j + 1){
+            if(QString::compare("ELLIPSE", fields[j], Qt::CaseInsensitive) == 0){
+                float xRadius = fields[j+1].toFloat();
+                float zRadius = fields[j+2].toFloat();
+                int framesPerVolta = fields[j+3].toInt();
+                cout << "Animació: Ellipse: " << "Radi eix x " << xRadius << " | Radi eix z " << zRadius << " | Frames per volta " << framesPerVolta << endl;
+                o->animations.push_back(make_shared<EllipseAnimation>(framesPerVolta, xRadius, zRadius));
+                j = j+4;
+            }else if(QString::compare("DOUBLEELLIPSE", fields[j], Qt::CaseInsensitive) == 0){
+                float xRadius = fields[j+1].toFloat();
+                float zRadius = fields[j+2].toFloat();
+                int framesPerVolta = fields[j+3].toInt();
+                float xRadius2 = fields[j+4].toFloat();
+                float yRadius2 = fields[j+5].toFloat();
+                int framesSecundaria = fields[j+6].toInt();
+                cout << "Animació: Ellipse: " << "Radi eix x " << xRadius << " | Radi eix z " << zRadius << " | Frames per volta " << framesPerVolta << endl;
+                o->animations.push_back(make_shared<DoubleEllipseAnimation>(framesPerVolta, xRadius, zRadius, framesSecundaria, xRadius2, yRadius2));
+                j = j+7;
+            }else if(QString::compare("ROTATION", fields[j], Qt::CaseInsensitive) == 0){
+                int frames = fields[j+1].toInt();
+                cout << "Animació: Rotació " << " | Frames per volta " << frames << endl;
+                o->animations.push_back(make_shared<RotationAnimation>(frames));
+                j = j+2;
+            }else{
+                cout << "Unexpected parameter" << fields[j].toStdString() << "in fields[0]. Skipping..." << endl;
+                j = fields.size();
+            }
+        }
     }
 }
+

@@ -38,6 +38,8 @@ void ConfigMappingReader::fileLineRead (QString lineReaded) {
         baseFound(fields);
     else if (QString::compare("prop", fields[0], Qt::CaseInsensitive) == 0)
         propFound(fields);
+    else if (QString::compare("numFrames", fields[0], Qt::CaseInsensitive) == 0)
+        numFramesFound(fields);
     else
         std::cerr << "Element unknown" << std::endl;
 }
@@ -72,7 +74,7 @@ void ConfigMappingReader::limitsRealFound(QStringList fields) {
         Rzmin = fields[3].toDouble();
         Rzmax = fields[4].toDouble();
 
-    } else if (this->dataType==Scene::DATA_TYPES::VIRTUALWORLD) {
+    } else {
         // limitsMonVirtual xmin xmax ymin ymax zmin zmax
         if (fields.size() != 7 ) {
             std::cerr << "Wrong limits format" << std::endl;
@@ -85,6 +87,11 @@ void ConfigMappingReader::limitsRealFound(QStringList fields) {
         Rzmin = fields[5].toDouble();
         Rzmax = fields[6].toDouble();
     }
+    //Fet a Fase 1 (Albert): per comoditat, oferim també els limits com a vectors:
+    Rmin = vec3(Rxmin, Rymin, Rzmin);
+    Rmax = vec3(Rxmax, Rymax, Rzmax);
+    Rdiff = vec3(Rxmax- Rxmin, Rymax- Rymin, Rzmax - Rzmin);
+    RminDiff = min({Rdiff.x, Rdiff.y, Rdiff.z});
 }
 
 void ConfigMappingReader::limitsVirtualFound(QStringList fields) {
@@ -99,6 +106,11 @@ void ConfigMappingReader::limitsVirtualFound(QStringList fields) {
     Vymax = fields[4].toDouble();
     Vzmin = fields[5].toDouble();
     Vzmax = fields[6].toDouble();
+    //Fet a Fase 1 (Albert): per comoditat, oferim també els limits com a vectors:
+    Vmin = vec3(Vxmin, Vymin, Vzmin);
+    Vmax = vec3(Vxmax, Vymax, Vzmax);
+    Vdiff = vec3(Vxmax - Vxmin, Vymax - Vymin, Vzmax - Vzmin);
+    VminDiff = min({Vdiff.x, Vdiff.y, Vdiff.z});
 }
 
 void ConfigMappingReader::baseFound(QStringList fields) {
@@ -114,7 +126,8 @@ void ConfigMappingReader::baseFound(QStringList fields) {
         normalPlaBase = vec3(fields[2].toDouble(), fields[3].toDouble(), fields[4].toDouble());
         dPlaBase = fields[5].toDouble();
 
-        // TODO Fase 4: llegir textura i afegir-la a l'objecte. Veure la classe Texture
+        // Fase 3: llegir textura i afegir-la a l'objecte. Veure la classe Texture
+        texturePlaBase = make_shared<Texture>(fields[6]);
     }
 }
 
@@ -129,14 +142,34 @@ void ConfigMappingReader::propFound(QStringList fields) {
     numProp++;
     propLimits.push_back(std::make_pair(fields[2].toDouble(), fields[3].toDouble()));
     // TODO Fase 1: Cal guardar els valors per a poder escalar els objectes i el tipus de
-    //  gizmo de totes les propietats (SPHERE, BR_OBJ, CILINDRE...)
+    // gizmo de totes les propietats (SPHERE, BR_OBJ, CILINDRE...)
     if (QString::compare("sphere", fields[4], Qt::CaseInsensitive) == 0) {
         auto tipusObj = ObjectFactory::OBJECT_TYPES::SPHERE;
         if (QString::compare("COLOR_MAP_TYPE_INFERNO", fields[5], Qt::CaseInsensitive) == 0) {
             auto tipusColorMap = ColorMapStatic::COLOR_MAP_TYPE_INFERNO;
             props.push_back(std::make_pair(tipusObj, tipusColorMap));
         }
+        if (QString::compare("COLOR_MAP_TYPE_PLASMA", fields[5], Qt::CaseInsensitive) == 0) {
+            auto tipusColorMap = ColorMapStatic::COLOR_MAP_TYPE_PLASMA;
+            props.push_back(std::make_pair(tipusObj, tipusColorMap));
+        }
+    }if (QString::compare("cylinder", fields[4], Qt::CaseInsensitive) == 0) {
+        auto tipusObj = ObjectFactory::OBJECT_TYPES::CYLINDER;
+        if (QString::compare("COLOR_MAP_TYPE_INFERNO", fields[5], Qt::CaseInsensitive) == 0) {
+            auto tipusColorMap = ColorMapStatic::COLOR_MAP_TYPE_INFERNO;
+            props.push_back(std::make_pair(tipusObj, tipusColorMap));
+        }
+        if (QString::compare("COLOR_MAP_TYPE_PLASMA", fields[5], Qt::CaseInsensitive) == 0) {
+            auto tipusColorMap = ColorMapStatic::COLOR_MAP_TYPE_PLASMA;
+            props.push_back(std::make_pair(tipusObj, tipusColorMap));
+        }
     }
 }
 
-
+void ConfigMappingReader::numFramesFound(QStringList fields) {
+    if (fields.size() != 2) {
+        std::cerr << "Wrong propietat format config mapping" << std::endl;
+        return;
+    }
+    numFrames = fields[1].toInt();
+}

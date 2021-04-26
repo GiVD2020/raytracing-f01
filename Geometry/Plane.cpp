@@ -63,7 +63,7 @@ bool Plane::hit(const Ray &raig, float t_min, float t_max, HitInfo &info) const{
 }
 
 void Plane::aplicaTG(shared_ptr<TG> t) {
-    if (dynamic_pointer_cast<shared_ptr<TranslateTG>>(t)) {
+    if (dynamic_pointer_cast<TranslateTG>(t)) {
 
         // Nomes movem el punt de pas
         vec4 newp(this->point, 1.0);
@@ -75,3 +75,6 @@ void Plane::aplicaTG(shared_ptr<TG> t) {
 
 }
 
+void Plane::applyAnimation(shared_ptr<CustomAnimation> anim, int nFrame){
+//Implementar si es vol poder animar aquest tipus d'objecte
+}

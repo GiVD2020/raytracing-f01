@@ -21,15 +21,19 @@ void RayTracing::rendering() {
         for (int x = 0; x < cam->viewportX; x++) {
 
             vec3 col(0, 0, 0);
-            float u = float(x) / float(cam->viewportX);
-            float v = float(y) / float(cam->viewportY);
+            for(int i = 0; i < numSamples; i++){
+                float u = (float(x) + glm::linearRand(-0.5, 0.5))/ float(cam->viewportX);
+                float v = (float(y) + glm::linearRand(-0.5, 0.5))/ float(cam->viewportY);
+                Ray r = cam->getRay(u, v);
+                col += scene->ComputeColor(r, 0, cam->getOrigin(), vec3(1));
+            }
 
-            Ray r = cam->getRay(u, v);
+            col /= numSamples;
+            setPixelColor(sqrt(col), x, y);
 
-            col += scene->ComputeColor(r, 0);
-            setPixelColor(col, x, y);
         }
     }
+    std::cerr << "\nNumber ComputeColor calls: "<< scene->numCompColors;
     std::cerr << "\nDone.\n";
 }
 

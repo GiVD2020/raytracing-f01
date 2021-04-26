@@ -1,0 +1,10 @@
+renderType,IMAGE
+lookFrom, -4, 1.7, 15
+lookAt, 0.0, 0.2, 0
+vup, 0, 1, 0
+vfov, 15.0
+aspectRatio, 1.6
+pixelsX, 1680
+output,resultat1.ppm
+globalLight, 0.1, 0.1, 0.1
+light,sphericalLight, -9, 7, -11, 0.1, 0.1, 0.1, 0.7, 0.7, 0.7, 1, 1, 1, 0.005, 0, 0.5, 20, 1.0

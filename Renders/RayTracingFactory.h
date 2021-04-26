@@ -3,7 +3,7 @@
 #include "RayTracingGLU.h"
 #include "RayTracingPPM.h"
 #include "RayTracingTemps.h"
-
+#include "GeometryBuilders/Mapping.h"
 class RayTracingFactory
 {
     static RayTracingFactory* instance;
@@ -19,7 +19,7 @@ public:
               instance = new RayTracingFactory();
           return instance;
     }
-    shared_ptr<RayTracing> getRender(RENDER_TYPES t, QString filename);
+    shared_ptr<RayTracing> getRender(RENDER_TYPES t, QString filename, Mapping mapping);
     ~RayTracingFactory() {
         delete instance;
     }

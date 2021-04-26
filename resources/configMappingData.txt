@@ -1,6 +1,5 @@
 dataType,REALDATA
-base,plane, 0.0, 1.0, 0.0, -0.5,://resources/map.png
-limitsMonVirtual -1, 1, -1, 1, -1, 1
+base,plane, 0.0, 1.0, 0.0, 0.5,://resources/map.png
+limitsMonVirtual, -10, 10, 0, 1, -10, 10
 limitsMonReal, 2.0259, 2.2955, 41.3013, 41.4903
 prop, 1, 0, 500000,sphere,COLOR_MAP_TYPE_INFERNO
-
